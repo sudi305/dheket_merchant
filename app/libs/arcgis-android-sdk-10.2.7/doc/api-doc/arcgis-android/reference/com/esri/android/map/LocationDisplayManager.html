@@ -1,0 +1,3244 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<link rel="shortcut icon" type="image/x-icon" href="../../../../../favicon.ico" />
+<title>
+
+  LocationDisplayManager |
+
+
+  ArcGIS Android 10.2.7 API
+
+</title>
+<link href="../../../../../assets/doclava-developer-docs.css" rel="stylesheet" type="text/css" />
+<link href="../../../../../assets/customizations.css" rel="stylesheet" type="text/css" />
+<script src="../../../../../assets/search_autocomplete.js" type="text/javascript"></script>
+<script src="../../../../../assets/jquery-resizable.min.js" type="text/javascript"></script>
+<script src="../../../../../assets/doclava-developer-docs.js" type="text/javascript"></script>
+<script src="../../../../../assets/prettify.js" type="text/javascript"></script>
+<script type="text/javascript">
+  setToRoot("../../../../../");
+</script>
+<script src="../../../../../assets/doclava-developer-reference.js" type="text/javascript"></script>
+<script src="../../../../../navtree_data.js" type="text/javascript"></script>
+<script src="../../../../../assets/customizations.js" type="text/javascript"></script>
+<noscript>
+  <style type="text/css">
+    html,body{overflow:auto;}
+    #body-content{position:relative; top:0;}
+    #doc-content{overflow:visible;border-left:3px solid #666;}
+    #side-nav{padding:0;}
+    #side-nav .toggle-list ul {display:block;}
+    #resize-packages-nav{border-bottom:3px solid #666;}
+  </style>
+</noscript>
+</head>
+
+<body class="" itemscope itemtype="http://schema.org/Article">
+
+<div id="header">
+    <div id="headerLeft">
+   		<span id="masthead-title">ArcGIS Android 10.2.7 API</span>
+    </div>
+    <div id="headerRight">
+        
+  <div id="search" >
+      <div id="searchForm">
+          <form accept-charset="utf-8" class="gsc-search-box" 
+                onsubmit="return submit_search()">
+            <table class="gsc-search-box" cellpadding="0" cellspacing="0"><tbody>
+                <tr>
+                  <td class="gsc-input">
+                    <input id="search_autocomplete" class="gsc-input" type="text" size="33" autocomplete="off"
+                      title="search developer docs" name="q"
+                      value="search developer docs"
+                      onFocus="search_focus_changed(this, true)"
+                      onBlur="search_focus_changed(this, false)"
+                      onkeydown="return search_changed(event, true, '../../../../../')"
+                      onkeyup="return search_changed(event, false, '../../../../../')" />
+                  <div id="search_filtered_div" class="no-display">
+                      <table id="search_filtered" cellspacing=0>
+                      </table>
+                  </div>
+                  </td>
+                  <td class="gsc-search-button">
+                    <input type="submit" value="Search" title="search" id="search-button" class="gsc-search-button" />
+                  </td>
+                  <td class="gsc-clear-button">
+                    <div title="clear results" class="gsc-clear-button">&nbsp;</div>
+                  </td>
+                </tr></tbody>
+              </table>
+          </form>
+      </div><!-- searchForm -->
+  </div><!-- search -->
+    </div><!-- headerRight -->
+</div><!-- header -->
+
+
+  <div class="g-section g-tpl-240" id="body-content">
+    <div class="g-unit g-first side-nav-resizable" id="side-nav">
+      <div id="swapper">
+        <div id="nav-panels">
+          <div id="resize-packages-nav">
+            <div id="packages-nav">
+              <div id="index-links"><nobr>
+                <a href="../../../../../reference/packages.html"  >Package Index</a> | 
+                <a href="../../../../../reference/classes.html" >Class Index</a></nobr>
+              </div>
+              <ul>
+                
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/android/action/package-summary.html">com.esri.android.action</a></li>
+    <li class="selected api apilevel-">
+  <a href="../../../../../reference/com/esri/android/map/package-summary.html">com.esri.android.map</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/android/map/ags/package-summary.html">com.esri.android.map.ags</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/android/map/bing/package-summary.html">com.esri.android.map.bing</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/android/map/event/package-summary.html">com.esri.android.map.event</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/android/map/ogc/package-summary.html">com.esri.android.map.ogc</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/android/map/ogc/kml/package-summary.html">com.esri.android.map.ogc.kml</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/android/map/osm/package-summary.html">com.esri.android.map.osm</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/android/map/popup/package-summary.html">com.esri.android.map.popup</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/android/oauth/package-summary.html">com.esri.android.oauth</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/android/runtime/package-summary.html">com.esri.android.runtime</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/core/ags/package-summary.html">com.esri.core.ags</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/core/analysis/package-summary.html">com.esri.core.analysis</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/core/geodatabase/package-summary.html">com.esri.core.geodatabase</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/core/geometry/package-summary.html">com.esri.core.geometry</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/core/io/package-summary.html">com.esri.core.io</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/core/map/package-summary.html">com.esri.core.map</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/core/map/bing/package-summary.html">com.esri.core.map.bing</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/core/map/ogc/kml/package-summary.html">com.esri.core.map.ogc.kml</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/core/map/popup/package-summary.html">com.esri.core.map.popup</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/core/ogc/package-summary.html">com.esri.core.ogc</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/core/ogc/wmts/package-summary.html">com.esri.core.ogc.wmts</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/core/portal/package-summary.html">com.esri.core.portal</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/core/raster/package-summary.html">com.esri.core.raster</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/core/renderer/package-summary.html">com.esri.core.renderer</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/core/runtime/package-summary.html">com.esri.core.runtime</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/core/symbol/package-summary.html">com.esri.core.symbol</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/core/symbol/advanced/package-summary.html">com.esri.core.symbol.advanced</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/core/table/package-summary.html">com.esri.core.table</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/core/tasks/package-summary.html">com.esri.core.tasks</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/core/tasks/ags/package-summary.html">com.esri.core.tasks.ags</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/core/tasks/ags/find/package-summary.html">com.esri.core.tasks.ags.find</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/core/tasks/ags/geoprocessing/package-summary.html">com.esri.core.tasks.ags.geoprocessing</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/core/tasks/ags/query/package-summary.html">com.esri.core.tasks.ags.query</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/core/tasks/geocode/package-summary.html">com.esri.core.tasks.geocode</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/core/tasks/geodatabase/package-summary.html">com.esri.core.tasks.geodatabase</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/core/tasks/identify/package-summary.html">com.esri.core.tasks.identify</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/core/tasks/na/package-summary.html">com.esri.core.tasks.na</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/core/tasks/query/package-summary.html">com.esri.core.tasks.query</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../reference/com/esri/core/tasks/tilecache/package-summary.html">com.esri.core.tasks.tilecache</a></li>
+              </ul><br/>
+            </div> <!-- end packages -->
+          </div> <!-- end resize-packages -->
+          <div id="classes-nav">
+            <ul>
+              
+    <li><h2>Interfaces</h2>
+      <ul>
+          <li class="api apilevel-"><a href="../../../../../reference/com/esri/android/map/AttachmentManager.AttachmentDownloadListener.html">AttachmentManager.AttachmentDownloadListener</a></li>
+          <li class="api apilevel-"><a href="../../../../../reference/com/esri/android/map/AttachmentManager.AttachmentRetrievalListener.html">AttachmentManager.AttachmentRetrievalListener</a></li>
+          <li class="api apilevel-"><a href="../../../../../reference/com/esri/android/map/ImageFilter.html">ImageFilter</a></li>
+          <li class="api apilevel-"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.LocationFilterCallback.html">LocationDisplayManager.LocationFilterCallback</a></li>
+          <li class="api apilevel-"><a href="../../../../../reference/com/esri/android/map/MapGestureDetector.OnGestureListener.html">MapGestureDetector.OnGestureListener</a></li>
+      </ul>
+    </li>
+              
+    <li><h2>Classes</h2>
+      <ul>
+          <li class="api apilevel-"><a href="../../../../../reference/com/esri/android/map/AttachmentManager.html">AttachmentManager</a></li>
+          <li class="api apilevel-"><a href="../../../../../reference/com/esri/android/map/Callout.html">Callout</a></li>
+          <li class="api apilevel-"><a href="../../../../../reference/com/esri/android/map/CalloutPopupWindow.html">CalloutPopupWindow</a></li>
+          <li class="api apilevel-"><a href="../../../../../reference/com/esri/android/map/CalloutStyle.html">CalloutStyle</a></li>
+          <li class="api apilevel-"><a href="../../../../../reference/com/esri/android/map/DynamicLayer.html">DynamicLayer</a></li>
+          <li class="api apilevel-"><a href="../../../../../reference/com/esri/android/map/FeatureLayer.html">FeatureLayer</a></li>
+          <li class="api apilevel-"><a href="../../../../../reference/com/esri/android/map/GraphicsLayer.html">GraphicsLayer</a></li>
+          <li class="api apilevel-"><a href="../../../../../reference/com/esri/android/map/Grid.html">Grid</a></li>
+          <li class="api apilevel-"><a href="../../../../../reference/com/esri/android/map/GroupLayer.html">GroupLayer</a></li>
+          <li class="api apilevel-"><a href="../../../../../reference/com/esri/android/map/Layer.html">Layer</a></li>
+          <li class="selected api apilevel-"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html">LocationDisplayManager</a></li>
+          <li class="api apilevel-"><a href="../../../../../reference/com/esri/android/map/MapGestureDetector.html">MapGestureDetector</a></li>
+          <li class="api apilevel-"><a href="../../../../../reference/com/esri/android/map/MapOnTouchListener.html">MapOnTouchListener</a></li>
+          <li class="api apilevel-"><a href="../../../../../reference/com/esri/android/map/MapOptions.html">MapOptions</a></li>
+          <li class="api apilevel-"><a href="../../../../../reference/com/esri/android/map/MapView.html">MapView</a></li>
+          <li class="api apilevel-"><a href="../../../../../reference/com/esri/android/map/RasterLayer.html">RasterLayer</a></li>
+          <li class="api apilevel-"><a href="../../../../../reference/com/esri/android/map/TiledLayer.html">TiledLayer</a></li>
+          <li class="api apilevel-"><a href="../../../../../reference/com/esri/android/map/TiledServiceLayer.html">TiledServiceLayer</a></li>
+          <li class="api apilevel-"><a href="../../../../../reference/com/esri/android/map/TiledServiceLayer.TileInfo.html">TiledServiceLayer.TileInfo</a></li>
+      </ul>
+    </li>
+              
+    <li><h2>Enums</h2>
+      <ul>
+          <li class="api apilevel-"><a href="../../../../../reference/com/esri/android/map/CalloutPopupWindow.MODE.html">CalloutPopupWindow.MODE</a></li>
+          <li class="api apilevel-"><a href="../../../../../reference/com/esri/android/map/FeatureLayer.SelectionMode.html">FeatureLayer.SelectionMode</a></li>
+          <li class="api apilevel-"><a href="../../../../../reference/com/esri/android/map/GraphicsLayer.MarkerRotationMode.html">GraphicsLayer.MarkerRotationMode</a></li>
+          <li class="api apilevel-"><a href="../../../../../reference/com/esri/android/map/GraphicsLayer.RenderingMode.html">GraphicsLayer.RenderingMode</a></li>
+          <li class="api apilevel-"><a href="../../../../../reference/com/esri/android/map/Grid.GridType.html">Grid.GridType</a></li>
+          <li class="api apilevel-"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html">LocationDisplayManager.AutoPanMode</a></li>
+          <li class="api apilevel-"><a href="../../../../../reference/com/esri/android/map/MapOptions.MapType.html">MapOptions.MapType</a></li>
+      </ul>
+    </li>
+              
+              
+            </ul><br/>
+          </div><!-- end classes -->
+        </div><!-- end nav-panels -->
+        <div id="nav-tree" style="display:none">
+          <div id="index-links"><nobr>
+            <a href="../../../../../reference/packages.html"  >Package Index</a> | 
+            <a href="../../../../../reference/classes.html" >Class Index</a></nobr>
+          </div>
+        </div><!-- end nav-tree -->
+      </div><!-- end swapper -->
+    </div> <!-- end side-nav -->
+    <script>
+      if (!isMobile) {
+        $("<a href='#' id='nav-swap' onclick='swapNav();return false;' style='font-size:10px;line-height:9px;margin-left:1em;text-decoration:none;'><span id='tree-link'>Use Tree Navigation</span><span id='panel-link' style='display:none'>Use Panel Navigation</span></a>").appendTo("#side-nav");
+        chooseDefaultNav();
+        if ($("#nav-tree").is(':visible')) {
+          init_default_navtree("../../../../../");
+        } else {
+          addLoadEvent(function() {
+            scrollIntoView("packages-nav");
+            scrollIntoView("classes-nav");
+          });
+        }
+        $("#swapper").css({borderBottom:"2px solid #aaa"});
+      } else {
+        swapNav(); // tree view should be used on mobile
+      }
+    </script>
+
+
+
+<div class="g-unit" id="doc-content">
+
+<div id="api-info-block">
+
+
+
+  
+   
+  
+  
+  
+  
+
+
+<div class="sum-details-links">
+
+Summary:
+
+  <a href="#nestedclasses">Nested Classes</a>
+  
+
+
+
+
+
+
+
+
+
+
+
+  &#124; <a href="#pubmethods">Methods</a>
+  
+
+
+
+  &#124; <a href="#inhmethods">Inherited Methods</a>
+
+&#124; <a href="#" onclick="return toggleAllClassInherited()" id="toggleAllClassInherited">[Expand All]</a>
+
+</div><!-- end sum-details-links -->
+<div class="api-level">
+  
+  
+  
+
+</div>
+</div><!-- end api-info-block -->
+
+
+<!-- ======== START OF CLASS DATA ======== -->
+
+<div id="jd-header">
+    public
+     
+     
+    
+    class
+<h1 itemprop="name">LocationDisplayManager</h1>
+
+
+
+  
+    extends Object<br/>
+  
+  
+  
+
+  
+  
+  
+
+
+</div><!-- end header -->
+
+<div id="naMessage"></div>
+
+<div id="jd-content" class="api apilevel-">
+<table class="jd-inheritance-table">
+
+
+    <tr>
+         	
+        <td colspan="2" class="jd-inheritance-class-cell">java.lang.Object</td>
+    </tr>
+    
+
+    <tr>
+        
+            <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
+         	
+        <td colspan="1" class="jd-inheritance-class-cell">com.esri.android.map.LocationDisplayManager</td>
+    </tr>
+    
+
+</table>
+
+
+
+
+
+
+
+<div class="jd-descr">
+
+
+<h2>Class Overview</h2>
+<p itemprop="articleBody">Class providing UI support to display the current location of the device on a MapView. The <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html">LocationDisplayManager.AutoPanMode</a></code> 
+ determines the automatic panning behavior of the map to show the current device location. By default, the map 
+ does not automatically pan to show the current location. 
+ <p>
+ To turn on automatic panning:
+ <ul>
+ <li>Get the LocationDisplayManager from the <code><a href="../../../../../reference/com/esri/android/map/MapView.html#getLocationDisplayManager()">getLocationDisplayManager()</a></code> method.
+ <li>Call the <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#setAutoPanMode(com.esri.android.map.LocationDisplayManager.AutoPanMode)">setAutoPanMode(AutoPanMode)</a></code> method, passing in the required pan mode.
+ <li>Call the <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#start()">start()</a></code> method.
+ </ul>
+ <p>
+ The <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#pause()">pause()</a></code> and <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#resume()">resume()</a></code> methods can be used to temporarily pause and resume the location manager, 
+ which can save device battery usage while the parent Activity or Fragment is paused. Call the <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#stop()">stop()</a></code> method 
+ when the containing Activity is destroyed.
+ <p>
+ Different pan modes are available, each being most appropriate for a specific type of map use; to automatically
+ pan the center of the map to the current location, use <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#LOCATION">LOCATION</a></code>. Alternative modes are
+ available to suit apps that give compass directions, or help a user navigate along a route. Various methods are 
+ available to customize aspects of the location appearance, including the symbols used to indicate the current 
+ location, updates to the location, location acquisition, and direction of travel.
+ <p>
+ If both the GPS and the Network location providers are disabled, then the LocationDisplayManager will not start and
+ a warning will be logged. At least one of these providers needs to be enabled.</p>
+
+
+
+
+
+</div><!-- jd-descr -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="jd-descr">
+
+
+<h2>Summary</h2>
+
+
+
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+<table id="nestedclasses" class="jd-sumtable"><tr><th colspan="12">Nested Classes</th></tr>
+
+
+  
+    <tr class="alt-color api apilevel-" >
+      <td class="jd-typecol"><nobr>
+        
+         
+         
+        
+        enum</nobr></td>
+      <td class="jd-linkcol"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html">LocationDisplayManager.AutoPanMode</a></td>
+      <td class="jd-descrcol" width="100%">Modes of automatically panning the map to center on the current location.&nbsp;</td>
+    </tr>
+    
+    
+    <tr class=" api apilevel-" >
+      <td class="jd-typecol"><nobr>
+        
+         
+         
+        
+        interface</nobr></td>
+      <td class="jd-linkcol"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.LocationFilterCallback.html">LocationDisplayManager.LocationFilterCallback</a></td>
+      <td class="jd-descrcol" width="100%">Defines a custom location filter to apply to the LocationDisplayManager, which determines whether
+ an incoming location update is applied or discarded.&nbsp;</td>
+    </tr>
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+<table id="pubmethods" class="jd-sumtable"><tr><th colspan="12">Public Methods</th></tr>
+
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../reference/com/esri/core/symbol/FillSymbol.html">FillSymbol</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#getAccuracySymbol()">getAccuracySymbol</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Gets the symbol used to represent location accuracy.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html">LocationDisplayManager.AutoPanMode</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#getAutoPanMode()">getAutoPanMode</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Checks the current <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html">LocationDisplayManager.AutoPanMode</a></code> being used.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../reference/com/esri/core/symbol/MarkerSymbol.html">MarkerSymbol</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#getCourseSymbol()">getCourseSymbol</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Gets the course symbol, used to display the current location for mode <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#NAVIGATION">NAVIGATION</a></code> when the 
+ current location is moving.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../reference/com/esri/core/symbol/MarkerSymbol.html">MarkerSymbol</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#getDefaultSymbol()">getDefaultSymbol</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Gets the symbol used to display the current location for modes <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#OFF">OFF</a></code> and <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#LOCATION">LOCATION</a></code>.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../reference/com/esri/core/symbol/MarkerSymbol.html">MarkerSymbol</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#getHeadingSymbol()">getHeadingSymbol</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Gets the symbol used for <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#COMPASS">COMPASS</a></code>.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Location</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#getLocation()">getLocation</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Returns the current location in the spatial reference WGS84 (WKID=4326).</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../reference/com/esri/core/symbol/MarkerSymbol.html">MarkerSymbol</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#getLocationAcquiringSymbol()">getLocationAcquiringSymbol</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Gets the symbol used to display last known location, while current location is being acquired.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.LocationFilterCallback.html">LocationDisplayManager.LocationFilterCallback</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#getLocationFilterCallback()">getLocationFilterCallback</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Gets the custom location filter callback, or null if default logic is being used.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            LocationListener</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#getLocationListener()">getLocationListener</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Gets the Android LocationListener instance.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            float</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#getNavigationPointHeightFactor()">getNavigationPointHeightFactor</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Gets the factor by which the location symbol is positioned vertically from the bottom of the map when using 
+ <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#NAVIGATION">NAVIGATION</a></code>.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            float</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#getOpacity()">getOpacity</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Gets the opacity of location symbols used for location, accuracy, and location pings.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../reference/com/esri/core/symbol/MarkerSymbol.html">MarkerSymbol</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#getPingSymbol()">getPingSymbol</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Gets the symbol used for indicating location updates.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../reference/com/esri/core/geometry/Point.html">Point</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#getPoint()">getPoint</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Returns the current location in the map's spatial reference.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            float</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#getWanderExtentFactor()">getWanderExtentFactor</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Gets the wander extent factor, which affects autopanning.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#isAccuracyCircleOn()">isAccuracyCircleOn</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Checks if the accuracy circle is displayed or not.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#isAllowNetworkLocation()">isAllowNetworkLocation</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Checks if the network (cellular network and WiFi if available) is allowed to determine the current location.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#isShowLocation()">isShowLocation</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Checks if the current location symbol is shown.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#isShowPings()">isShowPings</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Checks if the ping symbol is shown when location updates are received.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#isStarted()">isStarted</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Checks if the LocationDisplayManager has been started.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#isSymbolFound(float, float, int)">isSymbolFound</a></span>(float x, float y, int tolerance)</nobr>
+        
+        <div class="jd-descrdiv">Checks if location symbol is found for the given coordinates and tolerance.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#isUseCourseSymbolOnMovement()">isUseCourseSymbolOnMovement</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Gets whether the course symbol should be shown when the location update has a positive speed.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#pause()">pause</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Pauses the <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html">LocationDisplayManager</a></code>; turns off location updates until the <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#resume()">resume()</a></code> method is called.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#resume()">resume</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Resumes <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html">LocationDisplayManager</a></code>; turns location updates back on after the <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#pause()">pause()</a></code> method was called.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#setAccuracyCircleOn(boolean)">setAccuracyCircleOn</a></span>(boolean accuracyCircleOn)</nobr>
+        
+        <div class="jd-descrdiv">Enables or disables the display of the accuracy circle.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#setAccuracySymbol(com.esri.core.symbol.FillSymbol)">setAccuracySymbol</a></span>(<a href="../../../../../reference/com/esri/core/symbol/FillSymbol.html">FillSymbol</a> accuracySymbol)</nobr>
+        
+        <div class="jd-descrdiv">Sets the symbol used to represent location accuracy.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#setAllowNetworkLocation(boolean)">setAllowNetworkLocation</a></span>(boolean allowNetworkLocation)</nobr>
+        
+        <div class="jd-descrdiv">Controls whether the network (cellular network and WiFi if available) can be used to determine the current location.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#setAutoPanMode(com.esri.android.map.LocationDisplayManager.AutoPanMode)">setAutoPanMode</a></span>(<a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html">LocationDisplayManager.AutoPanMode</a> autoPanMode)</nobr>
+        
+        <div class="jd-descrdiv">Sets the <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html">LocationDisplayManager.AutoPanMode</a></code> to be used.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#setCourseSymbol(com.esri.core.symbol.MarkerSymbol)">setCourseSymbol</a></span>(<a href="../../../../../reference/com/esri/core/symbol/MarkerSymbol.html">MarkerSymbol</a> courseSymbol)</nobr>
+        
+        <div class="jd-descrdiv">Sets the course symbol, used to display the current location for mode <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#NAVIGATION">NAVIGATION</a></code> when the 
+ current location is moving.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#setDefaultSymbol(com.esri.core.symbol.MarkerSymbol)">setDefaultSymbol</a></span>(<a href="../../../../../reference/com/esri/core/symbol/MarkerSymbol.html">MarkerSymbol</a> defaultSymbol)</nobr>
+        
+        <div class="jd-descrdiv">Sets the symbol used to display the current location for modes <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#OFF">OFF</a></code> and <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#LOCATION">LOCATION</a></code>.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#setHeadingSymbol(com.esri.core.symbol.MarkerSymbol)">setHeadingSymbol</a></span>(<a href="../../../../../reference/com/esri/core/symbol/MarkerSymbol.html">MarkerSymbol</a> headingSymbol)</nobr>
+        
+        <div class="jd-descrdiv">Sets the symbol used for <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#COMPASS">COMPASS</a></code>.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#setLocationAcquiringSymbol(com.esri.core.symbol.MarkerSymbol)">setLocationAcquiringSymbol</a></span>(<a href="../../../../../reference/com/esri/core/symbol/MarkerSymbol.html">MarkerSymbol</a> locationAcquiringSymbol)</nobr>
+        
+        <div class="jd-descrdiv">Sets the symbol used to display last known location, while current location is being acquired.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#setLocationFilterCallback(com.esri.android.map.LocationDisplayManager.LocationFilterCallback)">setLocationFilterCallback</a></span>(<a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.LocationFilterCallback.html">LocationDisplayManager.LocationFilterCallback</a> locationFilterCallback)</nobr>
+        
+        <div class="jd-descrdiv">Sets a custom location filter callback.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#setLocationListener(android.location.LocationListener)">setLocationListener</a></span>(LocationListener locationListener)</nobr>
+        
+        <div class="jd-descrdiv">Sets the Android LocationListener instance.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#setNavigationPointHeightFactor(float)">setNavigationPointHeightFactor</a></span>(float navigationPointHeightFactor)</nobr>
+        
+        <div class="jd-descrdiv">Sets the factor by which the location symbol is positioned vertically from the bottom of the map when using 
+ <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#NAVIGATION">NAVIGATION</a></code>.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#setOpacity(float)">setOpacity</a></span>(float opacity)</nobr>
+        
+        <div class="jd-descrdiv">Sets the opacity of location symbols used for location, accuracy, and location pings.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#setPingSymbol(com.esri.core.symbol.MarkerSymbol)">setPingSymbol</a></span>(<a href="../../../../../reference/com/esri/core/symbol/MarkerSymbol.html">MarkerSymbol</a> pingSymbol)</nobr>
+        
+        <div class="jd-descrdiv">Sets the symbol used for indicating location updates.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#setShowLocation(boolean)">setShowLocation</a></span>(boolean showLocation)</nobr>
+        
+        <div class="jd-descrdiv">Controls whether or not the current location symbol is shown.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#setShowPings(boolean)">setShowPings</a></span>(boolean showPings)</nobr>
+        
+        <div class="jd-descrdiv">Controls whether to show the ping symbol when location updates are received.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#setUseCourseSymbolOnMovement(boolean)">setUseCourseSymbolOnMovement</a></span>(boolean useCourseSymbolOnMovement)</nobr>
+        
+        <div class="jd-descrdiv">Sets whether the course symbol should be shown when the location update has a positive speed.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#setWanderExtentFactor(float)">setWanderExtentFactor</a></span>(float wanderExtentFactor)</nobr>
+        
+        <div class="jd-descrdiv">Sets the wander extent factor, which affects autopanning.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#start()">start</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Starts the <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html">LocationDisplayManager</a></code>.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#stop()">stop</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Stops the <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html">LocationDisplayManager</a></code>.</div>
+  
+  </td></tr>
+
+
+
+</table>
+
+
+
+
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+<table id="inhmethods" class="jd-sumtable"><tr><th>
+  <a href="#" class="toggle-all" onclick="return toggleAllInherited(this, null)">[Expand]</a>
+  <div style="clear:left;">Inherited Methods</div></th></tr>
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-java.lang.Object" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-java.lang.Object-trigger"
+          src="../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From class
+
+  java.lang.Object
+
+<div id="inherited-methods-java.lang.Object">
+  <div id="inherited-methods-java.lang.Object-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-java.lang.Object-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">clone</span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">equals</span>(Object arg0)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">finalize</span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            final
+            
+            
+            Class&lt;?&gt;</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">getClass</span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            int</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">hashCode</span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            final
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">notify</span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            final
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">notifyAll</span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">toString</span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            final
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">wait</span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            final
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">wait</span>(long arg0, int arg1)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            final
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">wait</span>(long arg0)</nobr>
+        
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+</table>
+
+
+</div><!-- jd-descr (summary) -->
+
+<!-- Details -->
+
+
+
+
+
+
+
+
+<!-- XML Attributes -->
+
+
+<!-- Enum Values -->
+
+
+<!-- Constants -->
+
+
+<!-- Fields -->
+
+
+<!-- Public ctors -->
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+<!-- Protected ctors -->
+
+
+
+<!-- ========= METHOD DETAIL ======== -->
+<!-- Public methdos -->
+
+<h2>Public Methods</h2>
+
+
+
+<A NAME="getAccuracySymbol()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../../reference/com/esri/core/symbol/FillSymbol.html">FillSymbol</a>
+      </span>
+      <span class="sympad">getAccuracySymbol</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Gets the symbol used to represent location accuracy.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the symbol used to represent location accuracy</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>Exception</td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="getAutoPanMode()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html">LocationDisplayManager.AutoPanMode</a>
+      </span>
+      <span class="sympad">getAutoPanMode</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Checks the current <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html">LocationDisplayManager.AutoPanMode</a></code> being used.  The default is <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#OFF">OFF</a></code>.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>The <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html">LocationDisplayManager.AutoPanMode</a></code> being used.</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="getCourseSymbol()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../../reference/com/esri/core/symbol/MarkerSymbol.html">MarkerSymbol</a>
+      </span>
+      <span class="sympad">getCourseSymbol</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Gets the course symbol, used to display the current location for mode <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#NAVIGATION">NAVIGATION</a></code> when the 
+ current location is moving. If not moving, the default symbol will be used instead.
+ <p>
+ Additionally, when in <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#OFF">OFF</a></code> or <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#LOCATION">LOCATION</a></code>,
+ if the location updates have a positive speed, then this symbol will be rotated
+ according to the location's bearing and displayed instead of the default symbol.
+ Use <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#setUseCourseSymbolOnMovement(boolean)">setUseCourseSymbolOnMovement(boolean)</a></code> with a value of false to disable this additional use of
+ the course symbol.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the course symbol</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>Exception</td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="getDefaultSymbol()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../../reference/com/esri/core/symbol/MarkerSymbol.html">MarkerSymbol</a>
+      </span>
+      <span class="sympad">getDefaultSymbol</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Gets the symbol used to display the current location for modes <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#OFF">OFF</a></code> and <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#LOCATION">LOCATION</a></code>.
+ Additionally, if location updates do not indicate positive speed, this symbol will be used for <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#NAVIGATION">NAVIGATION</a></code>.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the symbol used for <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#OFF">OFF</a></code> and <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#LOCATION">LOCATION</a></code></li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>Exception</td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="getHeadingSymbol()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../../reference/com/esri/core/symbol/MarkerSymbol.html">MarkerSymbol</a>
+      </span>
+      <span class="sympad">getHeadingSymbol</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Gets the symbol used for <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#COMPASS">COMPASS</a></code>.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the symbol used for <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#COMPASS">COMPASS</a></code></li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>Exception</td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="getLocation()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        Location
+      </span>
+      <span class="sympad">getLocation</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Returns the current location in the spatial reference WGS84 (WKID=4326).
+ To return the current location in the maps spatial reference instead, use the <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#getPoint()">getPoint()</a></code> method.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the current Location.</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="getLocationAcquiringSymbol()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../../reference/com/esri/core/symbol/MarkerSymbol.html">MarkerSymbol</a>
+      </span>
+      <span class="sympad">getLocationAcquiringSymbol</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Gets the symbol used to display last known location, while current location is being acquired.
+ This is used in all modes of <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html">LocationDisplayManager.AutoPanMode</a></code> until a new location fix is made.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the symbol used while location is being acquired</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>Exception</td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="getLocationFilterCallback()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.LocationFilterCallback.html">LocationDisplayManager.LocationFilterCallback</a>
+      </span>
+      <span class="sympad">getLocationFilterCallback</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Gets the custom location filter callback, or null if default logic is being used. See <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#setLocationFilterCallback(com.esri.android.map.LocationDisplayManager.LocationFilterCallback)">setLocationFilterCallback(LocationFilterCallback)</a></code>
+ for more information.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the custom location filter callback, or null if using default logic</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="getLocationListener()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        LocationListener
+      </span>
+      <span class="sympad">getLocationListener</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Gets the Android LocationListener instance.
+ The LocationListener can be used to listen to location updates, in order to perform work in addition to the
+ work done by the LocationDisplayManager, for example, to update a TextBox displaying the current location's
+ latitude and longitude.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the LocationListener</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="getNavigationPointHeightFactor()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        float
+      </span>
+      <span class="sympad">getNavigationPointHeightFactor</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Gets the factor by which the location symbol is positioned vertically from the bottom of the map when using 
+ <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#NAVIGATION">NAVIGATION</a></code>. When navigating in a map, the current location is typically vertically 
+ positioned near the bottom of the map, and horizontally centered in the map, so that the map displays as 
+ much of the route ahead as possible. Values should be between 0.0 (the bottom of the screen) and 1.0 (the top
+ of the screen).</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>The factor of the map height at which to vertically center the location graphic. Default value is 0.125.
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="getOpacity()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        float
+      </span>
+      <span class="sympad">getOpacity</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Gets the opacity of location symbols used for location, accuracy, and location pings.
+ Value will be between 0.0 and 1.0</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the opacity value, between 0.0 (completely transparent) and 1.0 (completely opaque).
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="getPingSymbol()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../../reference/com/esri/core/symbol/MarkerSymbol.html">MarkerSymbol</a>
+      </span>
+      <span class="sympad">getPingSymbol</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Gets the symbol used for indicating location updates.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the symbol used for indicating location updates</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>Exception</td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="getPoint()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../../reference/com/esri/core/geometry/Point.html">Point</a>
+      </span>
+      <span class="sympad">getPoint</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Returns the current location in the map's spatial reference.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the <code><a href="../../../../../reference/com/esri/core/geometry/Point.html">Point</a></code> containing the current location.</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="getWanderExtentFactor()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        float
+      </span>
+      <span class="sympad">getWanderExtentFactor</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Gets the wander extent factor, which affects autopanning. If autopanning is <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#LOCATION">LOCATION</a></code>,
+ this property determines how far from the center the current location may wander before the map will
+ center on the location again. For example, with the default value of 0.5f, current location may wander up to
+ half of the current extent. Once a location update is received that is outside this extent, the map will re-center
+ again on the current location. Only works with <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#LOCATION">LOCATION</a></code>.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>The factor of how far current location may wander before autopanning. Default value is 0.5.
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="isAccuracyCircleOn()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        boolean
+      </span>
+      <span class="sympad">isAccuracyCircleOn</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Checks if the accuracy circle is displayed or not.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>true if the accuracy circle is displayed; false otherwise.</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="isAllowNetworkLocation()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        boolean
+      </span>
+      <span class="sympad">isAllowNetworkLocation</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Checks if the network (cellular network and WiFi if available) is allowed to determine the current location. Default is true.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>true if the network can be used to determine the current location; false otherwise.</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="isShowLocation()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        boolean
+      </span>
+      <span class="sympad">isShowLocation</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Checks if the current location symbol is shown.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>true true if the symbol is shown; false otherwise.
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="isShowPings()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        boolean
+      </span>
+      <span class="sympad">isShowPings</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Checks if the ping symbol is shown when location updates are received.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>true if the ping symbol is shown; false otherwise.
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="isStarted()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        boolean
+      </span>
+      <span class="sympad">isStarted</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Checks if the LocationDisplayManager has been started.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>true if the LocationDisplayManager has been started; false otherwise.</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="isSymbolFound(float, float, int)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        boolean
+      </span>
+      <span class="sympad">isSymbolFound</span>
+      <span class="normal">(float x, float y, int tolerance)</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Checks if location symbol is found for the given coordinates and tolerance.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>x</td>
+          <td>the screen coordinate along x axis in pixels.</td>
+        </tr>
+        <tr>
+          <th>y</td>
+          <td>the screen coordinate along y axis in pixels.</td>
+        </tr>
+        <tr>
+          <th>tolerance</td>
+          <td>tolerance in DP (density independent pixels).</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>true if the location symbol is found; false otherwise.</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="isUseCourseSymbolOnMovement()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        boolean
+      </span>
+      <span class="sympad">isUseCourseSymbolOnMovement</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Gets whether the course symbol should be shown when the location update has a positive speed. 
+ When using <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#OFF">OFF</a></code> or <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#LOCATION">LOCATION</a></code>, if the device is actively 
+ moving (the location has a positive speed), then the course symbol will be rotated to the device
+ bearing (direction of movement) and will be displayed instead of the default symbol. Setting
+ this to false will force the use of the default symbol, regardless of the device movement. This has
+ no impact when using <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#NAVIGATION">NAVIGATION</a></code> or <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#COMPASS">COMPASS</a></code>.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>true if the course symbol is used when current location is moving; false otherwise.
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="pause()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">pause</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Pauses the <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html">LocationDisplayManager</a></code>; turns off location updates until the <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#resume()">resume()</a></code> method is called.
+ Call this method from the Activity or Fragment onPause method, in order to save device battery usage by the GPS 
+ sensor while the app is paused. Call the <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#resume()">resume()</a></code> method to receive location updates again.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">See Also</h5>
+      <ul class="nolist"><li><code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#resume()">resume()</a></code></li>
+      </ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="resume()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">resume</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Resumes <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html">LocationDisplayManager</a></code>; turns location updates back on after the <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#pause()">pause()</a></code> method was called.
+ Call this method from the Activity or Fragment onResume method, in order to receive location updates again after
+ updating was paused by calling the <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#pause()">pause()</a></code> method.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">See Also</h5>
+      <ul class="nolist"><li><code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#pause()">pause()</a></code></li>
+      </ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setAccuracyCircleOn(boolean)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setAccuracyCircleOn</span>
+      <span class="normal">(boolean accuracyCircleOn)</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Enables or disables the display of the accuracy circle.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>accuracyCircleOn</td>
+          <td>Set to true to display the accuracy circle; set to false if the symbol should not be displayed.</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setAccuracySymbol(com.esri.core.symbol.FillSymbol)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setAccuracySymbol</span>
+      <span class="normal">(<a href="../../../../../reference/com/esri/core/symbol/FillSymbol.html">FillSymbol</a> accuracySymbol)</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets the symbol used to represent location accuracy.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>accuracySymbol</td>
+          <td>the symbol used to represent location accuracy</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>Exception</td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setAllowNetworkLocation(boolean)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setAllowNetworkLocation</span>
+      <span class="normal">(boolean allowNetworkLocation)</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Controls whether the network (cellular network and WiFi if available) can be used to determine the current location.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>allowNetworkLocation</td>
+          <td>Set to true if the network should be used to determine the current location, or false to
+                             use only the GPS.</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setAutoPanMode(com.esri.android.map.LocationDisplayManager.AutoPanMode)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setAutoPanMode</span>
+      <span class="normal">(<a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html">LocationDisplayManager.AutoPanMode</a> autoPanMode)</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets the <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html">LocationDisplayManager.AutoPanMode</a></code> to be used. The default is <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#OFF">OFF</a></code>.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>autoPanMode</td>
+          <td>the <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html">LocationDisplayManager.AutoPanMode</a></code> to be used.</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setCourseSymbol(com.esri.core.symbol.MarkerSymbol)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setCourseSymbol</span>
+      <span class="normal">(<a href="../../../../../reference/com/esri/core/symbol/MarkerSymbol.html">MarkerSymbol</a> courseSymbol)</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets the course symbol, used to display the current location for mode <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#NAVIGATION">NAVIGATION</a></code> when the 
+ current location is moving. If not moving, the default symbol will be used instead.
+ <p>
+ Additionally, when in <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#OFF">OFF</a></code> or <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#LOCATION">LOCATION</a></code>,
+ if the location updates have a positive speed, then this symbol will be rotated
+ according to the location's bearing and displayed instead of the default symbol.
+ Use <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#setUseCourseSymbolOnMovement(boolean)">setUseCourseSymbolOnMovement(boolean)</a></code> with a value of false to disable this additional use of
+ the course symbol.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>courseSymbol</td>
+          <td>the course symbol</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>Exception</td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setDefaultSymbol(com.esri.core.symbol.MarkerSymbol)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setDefaultSymbol</span>
+      <span class="normal">(<a href="../../../../../reference/com/esri/core/symbol/MarkerSymbol.html">MarkerSymbol</a> defaultSymbol)</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets the symbol used to display the current location for modes <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#OFF">OFF</a></code> and <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#LOCATION">LOCATION</a></code>.
+ Additionally, if location updates do not indicate positive speed, this symbol will be used for <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#NAVIGATION">NAVIGATION</a></code>.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>defaultSymbol</td>
+          <td>the symbol used for <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#OFF">OFF</a></code> and <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#LOCATION">LOCATION</a></code></td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>Exception</td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setHeadingSymbol(com.esri.core.symbol.MarkerSymbol)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setHeadingSymbol</span>
+      <span class="normal">(<a href="../../../../../reference/com/esri/core/symbol/MarkerSymbol.html">MarkerSymbol</a> headingSymbol)</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets the symbol used for <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#COMPASS">COMPASS</a></code>.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>headingSymbol</td>
+          <td>the symbol used for <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#COMPASS">COMPASS</a></code></td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>Exception</td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setLocationAcquiringSymbol(com.esri.core.symbol.MarkerSymbol)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setLocationAcquiringSymbol</span>
+      <span class="normal">(<a href="../../../../../reference/com/esri/core/symbol/MarkerSymbol.html">MarkerSymbol</a> locationAcquiringSymbol)</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets the symbol used to display last known location, while current location is being acquired.
+ This is used in all modes of <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html">LocationDisplayManager.AutoPanMode</a></code> until a new location fix is found.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>locationAcquiringSymbol</td>
+          <td>the symbol used while location is being acquired</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>Exception</td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setLocationFilterCallback(com.esri.android.map.LocationDisplayManager.LocationFilterCallback)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setLocationFilterCallback</span>
+      <span class="normal">(<a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.LocationFilterCallback.html">LocationDisplayManager.LocationFilterCallback</a> locationFilterCallback)</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets a custom location filter callback. This callback will be used to determine whether incoming location updates
+ should be applied or discarded. If not set, or if null is set, default logic will be used. See <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.LocationFilterCallback.html">LocationDisplayManager.LocationFilterCallback</a></code>
+ for more information.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>locationFilterCallback</td>
+          <td>the location filter callback to set, or null to use default logic</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setLocationListener(android.location.LocationListener)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setLocationListener</span>
+      <span class="normal">(LocationListener locationListener)</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets the Android LocationListener instance.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>locationListener</td>
+          <td>the LocationListener to set.</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setNavigationPointHeightFactor(float)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setNavigationPointHeightFactor</span>
+      <span class="normal">(float navigationPointHeightFactor)</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets the factor by which the location symbol is positioned vertically from the bottom of the map when using 
+ <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#NAVIGATION">NAVIGATION</a></code>. When navigating in a map, the current location is typically vertically 
+ positioned near the bottom of the map, and horizontally centered in the map, so that the map displays as 
+ much of the route ahead as possible. Values should be between 0.0 (the bottom of the screen) and 1.0 (the top
+ of the screen).</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>navigationPointHeightFactor</td>
+          <td>The factor of the map height at which to vertically center the location graphic.
+                                    Default value is 0.125.
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setOpacity(float)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setOpacity</span>
+      <span class="normal">(float opacity)</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets the opacity of location symbols used for location, accuracy, and location pings.
+ Value must be between 0.0 and 1.0</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>opacity</td>
+          <td>A value between 0.0 (completely transparent) and 1.0 (completely opaque).
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setPingSymbol(com.esri.core.symbol.MarkerSymbol)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setPingSymbol</span>
+      <span class="normal">(<a href="../../../../../reference/com/esri/core/symbol/MarkerSymbol.html">MarkerSymbol</a> pingSymbol)</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets the symbol used for indicating location updates.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>pingSymbol</td>
+          <td>the symbol used for indicating location updates</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>Exception</td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setShowLocation(boolean)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setShowLocation</span>
+      <span class="normal">(boolean showLocation)</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Controls whether or not the current location symbol is shown.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>showLocation</td>
+          <td>Set to true to show the location symbol, or false if the symbol should not be shown.
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setShowPings(boolean)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setShowPings</span>
+      <span class="normal">(boolean showPings)</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Controls whether to show the ping symbol when location updates are received.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>showPings</td>
+          <td>Set to true to show the ping symbol, or false if the symbol should not be shown.</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setUseCourseSymbolOnMovement(boolean)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setUseCourseSymbolOnMovement</span>
+      <span class="normal">(boolean useCourseSymbolOnMovement)</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets whether the course symbol should be shown when the location update has a positive speed. 
+ When using <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#OFF">OFF</a></code> or <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#LOCATION">LOCATION</a></code>, if the device is actively 
+ moving (the location has a positive speed), then the course symbol will be rotated to the device
+ bearing (direction of movement) and will be displayed instead of the default symbol. Setting
+ this to false will force the use of the default symbol, regardless of the device movement. This has
+ no impact when using <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#NAVIGATION">NAVIGATION</a></code> or <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#COMPASS">COMPASS</a></code>.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>useCourseSymbolOnMovement</td>
+          <td>Set to true to use the course symbol upon device movement; set to 
+                                  false to maintain use of the default symbol.
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setWanderExtentFactor(float)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setWanderExtentFactor</span>
+      <span class="normal">(float wanderExtentFactor)</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets the wander extent factor, which affects autopanning. If autopanning is <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#LOCATION">LOCATION</a></code>,
+ this property determines how far from the center the current location may wander before the map will
+ center on the location again. For example, with the default value of 0.5f, current location may wander up to
+ half of the current extent. Once a location update is received that is outside this extent, the map will re-center
+ again on the current location. Only works with <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.AutoPanMode.html#LOCATION">LOCATION</a></code>.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>wanderExtentFactor</td>
+          <td>the factor of how far current location may wander before autopanning
+                            
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="start()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">start</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Starts the <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html">LocationDisplayManager</a></code>.
+ Use the <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#isStarted()">isStarted()</a></code> method to check that the LocationDisplayManager started correctly.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">See Also</h5>
+      <ul class="nolist"><li><code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#stop()">stop()</a></code></li>
+      </ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="stop()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">stop</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div></div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Stops the <code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html">LocationDisplayManager</a></code>.
+ Call this method when the Activity or Fragment that contains the LocationDisplayManager is destroyed, in order to 
+ stop the location listener receiving location updates.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">See Also</h5>
+      <ul class="nolist"><li><code><a href="../../../../../reference/com/esri/android/map/LocationDisplayManager.html#start()">start()</a></code></li>
+      </ul>
+  </div>
+
+    </div>
+</div>
+
+
+
+
+
+<!-- ========= METHOD DETAIL ======== -->
+
+
+
+<!-- ========= END OF CLASS DATA ========= -->
+<A NAME="navbar_top"></A>
+
+<div id="footer">
+
+</div> <!-- end footer -->
+
+</div> <!-- jd-content -->
+
+</div><!-- end doc-content -->
+
+</div> <!-- end body-content --> 
+
+<script type="text/javascript">
+init(); /* initialize android-developer-docs.js */
+</script>
+
+</body>
+</html>

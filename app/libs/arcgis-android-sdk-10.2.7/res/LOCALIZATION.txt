@@ -1,0 +1,49 @@
+# Localization in Android SDK
+The ArcGIS Android SDK uses English as the default language for UI components, e.g. text in Pop-ups.  We provide a set of **UI** localization strings for you to use in your apps.
+
+## UI Popup Localization
+Steps to add localization to your apps UI Popups.
+
+1. All the supported resource files are in the **<sdk-install-dir>/res/** folder
+2. Copy **<sdk-install-dir>/res/values/arcgis_ui_strings.xml** file to your apps **res/values/** folder
+3. Copy the languages you want to support into from the **<sdk-install-dir>/res/** folder to your apps **/res** folder.
+
+### Example
+If you want to localize your apps UI Popups to support **Italian** you would do the following:
+
+1. Copy **<sdk-install-dir>/res/values/arcgis_ui_strings.xml** file to your apps **res/values/** folder
+2. Copy **<sdk-install-dir>/res/values-it/** folder to your apps **res/** folder
+
+## Supported Languages
+Table below represents the list of the supported languages at v10.2.6 and the accompanying folder name:
+
+| Language  | Folder  |
+|---|---|
+| English  | values  |
+| Polish  |  values-pl |
+| Arabic  | values-ar  |
+| German  | values-de  |
+| Italian  | values-it  |
+| Korean  | values-ko  |
+| Portuguese (Brazil)  | values-pt-rBR  |
+| Portuguese (Portugal)  | values-pt-rPT  |
+| Romanian  | values-ro  |
+| Spanish  | values-es  |
+| Lithuanian  | values-lt  |
+| Latvian  | values-lv  |
+| Czech  | values-cs  |
+| Turkish  | values-tr  |
+| Chinese (Simplified)  | values-zh  |
+| Danish  | values-da  |
+| French  | values-fr  |
+| Hebrew  | values-he  |
+| Japanese  | values-ja  |
+| Norwegian  | values-no  |
+| Russian  | values-ru  |
+| Swedish  | values-sv  |
+| Dutch  | values-nl  |
+| Estonian  | values-et  |
+| Finnish  | values-fi  |
+| Thai  | values-th  |
+| Greek  | values-el  |
+| Vietnamese  | values-vi  |

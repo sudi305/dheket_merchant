@@ -1,0 +1,13 @@
+What's new at 10.2.7
+This topic describes changes in version 10.2.7 of ArcGIS Runtime SDK for Android.
+
+## Issues fixed
+- BUG-000084945: Adding an offline geodatabase content to a map does not display the label of a feature class if the label is in Chinese language.
+- BUG-000089134: The Location Display Manager stops updating the phone's current location on the map if the accuracy of the incoming coordinate much less accurate than the previous coordinate.
+- BUG-000089200: The LocationDisplayManager class shows an obviously bigger GPS indicator on Motorola Droid Turbo.
+- ENH-000090442:  The geocode.arcgis.com service has new properties that enable developers to tailor suggest results to specific areas making suggest results more meaningful. Country Code and location, geometry and distance should also be honored as suggest parameters. The Android API should support this functionality.
+- BUG-000088984/BUG-000088511: Fix for PortalInfo print service parsing allow a webmap to open from an org when the print service is not set as esri default on the org.add
+
+## Known limitations
+- Some services have a casing mismatch between the field names used in the EditFieldsInfo returned from ArcGISFeatureLayer.getEditFieldsInfo() and the ‘Fields’ JSON attribute which is defined in the service's REST endpoint. A workaround for this mismatch is to correct the casing in your app code.
+- Advanced Symbology doesn't support MIL-2525C and APP 6B dictionaries installed on same device. Workaround this issue by setting the path of one of the resources explicitly, using the MessageProcessor constructor that allows you to set the symbol dictionary path.
