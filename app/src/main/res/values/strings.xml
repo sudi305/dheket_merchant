@@ -1,9 +1,14 @@
 <resources>
-    <string name="app_name">Dheket</string>
+    <string name="app_name">Dheket for Merchant</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="app_facebook_id">1689420228011886</string>
+    <string name="facebook_app_id">1689420228011886</string>
+
+    <string name="signUpEmail">SIGN UP WTIH E-MAIL</string>
+
+    <string name="link_addUserCustomerByEmail">http://ws.dheket.com/index.php/addprofileusercustomerbyemail/</string><!--addprofileusercustomerbyemail/{"email"="a@m.c","username"="u","password"="**","facebook_id"="aaa"}-->
+    <string name="link_cekUserLogin">http://ws.dheket.com/index.php/checkexistinguserbyemail</string><!--checkexistinguserbyemail/{email}-->
 </resources>

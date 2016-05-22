@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary" >
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView53"
+            android:src="@drawable/d_r_1"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView54"
+            android:src="@drawable/d_r_2"
+            android:layout_centerVertical="true"
+            android:layout_alignLeft="@+id/imageView53"
+            android:layout_alignStart="@+id/imageView53"
+            android:layout_gravity="center" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView55"
+            android:src="@drawable/d_r_3"
+            android:layout_alignTop="@+id/imageView53"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout2"
+            android:layout_alignParentTop="true"
+            android:layout_alignLeft="@+id/imageView55"
+            android:layout_alignStart="@+id/imageView55"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/imgLogo"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/d_img_dheket"
+                android:cropToPadding="false"
+                android:padding="3dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView60"
+                android:src="@drawable/d_find_what_matter_aro" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="For Merchant Only!"
+        android:id="@+id/textView2"
+        android:textColor="#ffffff"
+        android:typeface="sans"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="10dp" />
+
+</RelativeLayout>
