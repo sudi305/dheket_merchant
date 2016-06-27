@@ -32,6 +32,7 @@ import android.widget.Toast;
 import com.bgs.dheket.accessingSensorPermission.HttpGetOrPost;
 import com.bgs.dheket.general.Utility;
 import com.bgs.dheket.sqlite.DBHelper;
+import com.bgs.dheket.sqlite.ModelLocation;
 import com.esri.android.map.GraphicsLayer;
 import com.esri.android.map.LocationDisplayManager;
 import com.esri.android.map.MapView;
@@ -139,7 +140,7 @@ public class SearchLocationByNameActivity extends AppCompatActivity {
         //mMapView.setOnLongPressListener(mapLongPress);
 
         db = new DBHelper(getApplicationContext());
-        email = db.getMerchant(1).getEmail().toString();
+        email = db.getMerchantTopId();
         db.closeDB();
 
         paket = getIntent().getExtras();

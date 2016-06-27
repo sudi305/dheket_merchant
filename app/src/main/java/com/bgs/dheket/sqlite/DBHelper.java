@@ -390,8 +390,10 @@ public class DBHelper extends SQLiteOpenHelper{
         values.put(KEY_LOCATION_LOCATION_TAG, location.getLocation_tag());
         values.put(KEY_LOCATION_USER_EMAIL, location.getUser_email());
 
-        return db.update(TABLE_LOCATION, values, KEY_LOCATION_USER_EMAIL + " = ?",
+        long update = db.update(TABLE_LOCATION, values, KEY_LOCATION_USER_EMAIL + " = ?",
                 new String[]{String.valueOf(location.getUser_email())});
+        Log.e("update ",""+update);
+        return update;
     }
 
     public void deleteLocation(){

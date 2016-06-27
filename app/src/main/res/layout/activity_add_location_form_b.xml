@@ -32,8 +32,38 @@
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginTop="10dp">
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="phone"
+                                android:ems="10"
+                                android:id="@+id/editText_anl_loc_lat"
+                                android:hint="Langitude *"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="5dp" />
+                        </android.support.design.widget.TextInputLayout>
 
-                        <EditText
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginTop="10dp">
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="phone"
+                                android:ems="10"
+                                android:id="@+id/editText_anl_loc_lng"
+                                android:hint="Longitude *"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="5dp" />
+                        </android.support.design.widget.TextInputLayout>
+                        <!--<EditText
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:inputType="numberSigned|numberDecimal"
@@ -53,7 +83,7 @@
                             android:layout_weight="1"
                             android:hint="Longitude"
                             android:layout_marginTop="10dp"
-                            android:layout_marginRight="10dp" />
+                            android:layout_marginRight="10dp" />-->
 
                     </LinearLayout>
 
@@ -84,9 +114,12 @@
                                 android:textColor="#ff0000"
                                 android:textStyle="bold"
                                 android:layout_gravity="center_horizontal"
-                                android:layout_centerVertical="true"
-                                android:layout_alignRight="@+id/imageView20"
-                                android:layout_alignEnd="@+id/imageView20" />
+                                android:layout_marginLeft="9dp"
+                                android:layout_marginStart="9dp"
+                                android:layout_marginBottom="11dp"
+                                android:layout_alignParentBottom="true"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true" />
 
                             <ImageView
                                 android:layout_width="30dp"
@@ -176,7 +209,7 @@
         android:id="@+id/imageButton_anl_next_b"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/ic_navigate_next_24dp"
-        android:background="@drawable/roundedbutton_square1"
+        android:background="@drawable/button_enable_disable"
         android:tint="#ffffff"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"

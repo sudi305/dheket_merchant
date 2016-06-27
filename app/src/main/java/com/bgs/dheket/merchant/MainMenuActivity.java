@@ -1,7 +1,9 @@
 package com.bgs.dheket.merchant;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -36,6 +38,7 @@ import android.widget.Toast;
 import com.bgs.dheket.sqlite.DBHelper;
 import com.bgs.dheket.sqlite.ModelLocation;
 import com.bgs.dheket.sqlite.ModelMerchant;
+import com.facebook.login.LoginManager;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
@@ -177,11 +180,32 @@ public class MainMenuActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_logout) {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(MainMenuActivity.this);
+            builder.setTitle("Confirmation");
+            String message = "";
+            message="Are you sure?";
+            builder.setMessage(message)
+                    .setCancelable(false)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            LoginManager.getInstance().logOut();
+                            Intent toFormLogin = new Intent(getApplicationContext(),FormLoginActivity.class);
+                            startActivity(toFormLogin);
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
 
-        } else if (id == R.id.nav_send) {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            builder.create().dismiss();
+                        }
+                    });
+            builder.create().show();
+        } /*else if (id == R.id.nav_send) {
 
-        }
+        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

@@ -43,7 +43,7 @@ import java.util.Map;
 /**
  * Created by SND on 6/13/2016.
  */
-public class AddNewLocationActivity_form_b extends AppCompatActivity {
+public class AddNewLocationActivity_form_b extends AppCompatActivity implements View.OnClickListener{
     android.support.v7.app.ActionBar actionBar;
     String urls = "";
     String location_name = "", location_address = "", phone = "", description = "", location_tag = "", user_email = "";
@@ -100,10 +100,15 @@ public class AddNewLocationActivity_form_b extends AppCompatActivity {
         imageButton_getCurrentLoc = (ImageButton)findViewById(R.id.imageButton_anl_getCurrentLoc);
         imageButton_getCurrentLoc.setOnClickListener(buttonCurrentClik);
         imageButton_next = (ImageButton)findViewById(R.id.imageButton_anl_next_b);
+        imageButton_next.setOnClickListener(this);
         imageButton_prev = (ImageButton)findViewById(R.id.imageButton_anl_prev_b);
+        imageButton_prev.setOnClickListener(this);
 
         if (latitude!=0) editText_loc_lat.setText(""+latitude);
         if (longitude!=0)editText_loc_lng.setText(""+longitude);
+
+        editText_loc_lat.addTextChangedListener(checkValidation);
+        editText_loc_lng.addTextChangedListener(checkValidation);
 
         mMapView.setOnStatusChangedListener(statusChangedListener);
         mMapView.setOnSingleTapListener(mapTapCallback);
@@ -121,6 +126,7 @@ public class AddNewLocationActivity_form_b extends AppCompatActivity {
         mMapView.addView(mCompass);
         mAdd = new PictureMarkerSymbol(getApplicationContext(), ContextCompat.getDrawable(getApplicationContext(), R.drawable.pin_add));
 
+        enableButton();
         setupLocator();
         setupLocationListener();
     }
@@ -443,4 +449,17 @@ public class AddNewLocationActivity_form_b extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onClick(View v) {
+        if (v.equals(imageButton_next)){
+            dataPrepareSave();
+            Intent toNext = new Intent(getApplicationContext(), AddNewLocationActivity_form_c.class);
+            startActivity(toNext);
+            finish();
+        }
+        if (v.equals(imageButton_prev)){
+            dataPrepareSave();
+            toMainMenu();
+        }
+    }
 }

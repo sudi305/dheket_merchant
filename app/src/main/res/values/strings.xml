@@ -14,4 +14,7 @@
     <string name="link_claimOrRemoveLocation">http://ws.dheket.com/index.php/claimlocationformerchant/</string><!--claimlocationformerchant/{email}/{loc_id}/{loc_hashtag}-->
     <string name="link_getMerchantLocation">http://ws.dheket.com/index.php/getlocationmerchantbyid/</string><!--getlocationmerchantbyid/{center_lat}/{center_lng}/{email}-->
     <string name="link_getSearchLocation">http://ws.dheket.com/index.php/getsearchlocationbychar/</string><!--getsearchlocationbychar/{char}/{center_lat}/{center_lng}-->
+    <string name="link_getAllCategory">http://ws.dheket.com/index.php/getallcategory</string> <!--getallcategory-->
+    <string name="link_getHashtagByCatId">http://ws.dheket.com/index.php/getallhashtagbycatid</string><!--getallhashtagbycatid/{cat_id}-->
+    <string name="link_addOrUpdateLocation">http://ws.dheket.com/index.php/addorupdatelocationbymerchant/</string> <!--addorupdatelocationbymerchant-->
 </resources>

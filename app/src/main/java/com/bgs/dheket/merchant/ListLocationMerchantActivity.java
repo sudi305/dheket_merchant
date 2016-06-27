@@ -122,7 +122,7 @@ public class ListLocationMerchantActivity extends AppCompatActivity implements L
         btn_add.setOnClickListener(this);
 
         db = new DBHelper(getApplicationContext());
-        email = db.getMerchant(1).getEmail().toString();
+        email = db.getMerchantTopId();
         db.closeDB();
 
         //mAdd = new PictureMarkerSymbol(rootView.getContext().getApplicationContext(), ContextCompat.getDrawable(rootView.getContext().getApplicationContext(), R.drawable.pin_add));

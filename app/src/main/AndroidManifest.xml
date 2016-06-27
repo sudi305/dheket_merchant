@@ -40,7 +40,7 @@
         <activity android:name="com.bgs.dheket.merchant.MainMenuActivity" android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name="com.bgs.dheket.merchant.AddNewLocationActivity"/>
         <activity android:name="com.bgs.dheket.merchant.AddNewLocationActivity_form_b"/>
-        <activity android:name="com.bgs.dheket.merchant.AddNewLocationActivity_form_c"/>
+        <activity android:name=".AddNewLocationActivity_form_c"/>
         <activity android:name="com.bgs.dheket.merchant.AddNewLocationActivity_form_d"/>
         <activity android:name="com.bgs.dheket.merchant.AddNewLocationActivity_form_e"/>
         <activity android:name="com.bgs.dheket.merchant.ListChatActivity"/>

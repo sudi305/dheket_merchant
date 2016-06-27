@@ -1,0 +1,63 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zhy="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#3db8db"
+    android:orientation="vertical">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText"
+        android:drawableLeft="@drawable/ic_search_24dp"
+        android:drawableTint="@color/colorAccent"
+        android:layout_margin="5dp" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/lfs_result">
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/scrollView6" >
+
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/id_flowlayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+            android:padding="20dp"
+                zhy:max_select="1"
+                >
+            </com.zhy.view.flowlayout.TagFlowLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/lfs_search"
+        android:visibility="gone">
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/scrollView7" >
+
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/id_flowlayout_"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                zhy:max_select="1"
+                >
+            </com.zhy.view.flowlayout.TagFlowLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+</LinearLayout>
