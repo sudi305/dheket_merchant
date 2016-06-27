@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/corner_round_all">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/imageButton_anl_next_b"
+        android:layout_marginBottom="10dp">
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical" android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:outlineProvider="bounds"
+                    android:background="@drawable/corner_round_all"
+                    android:layout_margin="5dp">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textPersonName"
+                                android:ems="10"
+                                android:id="@+id/editText_anl_loc_name"
+                                android:hint="Location Name *"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="5dp" />
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textPostalAddress|textMultiLine"
+                                android:ems="10"
+                                android:id="@+id/editText_anl_loc_address"
+                                android:hint="Location Address *"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:singleLine="false" />
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="phone"
+                                android:ems="10"
+                                android:id="@+id/editText_anl_loc_phone"
+                                android:hint="Telephone Number/HP"
+                                android:layout_marginTop="5dp"/>
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content" >
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <EditText
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:id="@+id/editText_anl_loc_description"
+                                android:hint="Description"
+                                android:layout_marginBottom="5dp"
+                                android:layout_weight="1"
+                                android:inputType="textMultiLine" />
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/imageButton_anl_next_b"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/ic_navigate_next_24dp"
+        android:background="@drawable/button_enable_disable"
+        android:tint="#ffffff"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp" />
+
+</RelativeLayout>

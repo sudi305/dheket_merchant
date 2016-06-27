@@ -13,6 +13,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +24,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bgs.dheket.accessingSensorPermission.HttpGetOrPost;
+import com.bgs.dheket.sqlite.DBHelper;
+import com.bgs.dheket.sqlite.ModelLocation;
+import com.bgs.dheket.sqlite.ModelMerchant;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -30,6 +35,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
@@ -56,13 +62,15 @@ public class FormLoginActivity extends AppCompatActivity implements LocationList
     CallbackManager callbackManager;
     LoginButton login;
     Button signup;
-    TextView loading, login_fb;
+    TextView loading, login_fb, check_email;
     //android.support.v7.app.ActionBar actionBar;
 
     String url = "";
     String urlCreateAccount = "";
-    String temp_email = "",email = "",username="",password="",facebook_id="",responseServer="";
+    String temp_email = "",email = "",username="",password="",facebook_id="",responseServer="",
+            gender = "", facebook_photo = "", merchant_name;
     double latitude=0, longitude=0;
+    long id_merchant = 0;
 
     LocationManager myLocationManager;
     Criteria criteria;
@@ -71,6 +79,8 @@ public class FormLoginActivity extends AppCompatActivity implements LocationList
 
     private JSONObject jObject;
     JSONArray menuItemArray = null;
+
+    DBHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,10 +105,12 @@ public class FormLoginActivity extends AppCompatActivity implements LocationList
         signup = (Button)findViewById(R.id.signup_button);
         loading = (TextView)findViewById(R.id.textView_formLogin_loading);
         login_fb = (TextView)findViewById(R.id.textView_login_fb);
+        check_email = (TextView)findViewById(R.id.textView_checkemail);
 
         url = String.format(getResources().getString(R.string.link_cekUserLogin));
-        urlCreateAccount = String.format(getResources().getString(R.string.link_addUserCustomerByEmail));
+        urlCreateAccount = String.format(getResources().getString(R.string.link_addUserMerchantByEmail));
 
+        db = new DBHelper(getApplicationContext());
 //        if(AccessToken.getCurrentAccessToken() != null){
 //            RequestData();
 //            login.setVisibility(View.INVISIBLE);
@@ -141,7 +153,32 @@ public class FormLoginActivity extends AppCompatActivity implements LocationList
             }
         });
 
+        check_email.addTextChangedListener(textWatcher);
+
     }
+
+    final TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            Log.e("belum","belum");
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            Log.e("belum","saat");
+            /*if (check_email.getText().equals(temp_email) && !temp_email.isEmpty()){
+                //checkExistingUser(check_email.getText().toString(),latitude,longitude);
+                Log.e("belum","ok");
+                Toast.makeText(getApplicationContext(),check_email.getText().toString(),Toast.LENGTH_SHORT).show();
+            }*/
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            Log.e("belum","sudah");
+            checkExistingUser(check_email.getText().toString(), latitude, longitude);
+        }
+    };
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -194,12 +231,20 @@ public class FormLoginActivity extends AppCompatActivity implements LocationList
                         String text = "<b>Name :</b> " + json.getString("name") + "<br><br><b>Email :</b> " + json.getString("email") + "<br><br><b>Profile link :</b> " + json.getString("link");
                         email = json.getString("email");
                         temp_email = email;
-                        username = json.getString("name");
+                        merchant_name = json.getString("name");
+                        username = ""+merchant_name.replace(" ","");
+                        username = ""+username.replace("'","");
                         password = "123456";
                         facebook_id = json.getString("id");
-                        Log.e("Success", "2");
-                        checkExistingUser(email, latitude, longitude);
-                        Log.e("Success", "2a");
+                        gender = json.getString("gender");
+                        if (json.has("picture")) {
+                            facebook_photo = json.getJSONObject("picture").getJSONObject("data").getString("url");
+                            // set profile image to imageview using Picasso or Native methods
+                        }
+                        if (email.equalsIgnoreCase("")||email.isEmpty()){
+                            temp_email = "user"+facebook_id+"@dheket.co.id";
+                        }
+                        check_email.setText(temp_email);
                     }
 
                 } catch (JSONException e) {
@@ -208,23 +253,16 @@ public class FormLoginActivity extends AppCompatActivity implements LocationList
             }
         });
         Bundle parameters = new Bundle();
-        parameters.putString("fields", "id,name,link,email,picture");
+        parameters.putString("fields", "id,name,link,email,gender,picture.type(large)");
         request.setParameters(parameters);
-        Log.e("Success", "3");
         request.executeAsync();
-        if (email.equalsIgnoreCase("")||email.isEmpty()){
-            temp_email = "user"+facebook_id+"@dheket.co.id";
-            createUserAccountCustomer();
-        } else {
-            checkExistingUser(email, latitude, longitude);
-        }
-        Log.e("Success", "3a");
+
     }
 
     public void checkExistingUser(String email, double latitude, double longitude) {
         CallWebPageTaskCheckEmail task = new CallWebPageTaskCheckEmail();
         task.applicationContext = getApplicationContext();
-        String urls = url + "/" + email + "/" + latitude + "/" + longitude;
+        String urls = url + "/" + email;
         Log.e("Sukses", urls);
         task.execute(new String[]{urls});
     }
@@ -275,7 +313,7 @@ public class FormLoginActivity extends AppCompatActivity implements LocationList
 
         private ProgressDialog dialog;
         protected Context applicationContext;
-
+        String response = "";
         @Override
         protected void onPreExecute() {
             //this.dialog = ProgressDialog.show(getApplicationContext(), "Login Process", "Please Wait...", true);
@@ -283,14 +321,25 @@ public class FormLoginActivity extends AppCompatActivity implements LocationList
 
         @Override
         protected String doInBackground(String... urls) {
-            String response = "";
             HttpGetOrPost httpGetOrPost = new HttpGetOrPost();
             response = httpGetOrPost.getRequest(urls[0]);
+            Log.e("Success","4"+response);
             try {
                 //simpan data dari web ke dalam array
+                JSONArray menuItemArrays = null;
                 jObject = new JSONObject(response);
-                menuItemArray = jObject.getJSONArray("tag_cat");
-                email = jObject.getString("email");
+                menuItemArrays = jObject.getJSONArray("result_user");
+                if (menuItemArrays.length()!=0) {
+                    for (int i = 0; i < menuItemArrays.length(); i++) {
+                        id_merchant = menuItemArrays.getJSONObject(i).getInt("id_merchant");
+                        merchant_name = menuItemArrays.getJSONObject(i).getString("merchant_name").toString();
+                        email = menuItemArrays.getJSONObject(i).getString("email").toString();
+                        facebook_photo = menuItemArrays.getJSONObject(i).getString("facebook_photo").toString();
+                    }
+                }else{
+                    email = "kosong";
+                }
+                Log.e("Success","4 c"+menuItemArrays.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -300,17 +349,21 @@ public class FormLoginActivity extends AppCompatActivity implements LocationList
         @Override
         protected void onPostExecute(String result) {
             //this.dialog.cancel();
-            Log.e("Success","4");
-            if (email.equalsIgnoreCase("guest@dheket.co.id") || email.equalsIgnoreCase("") || email.equalsIgnoreCase(null)) {
+            if (email.equalsIgnoreCase("kosong")){
                 Log.e("Success", "5");
                 createUserAccountCustomer();
                 Log.e("Success", "5a");
             } else {
+                toDb(email);
                 if (AccessToken.getCurrentAccessToken() != null) {
                     Intent loginWithFb = new Intent(FormLoginActivity.this, MainMenuActivity.class);
                     Log.e("Success", "6");
                     startActivity(loginWithFb);
                     finish();
+                    /*LoginManager.getInstance().logOut();
+                    Intent logout_user_fb = new Intent(getApplicationContext(), FormLoginActivity.class);
+                    startActivity(logout_user_fb);
+                    finish();*/
                 }
             }
         }
@@ -375,9 +428,12 @@ public class FormLoginActivity extends AppCompatActivity implements LocationList
             try {
                 JSONObject jsonobj = new JSONObject();
                 jsonobj.put("email", temp_email);
-                jsonobj.put("username", username);
+                jsonobj.put("username", username.toLowerCase());
                 jsonobj.put("password", password);
                 jsonobj.put("facebook_id", facebook_id);
+                jsonobj.put("facebook_photo", facebook_photo);
+                jsonobj.put("gender",gender);
+                jsonobj.put("merchant_name",merchant_name);
                 Log.e("mainToPost", "mainToPost" + jsonobj.toString());
                 httppost.setEntity(new StringEntity(jsonobj.toString())); //json without header {"a"="a","b"=1}
                 // Execute HTTP Post Request
@@ -402,6 +458,7 @@ public class FormLoginActivity extends AppCompatActivity implements LocationList
                 Toast.makeText(getApplicationContext(),"Success!",Toast.LENGTH_SHORT).show();
                 responseServer="";
                 Log.e("Success", "8a");
+                toDb(temp_email);
                 if (AccessToken.getCurrentAccessToken() != null) {
                     Intent loginWithFb = new Intent(FormLoginActivity.this, MainMenuActivity.class);
                     Log.e("Success", "8b");
@@ -416,5 +473,23 @@ public class FormLoginActivity extends AppCompatActivity implements LocationList
                 }
             }
         }
+    }
+
+    public void toDb(String email){
+        ModelMerchant merchants = new ModelMerchant(id_merchant,merchant_name,email,facebook_photo,null,1);
+        ModelLocation location = new ModelLocation(0,"","",0.0,0.0,0,"",0,0,"","",email);
+        Log.e("db name ",db.getDatabaseName().toString());
+        Log.e("tabel ",db.getAllMerchant().toString());
+        if (db.findMerchantByEmail(email) == false){
+            Log.e("db","buat baru");
+            db.createMerchant(merchants);
+            Log.e("data",""+db.getMerchantByEmail(email).getId());
+            db.createLocation(location);
+        } else {
+            Log.e("db","update");
+            db.updateMerchant(merchants);
+            db.updateLocation(location);
+        }
+        db.closeDB();
     }
 }

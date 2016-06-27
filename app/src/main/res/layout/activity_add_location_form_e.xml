@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/corner_round_all">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:outlineProvider="bounds"
+            android:background="@drawable/corner_round_all"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_above="@+id/imageButton_anl_prev_b"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:id="@+id/editText_anl_photo_url"
+                        android:hint="Photo"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:inputType="textLongMessage|textMultiLine"
+                        android:focusableInTouchMode="false"
+                        android:singleLine="false" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/imageView_anl_photo_prev"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:background="@drawable/corner_round_blue"
+                android:visibility="gone"
+                android:src="#5a92ff" />
+
+        </LinearLayout>
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/imageButton_anl_prev_e"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/ic_navigate_before_24dp"
+        android:background="@drawable/roundedbutton_square1"
+        android:layout_alignTop="@+id/imageButton_anl_prev_b"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:tint="#ffffff"
+        android:layout_marginLeft="10dp" />
+
+    <Button
+        android:drawableLeft="@drawable/ic_save_24dp"
+        android:drawableTint="#ffffff"
+        android:text="Save and Add"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:id="@+id/imageButton_anl_prev_b"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/roundedbutton_square1"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColor="#ffffff" />
+
+</RelativeLayout>

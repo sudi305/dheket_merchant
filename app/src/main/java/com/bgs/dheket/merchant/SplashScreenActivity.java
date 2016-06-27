@@ -29,7 +29,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        //Mint.initAndStartSession(SplashScreenActivity.this, "609d861e");
+        //Mint.initAndStartSession(SplashScreenActivity.this, "0b8079db");
         FacebookSdk.sdkInitialize(getApplicationContext());
         imgLogo = (ImageView)findViewById(R.id.imgLogo);
 

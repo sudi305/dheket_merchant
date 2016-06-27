@@ -9,6 +9,9 @@
 
     <string name="signUpEmail">SIGN UP WTIH E-MAIL</string>
 
-    <string name="link_addUserCustomerByEmail">http://ws.dheket.com/index.php/addprofileusercustomerbyemail/</string><!--addprofileusercustomerbyemail/{"email"="a@m.c","username"="u","password"="**","facebook_id"="aaa"}-->
-    <string name="link_cekUserLogin">http://ws.dheket.com/index.php/checkexistinguserbyemail</string><!--checkexistinguserbyemail/{email}-->
+    <string name="link_addUserMerchantByEmail">http://ws.dheket.com/index.php/addprofileusermerchantbyemail/</string><!--addprofileusermerchantbyemail/{"email"="a@m.c","username"="u","password"="**","facebook_id"="aaa"}-->
+    <string name="link_cekUserLogin">http://ws.dheket.com/index.php/cekOrgetMerchantByEmail</string><!--cekOrgetMerchantByEmail/{email}-->
+    <string name="link_claimOrRemoveLocation">http://ws.dheket.com/index.php/claimlocationformerchant/</string><!--claimlocationformerchant/{email}/{loc_id}/{loc_hashtag}-->
+    <string name="link_getMerchantLocation">http://ws.dheket.com/index.php/getlocationmerchantbyid/</string><!--getlocationmerchantbyid/{center_lat}/{center_lng}/{email}-->
+    <string name="link_getSearchLocation">http://ws.dheket.com/index.php/getsearchlocationbychar/</string><!--getsearchlocationbychar/{char}/{center_lat}/{center_lng}-->
 </resources>

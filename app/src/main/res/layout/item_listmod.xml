@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="88dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView_il_foto"
+            android:scaleType="fitXY"
+            android:background="@drawable/messenger_button_send_round_shadow"
+            android:layout_marginLeft="12dp"
+            android:layout_gravity="center_vertical"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Nama Lokasi"
+                    android:id="@+id/textView_il_nama"
+                    android:singleLine="true"
+                    android:textStyle="bold"
+                    android:textColor="#000000"
+                    android:gravity="center_vertical|bottom"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="2dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="PROMO"
+                    android:id="@+id/textView_il_promo"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#ffffff"
+                    android:background="#ef2d2d"
+                    android:paddingLeft="6dp"
+                    android:paddingTop="3dp"
+                    android:paddingRight="6dp"
+                    android:paddingBottom="3dp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="id"
+                android:id="@+id/textView_il_id"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Lokasi"
+                    android:id="@+id/textView_il_alamat"
+                    android:textColor="#000000"
+                    android:singleLine="true"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="0 Km"
+                    android:id="@+id/textView_il_jarak"
+                    android:singleLine="true"
+                    android:layout_marginLeft="10dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#e6e6e6"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp" />
+
+</LinearLayout>

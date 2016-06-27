@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/corner_round_all">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:outlineProvider="bounds"
+            android:background="@drawable/corner_round_all"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_above="@+id/imageButton_anl_prev_b"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="#80021820">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/imageView61"
+                    android:src="@drawable/d_search_hint"
+                    android:tint="#f6f7f8"
+                    android:background="#a25a92ff"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="10dp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:id="@+id/editText_search_select_hashtags"
+                    android:layout_gravity="center_horizontal"
+                    android:hint="Add tags for more detail"
+                    android:textColorHint="#4e4e4e"
+                    android:background="#a25a92ff"
+                    android:textColor="#ffffff" />
+            </LinearLayout>
+
+        </LinearLayout>
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="3dp"
+            android:background="#051d26"
+            android:alpha="0.5"
+            android:elevation="3dp"/>
+        <!--<EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText_search_select_hashtags"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:drawableLeft="@drawable/ic_search_24dp"
+            android:drawableTint="@color/colorAccent"
+            android:hint="Add tags for more detail" />-->
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textAllCaps="true"
+                android:text="Large Text"
+                android:textColor="#ffffff"
+                android:id="@+id/textView_sh_cat_user"
+                android:layout_gravity="center_horizontal"
+                android:background="#3cc0de"
+                android:paddingLeft="25dp"
+                android:paddingTop="12dp"
+                android:paddingRight="25dp"
+                android:paddingBottom="12dp"
+                android:layout_margin="30dp"
+                android:elevation="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/ll_sh_search"
+            android:visibility="gone">
+
+            <ScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/scrollView5" >
+
+                <com.zhy.view.flowlayout.TagFlowLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tfl_sh_search"
+                    app:gravity="center">
+                </com.zhy.view.flowlayout.TagFlowLayout>
+            </ScrollView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/ll_sh_result_tag">
+
+            <ScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/scrollView4"
+                android:visibility="visible">
+
+                <com.zhy.view.flowlayout.TagFlowLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tfl_sh_result_hashtag"
+                    app:gravity="center">
+                </com.zhy.view.flowlayout.TagFlowLayout>
+            </ScrollView>
+        </LinearLayout>
+
+        </LinearLayout>
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/imageButton_anl_prev_e"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/ic_navigate_before_24dp"
+        android:background="@drawable/roundedbutton_square1"
+        android:layout_alignTop="@+id/imageButton_anl_prev_b"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:tint="#ffffff"
+        android:layout_marginLeft="10dp" />
+
+    <Button
+        android:drawableLeft="@drawable/ic_save_24dp"
+        android:drawableTint="#ffffff"
+        android:text="Save and Add"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:id="@+id/imageButton_anl_prev_b"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/roundedbutton_square1"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColor="#ffffff" />
+
+</RelativeLayout>
