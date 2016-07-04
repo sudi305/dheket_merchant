@@ -1,0 +1,114 @@
+<com.bgs.chat.widgets.SizeNotifierRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/chat_layout"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    tools:context="com.bgs.chat.ChatPageActivity">
+    <!--android:background="@drawable/background_block_v"-->
+    <RelativeLayout
+        android:id="@+id/toplayout"
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:gravity="center_vertical">
+
+        <ImageButton
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/go_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:src="@drawable/ic_go_back"
+            android:background="@drawable/button_selector"
+            android:clickable="true" />
+
+        <TextView
+            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_toRightOf="@+id/go_back_button"
+            android:layout_toEndOf="@+id/go_back_button"
+            android:layout_centerVertical="true"
+            android:textColor="@android:color/black"
+            android:id="@+id/user_contact"
+            android:text="@string/user_test"
+            android:singleLine="true"
+            android:textSize="16sp"
+            android:gravity="center_vertical"></TextView>
+    </RelativeLayout>
+
+
+    <ListView
+        android:id="@+id/chat_list_view"
+        android:divider="@drawable/chat_divider"
+        android:layout_width="match_parent"
+        android:scrollbarStyle="outsideOverlay"
+        android:layout_below="@+id/toplayout"
+        android:layout_above="@+id/bottomlayout"
+        android:layout_height="wrap_content"
+        android:focusable="true"></ListView>
+
+    <LinearLayout
+        android:id="@+id/bottomlayout"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
+        android:gravity="top">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top">
+
+            <ImageView android:src="@drawable/ic_msg_panel_smiles" android:layout_alignParentLeft="true" android:layout_alignParentStart="true" android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
+                android:layout_width="wrap_content" android:id="@+id/emojiButton" android:layout_alignBottom="@+id/chat_edit_text1" android:layout_marginBottom="8dp"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/chat_edit_text1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="vertical"
+                android:layout_toLeftOf="@+id/enter_chat1"
+                android:layout_toRightOf="@id/emojiButton"
+                android:layout_toEndOf="@id/emojiButton"
+                android:layout_toStartOf="@+id/enter_chat1"
+                android:hint="@string/type_your_message"
+                android:maxLines="4"
+                android:singleLine="false"
+                android:gravity="top"
+                android:inputType="textCapSentences|textMultiLine"
+                android:imeOptions="actionNone"
+                android:textSize="18sp"
+                android:paddingLeft="4dp" />
+
+            <ImageView android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/enter_chat1"
+                android:layout_width="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/chat_edit_text1"
+                android:paddingLeft="13dp"
+                android:paddingStart="13dp"
+                android:paddingRight="17dp"
+                android:paddingEnd="17dp"
+                android:src="@drawable/ic_chat_send" />
+
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
+</com.bgs.chat.widgets.SizeNotifierRelativeLayout>

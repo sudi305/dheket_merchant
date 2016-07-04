@@ -17,4 +17,13 @@
     <string name="link_getAllCategory">http://ws.dheket.com/index.php/getallcategory</string> <!--getallcategory-->
     <string name="link_getHashtagByCatId">http://ws.dheket.com/index.php/getallhashtagbycatid</string><!--getallhashtagbycatid/{cat_id}-->
     <string name="link_addOrUpdateLocation">http://ws.dheket.com/index.php/addorupdatelocationbymerchant/</string> <!--addorupdatelocationbymerchant-->
+
+    <string name="title_activity_main_chat">Dheket</string>
+    <string name="type_your_message">Enter msg</string>
+    <string name="NoRecent">No recent</string>
+
+    <string name="connect">Connected</string>
+    <string name="disconnect">Disconnected, Please check your internet connection</string>
+    <string name="error_connect">Failed to connect</string>
+    <string name="user_test">User Test</string>
 </resources>

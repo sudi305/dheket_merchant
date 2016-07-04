@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="70dp"
+        android:layout_marginBottom="5dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/imageView4"
+            android:src="@drawable/abc_ic_menu_moreoverflow_mtrl_alpha"
+            android:layout_below="@+id/textView_chat_vis_name"
+            android:layout_toRightOf="@+id/textView16"
+            android:background="@drawable/buble"
+            android:layout_gravity="top"
+            android:layout_marginTop="6dp"
+            android:layout_marginRight="3dp" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="left"
+            android:gravity="left|fill"
+            android:padding="5dp"
+            android:background="#ffffff">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Visitor"
+                        android:id="@+id/textView_chat_vis_name"
+                        android:singleLine="true"
+                        android:textStyle="bold"
+                        android:layout_below="@+id/textView16"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="Mon 07-02-2015 16:59"
+                        android:id="@+id/textView_chat_vis_date"
+                        android:textSize="10dp"
+                        android:textColor="@color/colorPrimaryDark" />
+                </LinearLayout>
+
+            </LinearLayout>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimaryDark"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="2dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Hi, ini pesan dari visitor. Apakah di lokasi ini terdapat tempat parkir yang luas?"
+                android:id="@+id/textView_chat_vis_message"
+                android:singleLine="false"
+                android:layout_alignTop="@+id/imageView4"
+                android:layout_toRightOf="@+id/textView_chat_vis_name"
+                android:layout_toEndOf="@+id/textView_chat_vis_name"
+                android:gravity="top|left"
+                android:layout_marginBottom="5dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

@@ -2,6 +2,7 @@ package com.bgs.dheket.merchant;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,9 +18,8 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.text.SpannableString;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -35,15 +35,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bgs.chat.MainChatActivity;
+import com.bgs.chat.services.ChatClientService;
+import com.bgs.chat.widgets.CircleBackgroundSpan;
+import com.bgs.dheket.App;
+import com.bgs.common.Constants;
 import com.bgs.dheket.sqlite.DBHelper;
-import com.bgs.dheket.sqlite.ModelLocation;
 import com.bgs.dheket.sqlite.ModelMerchant;
+import com.bgs.dheket.viewmodel.UserApp;
+import com.bgs.domain.chat.repository.IMessageRepository;
+import com.bgs.domain.chat.repository.MessageRepository;
 import com.facebook.login.LoginManager;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainMenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener,
@@ -67,10 +77,16 @@ public class MainMenuActivity extends AppCompatActivity
 
     Picasso picasso;
 
+    //CHATS
+    private ChatClientService chatClientService;
+    private IMessageRepository messageRepository;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        messageRepository = new MessageRepository(getApplicationContext());
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -123,6 +139,17 @@ public class MainMenuActivity extends AppCompatActivity
         url_photoFb = merchant.getFacebook_photo().toString();
         email = merchant.getEmail().toString();
         db.closeDB();
+
+        UserApp userApp = App.getUserApp();
+        if (userApp == null) userApp = new UserApp();
+        userApp.setName(name);
+        userApp.setEmail(email);
+        userApp.setId(""+merchant.getId());
+        userApp.setPicture(url_photoFb);
+
+        App.updateUserApp(userApp);
+        Log.d(Constants.TAG, "App.getInstance().getUserApp()=" + App.getUserApp());
+
         //Log.e("db",db.getAllMerchant().toString());
         textView_nameUser.setText(name);
         txt_nav_name.setText(name);
@@ -131,6 +158,15 @@ public class MainMenuActivity extends AppCompatActivity
             picasso.with(getApplicationContext()).load(url_photoFb).transform(new CircleTransform()).into(imageView_userPhoto);
             picasso.with(getApplicationContext()).load(url_photoFb).transform(new CircleTransform()).into(imVi_nav_usrPro);
         }
+
+        //CHAT SOCKET
+        Log.d(Constants.TAG_CHAT,"ON CREATE");
+        chatClientService = App.getChatClientService();
+        Log.d(Constants.TAG_CHAT,"chatClientService = " + chatClientService);
+        attemptLoginToChatServer();
+        //update new message counter drawer menu
+        int newMessageCount = (int)messageRepository.getNewMessageCount();
+        updateNewMessageCounter(newMessageCount);
     }
 
     @Override
@@ -252,9 +288,10 @@ public class MainMenuActivity extends AppCompatActivity
         }
 
         if (v.equals(imageButton_chatLoc)) {
-            gotoNextScreen = new Intent(getApplicationContext(),ListChatActivity.class);
-            dataPaket.putString("email",textView_emailUser.getText().toString());
-            gotoNextScreen.putExtras(dataPaket);
+            gotoNextScreen = new Intent(getApplicationContext(), MainChatActivity.class);
+            //gotoNextScreen = new Intent(getApplicationContext(),ListChatActivity.class);
+            //dataPaket.putString("email",textView_emailUser.getText().toString());
+            //gotoNextScreen.putExtras(dataPaket);
         }
 
         startActivity(gotoNextScreen);
@@ -339,4 +376,109 @@ public class MainMenuActivity extends AppCompatActivity
             return "circle";
         }
     }
+
+    //BEGIN SOCKET METHOD BLOCK
+    public Map<String, BroadcastReceiver> makeReceivers(){
+        Map<String, BroadcastReceiver> map = new HashMap<String, BroadcastReceiver>();
+        map.put(ChatClientService.SocketEvent.CONNECT, connectReceiver);
+        map.put(ChatClientService.SocketEvent.NEW_MESSAGE, newMessageReceiver);
+        return map;
+    }
+
+    /**
+     * update new message counter inline chat menu
+     */
+    private void updateNewMessageCounter(int newMessageCount) {
+        if ( newMessageCount < 1 ) return;
+        //update chat meenu item
+        //imageButton_chatLoc
+        /*
+        Menu menuNav = navigationView.getMenu();
+        MenuItem element = menuNav.findItem(R.id.nav_chat);
+        String before = element.getTitle().toString();
+        */
+        String counter = Integer.toString(newMessageCount);
+        String s = " " + counter;
+        SpannableString sColored = new SpannableString(s);
+
+        int textSize = getResources().getDimensionPixelSize(R.dimen.chat_counter);
+        int start = s.length() - (counter.length());
+        sColored.setSpan(new CircleBackgroundSpan(Color.RED, Color.DKGRAY, Color.WHITE, textSize, 2, 20), start, s.length(), 0);
+        //element.setTitle(sColored);
+
+
+    }
+
+    private void attemptLoginToChatServer() {
+        if ( !chatClientService.isLogin() ) {
+            JSONObject user = new JSONObject();
+            try {
+                UserApp userApp = App.getUserApp();
+                if ( userApp != null ) {
+                    user.put("name", userApp.getName());
+                    user.put("email", userApp.getEmail());
+                    user.put("phone", userApp.getPhone());
+                    chatClientService.emit(ChatClientService.SocketEmit.DO_LOGIN, user);
+                }
+            } catch (JSONException e) {
+                Log.e(Constants.TAG_CHAT, e.getMessage(), e);
+            }
+        }
+    }
+
+    private BroadcastReceiver connectReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            attemptLoginToChatServer();
+        }
+    };
+
+    private BroadcastReceiver newMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, final Intent intent) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject from;
+                    String message;
+                    try {
+                        String data = intent.getStringExtra("data");
+                        JSONObject joData = new JSONObject(data);
+                        from = joData.getJSONObject("from");
+                        message = joData.getString("message");
+
+                        String name = from.getString("name");
+                        String email = from.getString("email");
+                        String phone = from.getString("phone");
+
+                        //Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT );
+                        Log.d(Constants.TAG_CHAT, "message2 = " + message);
+                        //update new message count - option menu
+
+                    } catch (JSONException e) {
+                        return;
+                    }
+                }
+            });
+        }
+    };
+
+    //END SOCKET METHOD BLOCK
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(Constants.TAG_CHAT, getLocalClassName() + " => ON PAUSE");
+        chatClientService.unregisterReceivers();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(Constants.TAG, getLocalClassName() + " => ON RESUME");
+        chatClientService.registerReceivers(makeReceivers());
+
+    }
+
+
 }

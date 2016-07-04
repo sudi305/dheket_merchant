@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="listview" type="id" />
+    <item name="id_category" type="id" />
+    <item name="category_name" type="id" />
+    <item name="category_id" type="id" />
+    <item name="editText_hashtagEditText" type="id"/>
+    <item name="hashtag_view" type="id"/>
+</resources>

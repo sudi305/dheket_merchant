@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <!-- default -->
+    <item android:state_pressed="false">
+        <layer-list >
+            <item>
+                <shape
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:shape="rectangle">
+
+                    <!-- view background color -->
+                    <solid
+                        android:color="#1fb2fc">
+                    </solid>
+
+                    <!-- view border color and width -->
+                    <stroke
+                        android:width="2dp"
+                        android:color="#1fa4e9" >
+                    </stroke>
+
+                    <!-- If you want to add some padding -->
+
+                    <!-- Here is the corner radius -->
+                    <corners
+                        android:topRightRadius="0dp"
+                        android:topLeftRadius="0dp"
+                        android:bottomRightRadius="0dp"
+                        android:bottomLeftRadius="0dp">
+                    </corners>
+
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <item android:state_pressed="true">
+        <layer-list >
+            <item>
+                <shape
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:shape="rectangle">
+
+                    <!-- view background color -->
+                    <solid
+                        android:color="#1b8bc6">
+                    </solid>
+
+                    <!-- view border color and width -->
+                    <stroke
+                        android:width="2dp"
+                        android:color="#686464" >
+                    </stroke>
+
+                    <!-- If you want to add some padding -->
+
+                    <!-- Here is the corner radius -->
+                    <corners
+                        android:topRightRadius="0dp"
+                        android:topLeftRadius="0dp"
+                        android:bottomRightRadius="0dp"
+                        android:bottomLeftRadius="0dp">
+                    </corners>
+
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</selector>

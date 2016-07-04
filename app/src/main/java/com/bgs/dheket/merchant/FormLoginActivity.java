@@ -23,10 +23,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bgs.dheket.App;
 import com.bgs.dheket.accessingSensorPermission.HttpGetOrPost;
 import com.bgs.dheket.sqlite.DBHelper;
 import com.bgs.dheket.sqlite.ModelLocation;
 import com.bgs.dheket.sqlite.ModelMerchant;
+import com.bgs.dheket.viewmodel.UserApp;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -245,6 +247,14 @@ public class FormLoginActivity extends AppCompatActivity implements LocationList
                             temp_email = "user"+facebook_id+"@dheket.co.id";
                         }
                         check_email.setText(temp_email);
+
+                        UserApp userApp = App.getUserApp();
+                        if (userApp == null) userApp = new UserApp();
+                        userApp.setName(username);
+                        userApp.setEmail(email);
+                        userApp.setId(facebook_id);
+                        userApp.setPicture(facebook_photo);
+                        App.updateUserApp(userApp);
                     }
 
                 } catch (JSONException e) {

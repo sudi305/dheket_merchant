@@ -22,6 +22,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    sourceSets.main {
+        jniLibs.srcDir 'libs'
+        jni.srcDirs = [] //disable automatic ndk-build call
+    }
+
     productFlavors {
     }
 }
@@ -48,5 +54,16 @@ dependencies {
     compile 'com.makeramen:roundedimageview:2.0.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
+    compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
+    compile ('io.socket:socket.io-client:0.7.0') {
+        exclude group: 'org.json', module: 'json'
+    }
+
+    compile 'org.jetbrains:annotations-java5:15.0'
+    compile 'org.apache.commons:commons-lang3:3.4'
+
+    compile 'com.j256.ormlite:ormlite-core:4.48'
+    compile 'com.j256.ormlite:ormlite-android:4.48'
+
     compile project(':flowlayout-lib')
 }
