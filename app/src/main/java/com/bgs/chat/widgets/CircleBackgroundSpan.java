@@ -5,6 +5,9 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.text.TextPaint;
 import android.text.style.ReplacementSpan;
+import android.util.Log;
+
+import com.bgs.common.Constants;
 
 /**
  * Created by zhufre on 6/18/2016.
@@ -60,7 +63,6 @@ public class CircleBackgroundSpan extends ReplacementSpan
         width += mPadding;
         width -= (width % 2);
         bottom = (int)width; //bottom==width -> fully circle
-        //x -= mPadding;
         x -= (x % 2);
 
         textPaint.setTextAlign(Paint.Align.CENTER);
@@ -76,6 +78,7 @@ public class CircleBackgroundSpan extends ReplacementSpan
             paint.setStyle(Paint.Style.STROKE);
             canvas.drawOval(bounds, paint);
         }
+        //Log.d(Constants.TAG, "TEXT = " + text);
         canvas.drawText(text, start, end, bounds.centerX(), bounds.centerY() + textOffset, textPaint);
     }
 }

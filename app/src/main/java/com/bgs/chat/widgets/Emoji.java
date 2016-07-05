@@ -17,8 +17,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bgs.chat.NotificationCenter;
-import com.bgs.dheket.App;
+import com.bgs.common.DisplayUtils;
 import com.bgs.common.NativeUtilities;
+import com.bgs.dheket.App;
 import com.bgs.dheket.general.Utility;
 
 import java.io.File;
@@ -188,18 +189,18 @@ public class Emoji {
 
     static {
         int emojiFullSize;
-        if (Utility.density <= 1.0f) {
+        if (DisplayUtils.density <= 1.0f) {
             emojiFullSize = 30;
-        } else if (Utility.density <= 1.5f) {
+        } else if (DisplayUtils.density <= 1.5f) {
             emojiFullSize = 45;
-        } else if (Utility.density <= 2.0f) {
+        } else if (DisplayUtils.density <= 2.0f) {
             emojiFullSize = 60;
         } else {
             emojiFullSize = 90;
         }
-        drawImgSize = Utility.dp(20);
+        drawImgSize = DisplayUtils.dp(20);
 
-        bigImgSize = Utility.dp(30);
+        bigImgSize = DisplayUtils.dp(30);
 
 
         for (int j = 1; j < data.length; j++) {
@@ -216,13 +217,13 @@ public class Emoji {
         try {
             float scale = 1.0f;
             int imageResize = 1;
-            if (Utility.density <= 1.0f) {
+            if (DisplayUtils.density <= 1.0f) {
                 scale = 2.0f;
                 imageResize = 2;
-            } else if (Utility.density <= 1.5f) {
+            } else if (DisplayUtils.density <= 1.5f) {
                 scale = 3.0f;
                 imageResize = 2;
-            } else if (Utility.density <= 2.0f) {
+            } else if (DisplayUtils.density <= 2.0f) {
                 scale = 2.0f;
             } else {
                 scale = 3.0f;
@@ -461,7 +462,7 @@ public class Emoji {
 
     public static class EmojiSpan extends ImageSpan {
         private Paint.FontMetricsInt fontMetrics = null;
-        private int size = Utility.dp(20);
+        private int size = DisplayUtils.dp(20);
 
         public EmojiSpan(EmojiDrawable d, int verticalAlignment, int s, Paint.FontMetricsInt original) {
             super(d, verticalAlignment);
@@ -469,7 +470,7 @@ public class Emoji {
             if (original != null) {
                 size = Math.abs(fontMetrics.descent) + Math.abs(fontMetrics.ascent);
                 if (size == 0) {
-                    size = Utility.dp(20);
+                    size = DisplayUtils.dp(20);
                 }
             }
         }
@@ -483,8 +484,8 @@ public class Emoji {
             if (fontMetrics == null) {
                 int sz = super.getSize(paint, text, start, end, fm);
 
-                int offset = Utility.dp(8);
-                int w = Utility.dp(10);
+                int offset = DisplayUtils.dp(8);
+                int w = DisplayUtils.dp(10);
                 fm.top = -w - offset;
                 fm.bottom = w - offset;
                 fm.ascent = -w - offset;

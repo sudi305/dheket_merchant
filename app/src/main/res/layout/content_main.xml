@@ -363,7 +363,7 @@
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceSmall"
                             android:text="Chat"
-                            android:id="@+id/textView8"
+                            android:id="@+id/textView_chat"
                             android:layout_below="@+id/linearLayout3"
                             android:layout_alignRight="@+id/linearLayout3"
                             android:layout_alignEnd="@+id/linearLayout3"

@@ -18,18 +18,19 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.text.SpannableString;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,8 +39,8 @@ import android.widget.Toast;
 import com.bgs.chat.MainChatActivity;
 import com.bgs.chat.services.ChatClientService;
 import com.bgs.chat.widgets.CircleBackgroundSpan;
-import com.bgs.dheket.App;
 import com.bgs.common.Constants;
+import com.bgs.dheket.App;
 import com.bgs.dheket.sqlite.DBHelper;
 import com.bgs.dheket.sqlite.ModelMerchant;
 import com.bgs.dheket.viewmodel.UserApp;
@@ -49,6 +50,7 @@ import com.facebook.login.LoginManager;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -165,8 +167,7 @@ public class MainMenuActivity extends AppCompatActivity
         Log.d(Constants.TAG_CHAT,"chatClientService = " + chatClientService);
         attemptLoginToChatServer();
         //update new message counter drawer menu
-        int newMessageCount = (int)messageRepository.getNewMessageCount();
-        updateNewMessageCounter(newMessageCount);
+        updateNewMessageCounter();
     }
 
     @Override
@@ -385,28 +386,29 @@ public class MainMenuActivity extends AppCompatActivity
         return map;
     }
 
+    private void updateNewMessageCounter() {
+        int newMessageCount = (int)messageRepository.getNewMessageCount();
+        newMessageCount = 9;
+        updateNewMessageCounter(newMessageCount);
+    }
     /**
      * update new message counter inline chat menu
      */
     private void updateNewMessageCounter(int newMessageCount) {
         if ( newMessageCount < 1 ) return;
         //update chat meenu item
-        //imageButton_chatLoc
-        /*
-        Menu menuNav = navigationView.getMenu();
-        MenuItem element = menuNav.findItem(R.id.nav_chat);
-        String before = element.getTitle().toString();
-        */
+        TextView texView_chatLoc = (TextView)findViewById(R.id.textView_chat);
+        String before = texView_chatLoc.getText().toString();
+
         String counter = Integer.toString(newMessageCount);
-        String s = " " + counter;
+        String s = before + " " + counter;
+        s = StringUtils.repeat(" ", s.length()) + s;
         SpannableString sColored = new SpannableString(s);
 
         int textSize = getResources().getDimensionPixelSize(R.dimen.chat_counter);
         int start = s.length() - (counter.length());
-        sColored.setSpan(new CircleBackgroundSpan(Color.RED, Color.DKGRAY, Color.WHITE, textSize, 2, 20), start, s.length(), 0);
-        //element.setTitle(sColored);
-
-
+        sColored.setSpan(new CircleBackgroundSpan(Color.RED, Color.WHITE, Color.WHITE, textSize, 2, 20), start, s.length(), 0);
+        texView_chatLoc.setText(sColored);
     }
 
     private void attemptLoginToChatServer() {
@@ -454,6 +456,7 @@ public class MainMenuActivity extends AppCompatActivity
                         //Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT );
                         Log.d(Constants.TAG_CHAT, "message2 = " + message);
                         //update new message count - option menu
+                        updateNewMessageCounter();
 
                     } catch (JSONException e) {
                         return;

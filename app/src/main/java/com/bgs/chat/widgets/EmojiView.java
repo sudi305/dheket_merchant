@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bgs.common.DisplayUtils;
 import com.bgs.dheket.general.Utility;
 import com.bgs.dheket.merchant.R;
 
@@ -98,7 +99,7 @@ public class EmojiView extends LinearLayout {
             //  if (NativeUtilities.isTablet()) {
             //     gridView.setColumnWidth(NativeUtilities.dp(60));
             // } else {
-            gridView.setColumnWidth(Utility.dp(45));
+            gridView.setColumnWidth(DisplayUtils.dp(45));
             // }
             gridView.setNumColumns(-1);
             views.add(gridView);
@@ -116,8 +117,8 @@ public class EmojiView extends LinearLayout {
         tabs.setViewPager(pager);
         tabs.setShouldExpand(true);
         tabs.setIndicatorColor(0xff33b5e5);
-        tabs.setIndicatorHeight(Utility.dp(2.0f));
-        tabs.setUnderlineHeight(Utility.dp(2.0f));
+        tabs.setIndicatorHeight(DisplayUtils.dp(2.0f));
+        tabs.setUnderlineHeight(DisplayUtils.dp(2.0f));
         tabs.setUnderlineColor(0x66000000);
         tabs.setTabBackground(0);
         LinearLayout localLinearLayout = new LinearLayout(getContext());
@@ -134,7 +135,7 @@ public class EmojiView extends LinearLayout {
                 }
             }
         });
-        localLinearLayout.addView(localImageView, new LayoutParams(Utility.dp(61), LayoutParams.MATCH_PARENT));
+        localLinearLayout.addView(localImageView, new LayoutParams(DisplayUtils.dp(61), LayoutParams.MATCH_PARENT));
         recentsWrap = new FrameLayout(getContext());
         recentsWrap.addView(views.get(0));
         TextView localTextView = new TextView(getContext());
@@ -144,7 +145,7 @@ public class EmojiView extends LinearLayout {
         localTextView.setGravity(17);
         recentsWrap.addView(localTextView);
         views.get(0).setEmptyView(localTextView);
-        addView(localLinearLayout, new LayoutParams(-1, Utility.dp(48.0f)));
+        addView(localLinearLayout, new LayoutParams(-1, DisplayUtils.dp(48.0f)));
         addView(pager);
         loadRecents();
         if (Emoji.data[0] == null || Emoji.data[0].length == 0) {
