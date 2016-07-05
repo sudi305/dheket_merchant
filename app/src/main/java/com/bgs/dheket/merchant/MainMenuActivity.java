@@ -388,7 +388,7 @@ public class MainMenuActivity extends AppCompatActivity
 
     private void updateNewMessageCounter() {
         int newMessageCount = (int)messageRepository.getNewMessageCount();
-        newMessageCount = 9;
+        //newMessageCount = 9;
         updateNewMessageCounter(newMessageCount);
     }
     /**
