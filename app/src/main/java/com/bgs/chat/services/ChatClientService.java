@@ -7,7 +7,6 @@ import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
-
 import com.bgs.common.Constants;
 
 import org.json.JSONException;
@@ -62,7 +61,19 @@ public class ChatClientService {
         }
     }
 
-    public void emit(final String event, final Object... args) {
+    public void emitDoLogin(final Object... args) {
+        emit(SocketEmit.DO_LOGIN, args);
+    }
+
+    public void emitGetContacts(final Object... args) {
+        emit(SocketEmit.GET_CONTACTS, args);
+    }
+
+    public void emitNewMessage(final Object... args) {
+        emit(SocketEmit.NEW_MESSAGE, args);
+    }
+
+    private void emit(final String event, final Object... args) {
         if ( mSocket.connected() )
             mSocket.emit(event, args);
     }

@@ -8,6 +8,5 @@ public class ExtraParamConstants {
     public static String CATEGORY = "category";
     public static String CATEGORIES = "categories";
     public static String MERCHANT = "merchant";
-    public static String CURRENT_BEST_LOCATION = "current-best-location";
     public static String CHAT_CONTACT = "chat-contact";
 }

@@ -44,22 +44,20 @@
         <activity android:name=".AddNewLocationActivity_form_c"/>
         <activity android:name="com.bgs.dheket.merchant.AddNewLocationActivity_form_d"/>
         <activity android:name="com.bgs.dheket.merchant.AddNewLocationActivity_form_e"/>
-        <activity android:name="com.bgs.dheket.merchant.ListChatActivity"/>
         <activity android:name="com.bgs.dheket.merchant.ListLocationMerchantActivity"/>
         <activity android:name="com.bgs.dheket.merchant.ListPromotionActivity"/>
         <activity android:name="com.bgs.dheket.merchant.SearchLocationByNameActivity"/>
         <activity android:name="com.bgs.dheket.merchant.SettingActivity"/>
 
+        <activity android:name="com.bgs.chat.ChatHistoryActivity"/>
         <activity
             android:name="com.bgs.chat.ChatPageActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
+            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name="com.bgs.chat.MainChatActivity"
             android:label="@string/title_activity_main_chat"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
-        <receiver android:name="com.bgs.chat.services.ChatTaskAlarmReceiver" android:process=":remote" android:enabled="true" />
-        <service android:name="com.bgs.chat.services.ChatTaskService" android:enabled="true" android:exported="false" />
     </application>
 
 </manifest>

@@ -137,7 +137,7 @@ public class MainChatActivity extends AppCompatActivity {
                 user.put("name", userApp.getName());
                 user.put("email", userApp.getEmail());
                 user.put("phone", userApp.getPhone());
-                chatClientService.emit(ChatClientService.SocketEmit.DO_LOGIN, user);
+                chatClientService.emitDoLogin(user);
             } catch (JSONException e) {
                 Log.e(Constants.TAG_CHAT, e.getMessage(), e);
             }

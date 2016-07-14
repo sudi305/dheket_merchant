@@ -33,7 +33,6 @@ import com.bgs.common.Constants;
 import com.bgs.common.DisplayUtils;
 import com.bgs.common.ExtraParamConstants;
 import com.bgs.dheket.App;
-import com.bgs.dheket.general.Utility;
 import com.bgs.dheket.merchant.R;
 import com.bgs.dheket.viewmodel.UserApp;
 import com.bgs.domain.chat.model.ChatContact;
@@ -88,6 +87,7 @@ public class ChatPageActivity extends AppCompatActivity implements SizeNotifierR
 
     private static final String ACTION_CHAT_FROM_CONTACT = "com.bgs.chat.action.CHAT_FROM_CONTACT";
     private static final String ACTION_CHAT_FROM_HISTORY = "com.bgs.chat.action.CHAT_FROM_HISTORY";
+    private static final String ACTION_CHAT_FROM_LOCATION = "com.bgs.chat.action.FROM_LOCATION";
 
     public static void startChatFromContact(Context context, ChatContact contact) {
         startChatActivity(context, ACTION_CHAT_FROM_CONTACT, contact);
@@ -105,6 +105,7 @@ public class ChatPageActivity extends AppCompatActivity implements SizeNotifierR
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setAction(action);
         intent.putExtra(ExtraParamConstants.CHAT_CONTACT, contact);
+
         context.startActivity(intent);
     }
 
@@ -121,7 +122,6 @@ public class ChatPageActivity extends AppCompatActivity implements SizeNotifierR
         messageRepository = new MessageRepository(getApplicationContext());
 
         DisplayUtils.statusBarHeight = getStatusBarHeight();
-
         userContactTextView = (TextView) findViewById(R.id.user_contact);
         userContactTextView.setText(chatContact != null ? chatContact.getName() : "");
 
@@ -143,15 +143,7 @@ public class ChatPageActivity extends AppCompatActivity implements SizeNotifierR
         goBackButton.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = null;
-                if ( getIntent().getAction().equalsIgnoreCase(ACTION_CHAT_FROM_CONTACT)
-                        || getIntent().getAction().equalsIgnoreCase(ACTION_CHAT_FROM_HISTORY)) {
-                    intent = new Intent(getActivity(), MainChatActivity.class);
-                }
-                if ( intent != null ) {
-                    startActivity(intent);
-                    finish();
-                }
+                goBackActivity();
             }
         });
 
@@ -179,7 +171,9 @@ public class ChatPageActivity extends AppCompatActivity implements SizeNotifierR
         chatListView.requestFocus();
 
         chatClientService = App.getChatClientService();
+
         Log.d(Constants.TAG_CHAT, "ID => " + chatContact.getId());
+
         List<ChatMessage> messages ;/*messageRepository.getListMessageByContact(chatContact.getId());
         for(ChatMessage msg : messages) {
             Log.d(Constants.TAG_CHAT, String.format("MSG => %s, TIME => %s  ", msg.getMessageText(), new Date(msg.getCreateTime())));
@@ -191,6 +185,23 @@ public class ChatPageActivity extends AppCompatActivity implements SizeNotifierR
         //}
         addMessage(messages);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        goBackActivity();
+    }
+
+    private void goBackActivity() {
+        Intent intent = null;
+       if ( getIntent().getAction().equalsIgnoreCase(ACTION_CHAT_FROM_CONTACT)
+                || getIntent().getAction().equalsIgnoreCase(ACTION_CHAT_FROM_HISTORY)) {
+            intent = new Intent(getActivity(), ChatHistoryActivity.class);
+        }
+        if ( intent != null ) {
+            startActivity(intent);
+            finish();
+        }
     }
 
     public Map<String, BroadcastReceiver> makeReceivers(){
@@ -219,12 +230,12 @@ public class ChatPageActivity extends AppCompatActivity implements SizeNotifierR
         JSONObject joMessage = new JSONObject();
         JSONObject user = new JSONObject();
         try {
-            String name = Utility.getDeviceUniqueID(getContentResolver());
             UserApp userApp = App.getUserApp();
             //user.put("id", String.valueOf(System.currentTimeMillis()));
             user.put("name", userApp.getName());
             user.put("email", userApp.getEmail());
             user.put("phone", userApp.getPhone());
+            user.put("picture", userApp.getPicture());
 
             joMessage.put("from", user);
             joMessage.put("to", chatContact.getEmail());
@@ -234,7 +245,7 @@ public class ChatPageActivity extends AppCompatActivity implements SizeNotifierR
         }
         //message = String.format("{to:'%s',msg:'%s'}",userContact.getName(), message);
         // perform the sending message attempt.
-        chatClientService.emit(ChatClientService.SocketEmit.NEW_MESSAGE, joMessage);
+        chatClientService.emitNewMessage(joMessage);
 
     }
 
@@ -262,16 +273,16 @@ public class ChatPageActivity extends AppCompatActivity implements SizeNotifierR
         }
     }
 
-    private void attemptLoginToChatServer() {
+    private void loginToChatServer() {
         if ( !chatClientService.isLogin() ) {
             JSONObject user = new JSONObject();
             try {
-                String name = Utility.getDeviceUniqueID(getContentResolver());
                 UserApp userApp = App.getUserApp();
                 user.put("name", userApp.getName());
                 user.put("email", userApp.getEmail());
                 user.put("phone", userApp.getPhone());
-                chatClientService.emit(ChatClientService.SocketEmit.DO_LOGIN, user);
+                user.put("picture", userApp.getPicture());
+                chatClientService.emitDoLogin( user);
             } catch (JSONException e) {
                 Log.e(Constants.TAG_CHAT, e.getMessage(), e);
             }
@@ -281,7 +292,7 @@ public class ChatPageActivity extends AppCompatActivity implements SizeNotifierR
     private BroadcastReceiver connectReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            attemptLoginToChatServer();
+            loginToChatServer();
         }
     };
 
@@ -293,17 +304,14 @@ public class ChatPageActivity extends AppCompatActivity implements SizeNotifierR
                 public void run() {
                     String data = intent.getStringExtra("data");
                     JSONObject from;
-                    String message;
-                    String email;
-                    String name;
-                    String phone;
+                    String message, email, name, phone, picture;
                     try {
                         JSONObject joData = new JSONObject(data);
                         from = joData.getJSONObject("from");
                         name = from.getString("name");
                         email = from.getString("email");
                         phone = from.getString("phone");
-
+                        picture = from.getString("picture");
                         message = joData.getString("message");
                     } catch (JSONException e) {
                         return;
@@ -312,9 +320,16 @@ public class ChatPageActivity extends AppCompatActivity implements SizeNotifierR
                     Log.d(Constants.TAG_CHAT, String.format("from=%s\r\nmessage=%s ", from, message));
                     ChatContact contact = contactRepository.getContactByEmail(email);
                     if ( contact == null) {
-                        contact = new ChatContact(name, "", email, phone, ContactType.PRIVATE);
-                        contactRepository.createOrUpdate(contact);
+                        contact = new ChatContact(name, picture, email, phone, ContactType.PRIVATE);
+                    } else {
+                        contact.setName(name);
+                        contact.setPicture(picture);
+                        contact.setPhone(phone);
                     }
+
+
+                    contactRepository.createOrUpdate(contact);
+
                     //removeTyping(username);
                     ChatMessage msg = ChatHelper.createMessage(contact.getId(), message, MessageType.IN);
                     addMessage(msg);
