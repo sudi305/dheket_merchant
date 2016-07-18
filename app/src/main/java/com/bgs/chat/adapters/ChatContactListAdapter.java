@@ -80,7 +80,7 @@ public class ChatContactListAdapter extends BaseAdapter {
     @Override
     public int getItemViewType(int position) {
         ChatContact contact = chatContacts.get(position);
-        return contact.getContactType().ordinal();
+        return contact.getUserType().ordinal();
     }
 
 

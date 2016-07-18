@@ -22,11 +22,10 @@ import com.bgs.common.Constants;
 import com.bgs.dheket.App;
 import com.bgs.dheket.merchant.MainMenuActivity;
 import com.bgs.dheket.merchant.R;
-import com.bgs.dheket.viewmodel.UserApp;
 import com.bgs.domain.chat.model.ChatContact;
 import com.bgs.domain.chat.model.ChatMessage;
-import com.bgs.domain.chat.model.ContactType;
 import com.bgs.domain.chat.model.MessageType;
+import com.bgs.domain.chat.model.UserType;
 import com.bgs.domain.chat.repository.ContactRepository;
 import com.bgs.domain.chat.repository.IContactRepository;
 import com.bgs.domain.chat.repository.IMessageRepository;
@@ -107,19 +106,7 @@ public class ChatHistoryActivity extends AppCompatActivity {
     }
 
     private void loginToChatServer() {
-        if ( !chatClientService.isLogin() ) {
-            JSONObject user = new JSONObject();
-            try {
-                UserApp userApp = App.getUserApp();
-                user.put("name", userApp.getName());
-                user.put("email", userApp.getEmail());
-                user.put("phone", userApp.getPhone());
-                user.put("picture", userApp.getPicture());
-                chatClientService.emitDoLogin(user);
-            } catch (JSONException e) {
-                Log.e(Constants.TAG_CHAT, e.getMessage(), e);
-            }
-        }
+        chatClientService.emitDoLogin( App.getUserApp());
     }
 
     private BroadcastReceiver connectReceiver = new BroadcastReceiver() {
@@ -146,14 +133,14 @@ public class ChatHistoryActivity extends AppCompatActivity {
                 String email = from.getString("email");
                 String phone = from.getString("phone");
                 String picture = from.getString("picture");
-
+                String type = from.getString("type");
                 //Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT );
                 Log.d(Constants.TAG_CHAT, "message2 = " + message);
                 //removeTyping(username);
                 //final ChatContactFragment fragment0 = (ChatContactFragment) pagerAdapter.getItem(1);
-                ChatContact contact = contactRepository.getContactByEmail(email);
+                ChatContact contact = contactRepository.getContactByEmail(email, UserType.parse(type));
                 if ( contact == null) {
-                    contact = new ChatContact(name, picture, email, phone, ContactType.PRIVATE);
+                    contact = new ChatContact(name, picture, email, phone, UserType.parse(type));
                 } else {
                     contact.setName(name);
                     contact.setPicture(picture);
@@ -200,12 +187,13 @@ public class ChatHistoryActivity extends AppCompatActivity {
                     String email = joContact.getString("email");
                     String phone = joContact.getString("phone");
                     String picture = joContact.getString("picture");
+                    String type = joContact.getString("type");
                     //skip contact for current app user
 
                     //if ( email.equalsIgnoreCase(app.getUserApp().getEmail())) continue;
-                    ChatContact contact = contactRepository.getContactByEmail(email);
+                    ChatContact contact = contactRepository.getContactByEmail(email, UserType.parse(type));
                     if ( contact == null ) {
-                        contact = new ChatContact(name, picture, email, phone, ContactType.PRIVATE);
+                        contact = new ChatContact(name, picture, email, phone, UserType.parse(type));
                         contactList.add(contact);
                     } else {
                         contact.setName(name);

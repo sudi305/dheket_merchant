@@ -18,8 +18,8 @@ public class ChatContact implements Parcelable {
     public static final String FIELD_NAME_PICTURE   = "picture";
     public static final String FIELD_NAME_EMAIL   = "email";
     public static final String FIELD_NAME_PHONE   = "phone";
-    public static final String FIELD_NAME_TYPE   = "type";
-    public static final String FIELD_NAME_ACTIVE   = "active";
+    public static final String FIELD_NAME_USER_TYPE = "user_type";
+    public static final String FIELD_NAME_IS_GROUP   = "is_group";
 
     @DatabaseField(columnName = FIELD_NAME_ID, generatedId = true)
     private int id;
@@ -31,16 +31,18 @@ public class ChatContact implements Parcelable {
     private String email;
     @DatabaseField(columnName = FIELD_NAME_PHONE)
     private String phone;
-    @DatabaseField(columnName = FIELD_NAME_TYPE, dataType = DataType.ENUM_INTEGER)
-    private ContactType contactType;
+    @DatabaseField(columnName = FIELD_NAME_USER_TYPE, dataType = DataType.ENUM_INTEGER)
+    private UserType userType;
+    @DatabaseField(columnName = FIELD_NAME_IS_GROUP)
+    private int isGroup;
 
-    @DatabaseField(columnName = FIELD_NAME_ACTIVE, readOnly = true)
+    //transient
     private int active;
 
     public ChatContact() {}
 
-    public ChatContact(String name, String picture, String email, String phone, ContactType contactType) {
-        this(0, name, picture, email, phone, contactType);
+    public ChatContact(String name, String picture, String email, String phone, UserType userType) {
+        this(0, name, picture, email, phone, userType);
     }
     /**
      * 2param id
@@ -48,15 +50,16 @@ public class ChatContact implements Parcelable {
      * @param picture
      * @param email
      * @param phone
-     * @param contactType
+     * @param userType
      */
-    public ChatContact(int id, String name, String picture, String email, String phone, ContactType contactType) {
+    public ChatContact(int id, String name, String picture, String email, String phone, UserType userType) {
         this.id = id;
         this.name = name;
         this.picture = picture;
         this.email = email;
         this.phone = phone;
-        this.contactType = contactType;
+        this.userType = userType;
+        this.isGroup = 0;
         this.active = 0;
     }
 
@@ -66,7 +69,8 @@ public class ChatContact implements Parcelable {
         this.picture = in.readString();
         this.email = in.readString();
         this.phone = in.readString();
-        this.contactType = ContactType.parse(in.readInt());
+        this.userType = UserType.parse(in.readString());
+        this.isGroup = in.readInt();
         this.active = in.readInt();
     }
 
@@ -82,11 +86,12 @@ public class ChatContact implements Parcelable {
         dest.writeString(this.picture);
         dest.writeString(this.email);
         dest.writeString(this.phone);
-        dest.writeInt(this.contactType.ordinal());
+        dest.writeString(this.userType.toString());
+        dest.writeInt(this.isGroup);
         dest.writeInt(this.active);
     }
 
-    public static final Parcelable.Creator<ChatContact> CREATOR = new Parcelable.Creator<ChatContact>() {
+    public static final Creator<ChatContact> CREATOR = new Creator<ChatContact>() {
 
         @Override
         public ChatContact createFromParcel(Parcel source) {
@@ -102,52 +107,41 @@ public class ChatContact implements Parcelable {
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
-
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
     public String getPicture() {
         return picture;
     }
-
     public void setPicture(String picture) {
         this.picture = picture;
     }
-
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
-
     public String getPhone() {
         return phone;
     }
-
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-    public ContactType getContactType() {
-        return contactType;
+    public UserType getUserType() {
+        return userType;
     }
-
-    public void setContactType(ContactType contactType) {
-        this.contactType = contactType;
+    public void setUserType(UserType userType) {
+        this.userType = userType;
     }
-
+    public int getIsGroup() { return isGroup; }
+    public void setIsGroup(int isGroup) { this.isGroup = isGroup; }
     public int getActive() {return active;}
-
     public void setActive(int active) {this.active = active;}
 }

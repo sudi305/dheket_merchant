@@ -1,6 +1,7 @@
 package com.bgs.domain.chat.repository;
 
 import com.bgs.domain.chat.model.ChatContact;
+import com.bgs.domain.chat.model.UserType;
 
 import java.util.List;
 
@@ -10,6 +11,6 @@ import java.util.List;
 public interface IContactRepository {
     List<ChatContact> getListContact();
     ChatContact getContactById(int id);
-    ChatContact getContactByEmail(String email);
-    void createOrUpdate(ChatContact message);
+    ChatContact getContactByEmail(String email, UserType userType);
+    void createOrUpdate(ChatContact contact);
 }

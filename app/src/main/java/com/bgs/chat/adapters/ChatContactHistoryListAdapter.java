@@ -110,7 +110,7 @@ public class ChatContactHistoryListAdapter extends BaseAdapter {
     @Override
     public int getItemViewType(int position) {
         ChatHistory contact = chatContactHistories.get(position);
-        return contact.getContact().getContactType().ordinal();
+        return contact.getContact().getUserType().ordinal();
     }
 
 

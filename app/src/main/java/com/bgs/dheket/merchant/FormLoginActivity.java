@@ -29,6 +29,7 @@ import com.bgs.dheket.sqlite.DBHelper;
 import com.bgs.dheket.sqlite.ModelLocation;
 import com.bgs.dheket.sqlite.ModelMerchant;
 import com.bgs.dheket.viewmodel.UserApp;
+import com.bgs.domain.chat.model.UserType;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -254,6 +255,7 @@ public class FormLoginActivity extends AppCompatActivity implements LocationList
                         userApp.setEmail(email);
                         userApp.setId(facebook_id);
                         userApp.setPicture(facebook_photo);
+                        userApp.setType(UserType.MERCHANT);
                         App.updateUserApp(userApp);
                     }
 

@@ -26,7 +26,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,8 +36,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bgs.chat.ChatHistoryActivity;
-import com.bgs.chat.MainChatActivity;
 import com.bgs.chat.services.ChatClientService;
+import com.bgs.chat.viewmodel.ChatHelper;
 import com.bgs.chat.widgets.CircleBackgroundSpan;
 import com.bgs.common.Constants;
 import com.bgs.dheket.App;
@@ -46,7 +45,9 @@ import com.bgs.dheket.sqlite.DBHelper;
 import com.bgs.dheket.sqlite.ModelMerchant;
 import com.bgs.dheket.viewmodel.UserApp;
 import com.bgs.domain.chat.model.ChatContact;
-import com.bgs.domain.chat.model.ContactType;
+import com.bgs.domain.chat.model.ChatMessage;
+import com.bgs.domain.chat.model.MessageType;
+import com.bgs.domain.chat.model.UserType;
 import com.bgs.domain.chat.repository.ContactRepository;
 import com.bgs.domain.chat.repository.IContactRepository;
 import com.bgs.domain.chat.repository.IMessageRepository;
@@ -157,6 +158,7 @@ public class MainMenuActivity extends AppCompatActivity
         userApp.setEmail(email);
         userApp.setId(""+merchant.getId());
         userApp.setPicture(url_photoFb);
+        userApp.setType(UserType.MERCHANT);
         App.updateUserApp(userApp);
 
         Log.d(Constants.TAG, "App.getInstance().getUserApp()=" + App.getUserApp());
@@ -407,10 +409,10 @@ public class MainMenuActivity extends AppCompatActivity
         if ( newMessageCount < 1 ) return;
         //update chat meenu item
         TextView texView_chatLoc = (TextView)findViewById(R.id.textView_chat);
-        String before = texView_chatLoc.getText().toString();
+        String before = "Chat"; //texView_chatLoc.getText().toString();
 
         String counter = Integer.toString(newMessageCount);
-        String s = before + " " + counter;
+        String s = before + " " + counter + " ";
         s = StringUtils.repeat(" ", s.length()) + s;
         SpannableString sColored = new SpannableString(s);
 
@@ -421,21 +423,7 @@ public class MainMenuActivity extends AppCompatActivity
     }
 
     private void loginToChatServer() {
-        if ( !chatClientService.isLogin() ) {
-            JSONObject user = new JSONObject();
-            try {
-                UserApp userApp = App.getUserApp();
-                if ( userApp != null ) {
-                    user.put("name", userApp.getName());
-                    user.put("email", userApp.getEmail());
-                    user.put("phone", userApp.getPhone());
-                    user.put("picture", userApp.getPicture());
-                    chatClientService.emitDoLogin(user);
-                }
-            } catch (JSONException e) {
-                Log.e(Constants.TAG_CHAT, e.getMessage(), e);
-            }
-        }
+        chatClientService.emitDoLogin(App.getUserApp());
     }
 
     private BroadcastReceiver connectReceiver = new BroadcastReceiver() {
@@ -451,26 +439,49 @@ public class MainMenuActivity extends AppCompatActivity
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    JSONObject joData;
                     JSONObject from;
-                    String message;
+                    String message, email, name, phone, picture, type;
+
                     try {
                         String data = intent.getStringExtra("data");
-                        JSONObject joData = new JSONObject(data);
+                        joData = new JSONObject(data);
                         from = joData.getJSONObject("from");
                         message = joData.getString("message");
 
-                        String name = from.getString("name");
-                        String email = from.getString("email");
-                        String phone = from.getString("phone");
+                        name = from.getString("name");
+                        email = from.getString("email");
+                        phone = from.getString("phone");
+                        picture = from.getString("picture");
+                        type = from.getString("type");
 
-                        //Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT );
                         Log.d(Constants.TAG_CHAT, "message2 = " + message);
                         //update new message count - option menu
-                        updateNewMessageCounter();
+
 
                     } catch (JSONException e) {
+                        Log.e(Constants.TAG_CHAT,e.getMessage(), e);
                         return;
                     }
+
+                    ChatContact contact = contactRepository.getContactByEmail(email, UserType.parse(type));
+                    Log.d(Constants.TAG_CHAT, String.format("from=%s\r\nmessage=%s ", from, message));
+                    if ( contact == null) {
+                        contact = new ChatContact(name, picture, email, phone, UserType.parse(type));
+                    } else {
+                        contact.setName(name);
+                        contact.setPicture(picture);
+                        contact.setPhone(phone);
+                        contact.setUserType(UserType.parse(type));
+
+                    }
+
+                    contactRepository.createOrUpdate(contact);
+                    //removeTyping(username);
+                    ChatMessage msg = ChatHelper.createMessage(contact.getId(), message, MessageType.IN);
+                    messageRepository.createOrUpdate(msg);
+
+                    updateNewMessageCounter();
                 }
             });
         }
@@ -501,12 +512,13 @@ public class MainMenuActivity extends AppCompatActivity
                     String email = joContact.getString("email");
                     String phone = joContact.getString("phone");
                     String picture = joContact.getString("picture");
+                    String type = joContact.getString("type");
                     //skip contact for current app user
 
                     //if ( email.equalsIgnoreCase(app.getUserApp().getEmail())) continue;
-                    ChatContact contact = contactRepository.getContactByEmail(email);
+                    ChatContact contact = contactRepository.getContactByEmail(email, UserType.parse(type));
                     if ( contact == null ) {
-                        contact = new ChatContact(name, picture, email, phone, ContactType.PRIVATE);
+                        contact = new ChatContact(name, picture, email, phone, UserType.parse(type));
                     } else {
                         contact.setName(name);
                         contact.setPicture(picture);

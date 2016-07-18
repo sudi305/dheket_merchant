@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.bgs.common.Constants;
 import com.bgs.domain.chat.model.ChatContact;
+import com.bgs.domain.chat.model.UserType;
 import com.j256.ormlite.stmt.QueryBuilder;
 
 import java.sql.SQLException;
@@ -14,7 +15,7 @@ import java.util.List;
 /**
  * Created by zhufre on 6/28/2016.
  */
-public class ContactRepository extends BaseRepository<ChatContact> implements  IContactRepository {
+public class ContactRepository extends BaseRepository<ChatContact> implements IContactRepository {
 
     public ContactRepository(Context context) {
         super(context, ChatContact.class);
@@ -43,11 +44,13 @@ public class ContactRepository extends BaseRepository<ChatContact> implements  I
     }
 
     @Override
-    public ChatContact getContactByEmail(String email) {
+    public ChatContact getContactByEmail(String email, UserType userType) {
         ChatContact chatContac = null;
         try {
             QueryBuilder<ChatContact, Integer> builder = getDao().queryBuilder();
-            builder.where().eq(ChatContact.FIELD_NAME_EMAIL, email);
+            builder.where().eq(ChatContact.FIELD_NAME_EMAIL, email)
+                .and().eq(ChatContact.FIELD_NAME_USER_TYPE, userType);
+
             chatContac = getDao().queryForFirst(builder.prepare());
         } catch (SQLException e) {
             Log.e(Constants.TAG_CHAT, e.getMessage(), e);

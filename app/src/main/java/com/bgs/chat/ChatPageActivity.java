@@ -37,9 +37,9 @@ import com.bgs.dheket.merchant.R;
 import com.bgs.dheket.viewmodel.UserApp;
 import com.bgs.domain.chat.model.ChatContact;
 import com.bgs.domain.chat.model.ChatMessage;
-import com.bgs.domain.chat.model.ContactType;
 import com.bgs.domain.chat.model.MessageReadStatus;
 import com.bgs.domain.chat.model.MessageType;
+import com.bgs.domain.chat.model.UserType;
 import com.bgs.domain.chat.repository.ContactRepository;
 import com.bgs.domain.chat.repository.IContactRepository;
 import com.bgs.domain.chat.repository.IMessageRepository;
@@ -85,9 +85,9 @@ public class ChatPageActivity extends AppCompatActivity implements SizeNotifierR
         return ChatPageActivity.this;
     }
 
+
     private static final String ACTION_CHAT_FROM_CONTACT = "com.bgs.chat.action.CHAT_FROM_CONTACT";
     private static final String ACTION_CHAT_FROM_HISTORY = "com.bgs.chat.action.CHAT_FROM_HISTORY";
-    private static final String ACTION_CHAT_FROM_LOCATION = "com.bgs.chat.action.FROM_LOCATION";
 
     public static void startChatFromContact(Context context, ChatContact contact) {
         startChatActivity(context, ACTION_CHAT_FROM_CONTACT, contact);
@@ -194,7 +194,7 @@ public class ChatPageActivity extends AppCompatActivity implements SizeNotifierR
 
     private void goBackActivity() {
         Intent intent = null;
-       if ( getIntent().getAction().equalsIgnoreCase(ACTION_CHAT_FROM_CONTACT)
+        if ( getIntent().getAction().equalsIgnoreCase(ACTION_CHAT_FROM_CONTACT)
                 || getIntent().getAction().equalsIgnoreCase(ACTION_CHAT_FROM_HISTORY)) {
             intent = new Intent(getActivity(), ChatHistoryActivity.class);
         }
@@ -228,24 +228,34 @@ public class ChatPageActivity extends AppCompatActivity implements SizeNotifierR
 
         Log.d(getResources().getString(R.string.app_name), "before send = " + message);
         JSONObject joMessage = new JSONObject();
-        JSONObject user = new JSONObject();
+        JSONObject from = new JSONObject();
+        JSONObject to = new JSONObject();
         try {
             UserApp userApp = App.getUserApp();
-            //user.put("id", String.valueOf(System.currentTimeMillis()));
-            user.put("name", userApp.getName());
-            user.put("email", userApp.getEmail());
-            user.put("phone", userApp.getPhone());
-            user.put("picture", userApp.getPicture());
 
-            joMessage.put("from", user);
-            joMessage.put("to", chatContact.getEmail());
+            from.put("name", userApp.getName());
+            from.put("email", userApp.getEmail());
+            from.put("phone", userApp.getPhone());
+            from.put("picture", userApp.getPicture());
+            from.put("type", userApp.getType());
+
+            to.put("name", chatContact.getName());
+            to.put("email", chatContact.getEmail());
+            to.put("phone", chatContact.getPhone());
+            to.put("picture", chatContact.getPicture());
+            to.put("type", chatContact.getUserType().toString());
+
+            joMessage.put("from", from);
+            joMessage.put("to", to);
             joMessage.put("msg", message);
+
+            //message = String.format("{to:'%s',msg:'%s'}",userContact.getName(), message);
+            // perform the sending message attempt.
+            chatClientService.emitNewMessage(joMessage);
         } catch (JSONException e) {
             Log.e(Constants.TAG_CHAT, e.getMessage(), e);
         }
-        //message = String.format("{to:'%s',msg:'%s'}",userContact.getName(), message);
-        // perform the sending message attempt.
-        chatClientService.emitNewMessage(joMessage);
+
 
     }
 
@@ -274,19 +284,7 @@ public class ChatPageActivity extends AppCompatActivity implements SizeNotifierR
     }
 
     private void loginToChatServer() {
-        if ( !chatClientService.isLogin() ) {
-            JSONObject user = new JSONObject();
-            try {
-                UserApp userApp = App.getUserApp();
-                user.put("name", userApp.getName());
-                user.put("email", userApp.getEmail());
-                user.put("phone", userApp.getPhone());
-                user.put("picture", userApp.getPicture());
-                chatClientService.emitDoLogin( user);
-            } catch (JSONException e) {
-                Log.e(Constants.TAG_CHAT, e.getMessage(), e);
-            }
-        }
+        chatClientService.emitDoLogin( App.getUserApp());
     }
 
     private BroadcastReceiver connectReceiver = new BroadcastReceiver() {
@@ -304,7 +302,7 @@ public class ChatPageActivity extends AppCompatActivity implements SizeNotifierR
                 public void run() {
                     String data = intent.getStringExtra("data");
                     JSONObject from;
-                    String message, email, name, phone, picture;
+                    String message, email, name, phone, picture, type;
                     try {
                         JSONObject joData = new JSONObject(data);
                         from = joData.getJSONObject("from");
@@ -312,19 +310,23 @@ public class ChatPageActivity extends AppCompatActivity implements SizeNotifierR
                         email = from.getString("email");
                         phone = from.getString("phone");
                         picture = from.getString("picture");
+                        type = from.getString("type");
+
                         message = joData.getString("message");
                     } catch (JSONException e) {
                         return;
                     }
                     //Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT );
                     Log.d(Constants.TAG_CHAT, String.format("from=%s\r\nmessage=%s ", from, message));
-                    ChatContact contact = contactRepository.getContactByEmail(email);
+                    ChatContact contact = contactRepository.getContactByEmail(email, UserType.parse(type));
                     if ( contact == null) {
-                        contact = new ChatContact(name, picture, email, phone, ContactType.PRIVATE);
+                        contact = new ChatContact(name, picture, email, phone, UserType.parse(type));
                     } else {
                         contact.setName(name);
                         contact.setPicture(picture);
                         contact.setPhone(phone);
+                        contact.setUserType(UserType.parse(type));
+
                     }
 
 

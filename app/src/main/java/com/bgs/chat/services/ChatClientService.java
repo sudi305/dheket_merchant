@@ -8,6 +8,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.bgs.common.Constants;
+import com.bgs.dheket.viewmodel.UserApp;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,8 +62,21 @@ public class ChatClientService {
         }
     }
 
-    public void emitDoLogin(final Object... args) {
-        emit(SocketEmit.DO_LOGIN, args);
+    public void emitDoLogin(final UserApp userApp) {
+        if ( isLogin() || userApp == null) return;
+        try {
+            JSONObject user = new JSONObject();
+            user.put("name", userApp.getName());
+            user.put("email", userApp.getEmail());
+            user.put("phone", userApp.getPhone());
+            user.put("picture", userApp.getPicture());
+            user.put("type", userApp.getType().toString());
+            emit(SocketEmit.DO_LOGIN, user);
+        } catch (JSONException e) {
+            Log.e(Constants.TAG_CHAT, e.getMessage(), e);
+        }
+
+
     }
 
     public void emitGetContacts(final Object... args) {
