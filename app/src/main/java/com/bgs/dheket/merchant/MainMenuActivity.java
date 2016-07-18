@@ -411,8 +411,8 @@ public class MainMenuActivity extends AppCompatActivity
         TextView texView_chatLoc = (TextView)findViewById(R.id.textView_chat);
         String before = "Chat"; //texView_chatLoc.getText().toString();
 
-        String counter = Integer.toString(newMessageCount);
-        String s = before + " " + counter + " ";
+        String counter = Integer.toString(newMessageCount) + " ";
+        String s = before + " " + counter;
         s = StringUtils.repeat(" ", s.length()) + s;
         SpannableString sColored = new SpannableString(s);
 
