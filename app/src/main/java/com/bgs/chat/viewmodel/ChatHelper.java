@@ -10,11 +10,22 @@ import com.bgs.domain.chat.model.MessageType;
  */
 public class ChatHelper {
 
-    public static ChatMessage createMessage(final int contactId, final String messageText, final MessageType messageType) {
+    public static ChatMessage createMessageIn(final String msgid, final int contactId, final String messageText) {
+        return createMessage(msgid, contactId, messageText, MessageType.IN);
+    }
+
+    public static ChatMessage createMessageOut(final String msgid, final int contactId, final String messageText) {
+        return createMessage(msgid, contactId, messageText, MessageType.OUT);
+    }
+
+    private static ChatMessage createMessage(final String msgid, final int contactId, final String messageText, final MessageType messageType) {
         if(messageText.trim().length()==0)
             return null ;
 
         final ChatMessage message = new ChatMessage();
+
+        message.setMsgid(msgid);
+
         if ( contactId > 0 )
             message.setContactId(contactId);
 

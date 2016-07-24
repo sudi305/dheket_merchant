@@ -32,6 +32,7 @@ import com.bgs.chat.widgets.SizeNotifierRelativeLayout;
 import com.bgs.common.Constants;
 import com.bgs.common.DisplayUtils;
 import com.bgs.common.ExtraParamConstants;
+import com.bgs.common.UUIDUtils;
 import com.bgs.dheket.App;
 import com.bgs.dheket.merchant.R;
 import com.bgs.dheket.viewmodel.UserApp;
@@ -39,7 +40,6 @@ import com.bgs.domain.chat.model.ChatContact;
 import com.bgs.domain.chat.model.ChatMessage;
 import com.bgs.domain.chat.model.MessageReadStatus;
 import com.bgs.domain.chat.model.MessageType;
-import com.bgs.domain.chat.model.UserType;
 import com.bgs.domain.chat.repository.ContactRepository;
 import com.bgs.domain.chat.repository.IContactRepository;
 import com.bgs.domain.chat.repository.IMessageRepository;
@@ -78,7 +78,6 @@ public class ChatPageActivity extends AppCompatActivity implements SizeNotifierR
     private IContactRepository contactRepository;
     private IMessageRepository messageRepository;
     private ChatContact chatContact;
-    private ChatClientService chatClientService;
 
     //private App app;
     private Activity getActivity() {
@@ -170,8 +169,6 @@ public class ChatPageActivity extends AppCompatActivity implements SizeNotifierR
         chatEditText1.clearFocus();
         chatListView.requestFocus();
 
-        chatClientService = App.getChatClientService();
-
         Log.d(Constants.TAG_CHAT, "ID => " + chatContact.getId());
 
         List<ChatMessage> messages ;/*messageRepository.getListMessageByContact(chatContact.getId());
@@ -203,143 +200,6 @@ public class ChatPageActivity extends AppCompatActivity implements SizeNotifierR
             finish();
         }
     }
-
-    public Map<String, BroadcastReceiver> makeReceivers(){
-        Map<String, BroadcastReceiver> map = new HashMap<String, BroadcastReceiver>();
-        map.put(ChatClientService.SocketEvent.CONNECT, connectReceiver);
-        map.put(ChatClientService.SocketEvent.NEW_MESSAGE, newMessageReceiver);
-        return map;
-    }
-
-    //SOCKET METHOD
-    private void attemptSend() {
-        //if (null == userContact.getName()) return;
-        if (!chatClientService.isConnected()) return;
-
-        String message = chatEditText1.getText().toString().trim();
-        if (TextUtils.isEmpty(message)) {
-            chatEditText1.requestFocus();
-            return;
-        }
-
-        chatEditText1.setText("");
-        ChatMessage msg = ChatHelper.createMessage(chatContact.getId(), message, MessageType.OUT);
-        addMessage(msg);
-
-        Log.d(getResources().getString(R.string.app_name), "before send = " + message);
-        JSONObject joMessage = new JSONObject();
-        JSONObject from = new JSONObject();
-        JSONObject to = new JSONObject();
-        try {
-            UserApp userApp = App.getUserApp();
-
-            from.put("name", userApp.getName());
-            from.put("email", userApp.getEmail());
-            from.put("phone", userApp.getPhone());
-            from.put("picture", userApp.getPicture());
-            from.put("type", userApp.getType());
-
-            to.put("name", chatContact.getName());
-            to.put("email", chatContact.getEmail());
-            to.put("phone", chatContact.getPhone());
-            to.put("picture", chatContact.getPicture());
-            to.put("type", chatContact.getUserType().toString());
-
-            joMessage.put("from", from);
-            joMessage.put("to", to);
-            joMessage.put("msg", message);
-
-            //message = String.format("{to:'%s',msg:'%s'}",userContact.getName(), message);
-            // perform the sending message attempt.
-            chatClientService.emitNewMessage(joMessage);
-        } catch (JSONException e) {
-            Log.e(Constants.TAG_CHAT, e.getMessage(), e);
-        }
-
-
-    }
-
-    //call on create / resume : list source from db
-    private void addMessage(List<ChatMessage> messages) {
-        messageRepository.updateReadStatus(messages, MessageReadStatus.READ);
-        chatMessages.addAll(messages);
-        if(listAdapter!=null) {
-            listAdapter.notifyDataSetChanged();
-            scrollToBottom();
-        }
-    }
-
-    //call when user send message or receive new message
-    private void addMessage(ChatMessage message) {
-        if ( message.getMessageType() == MessageType.IN) {
-            message.setMessageReadStatus(MessageReadStatus.READ);
-            message.setReceiveTime(System.currentTimeMillis());
-        }
-        messageRepository.createOrUpdate(message);
-        chatMessages.add(message);
-        if(listAdapter!=null) {
-            listAdapter.notifyDataSetChanged();
-            scrollToBottom();
-        }
-    }
-
-    private void loginToChatServer() {
-        chatClientService.emitDoLogin( App.getUserApp());
-    }
-
-    private BroadcastReceiver connectReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            loginToChatServer();
-        }
-    };
-
-    private BroadcastReceiver newMessageReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, final Intent intent) {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    String data = intent.getStringExtra("data");
-                    JSONObject from;
-                    String message, email, name, phone, picture, type;
-                    try {
-                        JSONObject joData = new JSONObject(data);
-                        from = joData.getJSONObject("from");
-                        name = from.getString("name");
-                        email = from.getString("email");
-                        phone = from.getString("phone");
-                        picture = from.getString("picture");
-                        type = from.getString("type");
-
-                        message = joData.getString("message");
-                    } catch (JSONException e) {
-                        return;
-                    }
-                    //Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT );
-                    Log.d(Constants.TAG_CHAT, String.format("from=%s\r\nmessage=%s ", from, message));
-                    ChatContact contact = contactRepository.getContactByEmail(email, UserType.parse(type));
-                    if ( contact == null) {
-                        contact = new ChatContact(name, picture, email, phone, UserType.parse(type));
-                    } else {
-                        contact.setName(name);
-                        contact.setPicture(picture);
-                        contact.setPhone(phone);
-                        contact.setUserType(UserType.parse(type));
-
-                    }
-
-
-                    contactRepository.createOrUpdate(contact);
-
-                    //removeTyping(username);
-                    ChatMessage msg = ChatHelper.createMessage(contact.getId(), message, MessageType.IN);
-                    addMessage(msg);
-                    messageRepository.createOrUpdate(msg);
-                }
-            });
-        }
-    };
 
     private EditText.OnKeyListener keyListener = new View.OnKeyListener() {
         @Override
@@ -643,20 +503,134 @@ public class ChatPageActivity extends AppCompatActivity implements SizeNotifierR
         return super.onOptionsItemSelected(item);
     }
 
+    //SOCKET METHOD
+    public Map<String, BroadcastReceiver> makeReceivers(){
+        Map<String, BroadcastReceiver> map = new HashMap<String, BroadcastReceiver>();
+        map.put(ChatClientService.ActivityEvent.NEW_MESSAGE, newMessageReceiver);
+        return map;
+    }
+
+    private void attemptSend() {
+        //if (null == userContact.getName()) return;
+        if (!App.getChatEngine().isConnected()) return;
+
+        String message = chatEditText1.getText().toString().trim();
+        if (TextUtils.isEmpty(message)) {
+            chatEditText1.requestFocus();
+            return;
+        }
+
+        chatEditText1.setText("");
+        final ChatMessage msg = ChatHelper.createMessageOut(UUIDUtils.uuidAsBase64(), chatContact.getId(), message);
+        //save and add to list
+        boolean success = addMessage(msg);
+        if ( !success ) return;
+
+        try {
+            final UserApp userApp = App.getUserApp();
+            JSONObject from = new JSONObject() {{
+                put("name",userApp.getName());
+                put("email",userApp.getEmail());
+                put("phone",userApp.getPhone());
+                put("picture",userApp.getPicture());
+                put("type",userApp.getType());
+            }};
+
+            JSONObject to = new JSONObject() {
+                {
+                    put("name", chatContact.getName());
+                    put("email", chatContact.getEmail());
+                    put("phone", chatContact.getPhone());
+                    put("picture", chatContact.getPicture());
+                    put("type", chatContact.getUserType());
+                }};
+
+            JSONObject joMsg = new JSONObject() {{
+                put("msgid", msg.getMsgid());
+                put("text", msg.getMessageText());
+            }};
+
+            JSONObject joMessage = new JSONObject();
+            joMessage.put("from", from);
+            joMessage.put("to", to);
+            joMessage.put("msg", joMsg);
+
+
+            Log.d(Constants.TAG_CHAT, getClass().getName() + " => before send = " + joMessage);
+            // perform the sending message attempt.
+            App.getChatEngine().emitNewMessage(joMessage);
+        } catch (JSONException e) {
+            Log.e(Constants.TAG_CHAT, e.getMessage(), e);
+        }
+
+
+    }
+
+    //call on create / resume : list source from db
+    private void addMessage(List<ChatMessage> messages) {
+        messageRepository.updateReadStatus(messages, MessageReadStatus.READ);
+        chatMessages.addAll(messages);
+        if(listAdapter!=null) {
+            listAdapter.notifyDataSetChanged();
+            scrollToBottom();
+        }
+    }
+
+    //call when user send message or receive new message
+    private boolean addMessage(ChatMessage message) {
+        try {
+            if (message.getMessageType() == MessageType.IN) {
+                message.setMessageReadStatus(MessageReadStatus.READ);
+                message.setReceiveTime(System.currentTimeMillis());
+            }
+            messageRepository.createOrUpdate(message);
+            chatMessages.add(message);
+            if (listAdapter != null) {
+                listAdapter.notifyDataSetChanged();
+                scrollToBottom();
+            }
+            return true;
+        } catch ( Exception e ) {
+            Log.e(Constants.TAG_CHAT, e.getMessage(),e);
+        }
+
+        return false;
+    }
+
+    private void loginToChatServer() {
+        App.getChatEngine().emitDoLogin( App.getUserApp());
+    }
+
+
+    private BroadcastReceiver newMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, final Intent intent) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    ChatContact contact = intent.getParcelableExtra("contact");
+                    ChatMessage msg = intent.getParcelableExtra("msg");
+                    Log.d(Constants.TAG_CHAT, getClass().getName() + String.format(" => new message = %s from %s ", msg.getMessageText(), contact.getEmail()));
+                    addMessage(msg);
+                }
+            });
+        }
+    };
+
 
     @Override
     public void onPause() {
         super.onPause();
         Log.d(Constants.TAG_CHAT, getLocalClassName() + " => ON PAUSE");
         hideEmojiPopup();
-        chatClientService.unregisterReceivers();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         Log.d(Constants.TAG_CHAT, getLocalClassName() + " => ON RESUME");
-        chatClientService.registerReceivers(makeReceivers());
+        ChatClientService.registerReceivers(makeReceivers());
+        loginToChatServer();
     }
 
     @Override
@@ -669,11 +643,6 @@ public class ChatPageActivity extends AppCompatActivity implements SizeNotifierR
     @Override
     public void onDestroy() {
         super.onDestroy();
-        //socket.off("new message", onNewMessage);
-        //socket.off("user joined", onUserJoined);
-        //socket.off("user left", onUserLeft);
-        //socket.off("typing", onTyping);
-        //socket.off("stop typing", onStopTyping);
         NotificationCenter.getInstance().removeObserver(this, NotificationCenter.emojiDidLoaded);
 
     }

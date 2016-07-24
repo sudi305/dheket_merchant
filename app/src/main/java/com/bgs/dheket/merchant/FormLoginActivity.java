@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bgs.common.Constants;
 import com.bgs.dheket.App;
 import com.bgs.dheket.accessingSensorPermission.HttpGetOrPost;
 import com.bgs.dheket.sqlite.DBHelper;
@@ -255,7 +256,7 @@ public class FormLoginActivity extends AppCompatActivity implements LocationList
                         userApp.setEmail(email);
                         userApp.setId(facebook_id);
                         userApp.setPicture(facebook_photo);
-                        userApp.setType(UserType.MERCHANT);
+                        userApp.setType(Constants.USER_TYPE);
                         App.updateUserApp(userApp);
                     }
 

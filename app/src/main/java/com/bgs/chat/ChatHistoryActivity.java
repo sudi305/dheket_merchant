@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.bgs.chat.adapters.ChatContactHistoryListAdapter;
 import com.bgs.chat.services.ChatClientService;
-import com.bgs.chat.viewmodel.ChatHelper;
 import com.bgs.chat.viewmodel.ChatHistory;
 import com.bgs.common.Constants;
 import com.bgs.dheket.App;
@@ -24,17 +23,11 @@ import com.bgs.dheket.merchant.MainMenuActivity;
 import com.bgs.dheket.merchant.R;
 import com.bgs.domain.chat.model.ChatContact;
 import com.bgs.domain.chat.model.ChatMessage;
-import com.bgs.domain.chat.model.MessageType;
-import com.bgs.domain.chat.model.UserType;
 import com.bgs.domain.chat.repository.ContactRepository;
 import com.bgs.domain.chat.repository.IContactRepository;
 import com.bgs.domain.chat.repository.IMessageRepository;
 import com.bgs.domain.chat.repository.MessageRepository;
 import com.squareup.picasso.Picasso;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,7 +43,6 @@ public class ChatHistoryActivity extends AppCompatActivity {
     String urls = "";
     Picasso picasso;
 
-    private ChatClientService chatClientService;
     private ListView contactHistoryListView;
     private ChatContactHistoryListAdapter listAdapter;
     private ArrayList<ChatHistory> chatContactHistories;
@@ -95,153 +87,50 @@ public class ChatHistoryActivity extends AppCompatActivity {
         listAdapter = new ChatContactHistoryListAdapter(chatContactHistories, getActivity());
         contactHistoryListView.setAdapter(listAdapter);
 
-        chatClientService = App.getChatClientService();
-        loginToChatServer();
-
         contactRepository = new ContactRepository(getActivity());
         messageRepository = new MessageRepository(getActivity());
         List<ChatContact> contactList = contactRepository.getListContact();
         fillContactHistory(contactList, false);
+    }
 
+
+    public Map<String, BroadcastReceiver> makeReceivers(){
+        Map<String, BroadcastReceiver> map = new HashMap<String, BroadcastReceiver>();
+        map.put(ChatClientService.ActivityEvent.NEW_MESSAGE, newMessageReceiver);
+        map.put(ChatClientService.ActivityEvent.LIST_CONTACT, listContactReceiver);
+        return map;
     }
 
     private void loginToChatServer() {
-        chatClientService.emitDoLogin( App.getUserApp());
+        App.getChatEngine().emitDoLogin( App.getUserApp());
     }
-
-    private BroadcastReceiver connectReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            loginToChatServer();
-        }
-    };
 
     private BroadcastReceiver newMessageReceiver = new BroadcastReceiver()  {
         @Override
         public void onReceive(Context context, Intent intent){
-            String data = intent.getStringExtra("data");
-            JSONObject from;
-            String message;
-            try {
-
-                JSONObject joData = new JSONObject(data);
-                from = joData.getJSONObject("from");
-                message = joData.getString("message");
-
-                //String id = from.getString("id");
-                String name = from.getString("name");
-                String email = from.getString("email");
-                String phone = from.getString("phone");
-                String picture = from.getString("picture");
-                String type = from.getString("type");
-                //Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT );
-                Log.d(Constants.TAG_CHAT, "message2 = " + message);
-                //removeTyping(username);
-                //final ChatContactFragment fragment0 = (ChatContactFragment) pagerAdapter.getItem(1);
-                ChatContact contact = contactRepository.getContactByEmail(email, UserType.parse(type));
-                if ( contact == null) {
-                    contact = new ChatContact(name, picture, email, phone, UserType.parse(type));
-                } else {
-                    contact.setName(name);
-                    contact.setPicture(picture);
-                    contact.setPhone(phone);
-                }
-
-                contactRepository.createOrUpdate(contact);
-
-                if ( contact.getActive() != 1) {
-                    final ChatMessage lastMessage = ChatHelper.createMessage(contact.getId(), message, MessageType.IN);
-                    messageRepository.createOrUpdate(lastMessage);
-                    final long newMessages = messageRepository.getNewMessageCountByContact(contact.getId());
-                    updateContactHistory(contact, (int)newMessages, lastMessage);
-                }
-
-            } catch (JSONException e) {
+            ChatContact contact = intent.getParcelableExtra("contact");
+            ChatMessage msg = intent.getParcelableExtra("msg");
+            Log.d(Constants.TAG_CHAT, getClass().getName() + String.format(" => new message = %s from %s ", msg.getMessageText(), contact.getEmail()));
+            //new message & contact data sdh di save pada chatclientservice
+            if ( contact != null && contact.getActive() != 1) {
+                final ChatMessage lastMessage = msg;
+                final long newMessages = messageRepository.getNewMessageCountByContact(contact.getId());
+                updateContactHistory(contact, (int)newMessages, lastMessage);
             }
+
+
         }
     };
 
     private BroadcastReceiver listContactReceiver = new BroadcastReceiver()  {
         @Override
         public void onReceive(Context context, Intent intent){
-            String data = intent.getStringExtra("data");
-            //Log.d(getResources().getString(R.string.app_name), "list contact ");
-            JSONArray contacts = new JSONArray();
-            try {
-                JSONObject joData = new JSONObject(data);
-                contacts = joData.getJSONArray("contacts");
-                //Toast.makeText(getApplicationContext(), "Login1 " + isLogin, Toast.LENGTH_SHORT).show();
-            } catch (JSONException e) {
-                Log.e(Constants.TAG_CHAT, e.getMessage(), e);
-                return;
-            }
-            Log.d(Constants.TAG_CHAT, "list contacts = " + contacts);
-            //Toast.makeText(getApplicationContext(), "Login2 " + isLogin, Toast.LENGTH_SHORT).show();
-
-            final ArrayList<ChatContact> contactList = new ArrayList<ChatContact>();
-            for(int i = 0; i < contacts.length(); i++) {
-                try {
-                    JSONObject joContact = contacts.getJSONObject(i);
-                    String id = joContact.getString("id");
-                    String name = joContact.getString("name");
-                    String email = joContact.getString("email");
-                    String phone = joContact.getString("phone");
-                    String picture = joContact.getString("picture");
-                    String type = joContact.getString("type");
-                    //skip contact for current app user
-
-                    //if ( email.equalsIgnoreCase(app.getUserApp().getEmail())) continue;
-                    ChatContact contact = contactRepository.getContactByEmail(email, UserType.parse(type));
-                    if ( contact == null ) {
-                        contact = new ChatContact(name, picture, email, phone, UserType.parse(type));
-                        contactList.add(contact);
-                    } else {
-                        contact.setName(name);
-                        contact.setPicture(picture);
-                        contact.setPhone(phone);
-                    }
-
-                    //save new or update
-                    contactRepository.createOrUpdate(contact);
-
-                } catch (JSONException e) {
-                    Log.d(Constants.TAG_CHAT,e.getMessage(), e);
-                }
-            }
-
-            fillContactHistory(contactList, true);
+            ArrayList<ChatContact> contactList = intent.getParcelableArrayListExtra("contactList");
+            Log.d(Constants.TAG_CHAT, getClass().getName() + " => list contacts = " + contactList.size());
+            reloadContactHistory();
 
         }
     };
-
-    private BroadcastReceiver userJoinReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String data = intent.getStringExtra("data");
-            JSONObject user;
-            try {
-                JSONObject joData = new JSONObject(data);
-                user = joData.getJSONObject("user");
-                Log.d(Constants.TAG_CHAT, "User Join " + user.getString("email"));
-            } catch (JSONException e) {
-                Log.e(Constants.TAG_CHAT, e.getMessage(), e);
-                return;
-            }
-            //retrive contact
-            chatClientService.emitGetContacts();
-            //ChatTaskService.startActionGetContacts(getActivity());
-        }
-    };
-
-    public Map<String, BroadcastReceiver> makeReceivers(){
-        Map<String, BroadcastReceiver> map = new HashMap<String, BroadcastReceiver>();
-        map.put(ChatClientService.SocketEvent.CONNECT, connectReceiver);
-        map.put(ChatClientService.SocketEvent.USER_JOIN, userJoinReceiver);
-        map.put(ChatClientService.SocketEvent.NEW_MESSAGE, newMessageReceiver);
-        map.put(ChatClientService.SocketEvent.LIST_CONTACT, listContactReceiver);
-        return map;
-    }
-
 
     private void showEmptyMessage() {
         if ( chatContactHistories.size() == 0 ) {
@@ -252,7 +141,7 @@ public class ChatHistoryActivity extends AppCompatActivity {
 
     private void fillContactHistory(List<ChatContact> contactList, boolean update) {
         for (ChatContact contact : contactList) {
-            Log.d(Constants.TAG_CHAT, "CONTACT-PICTURE = "+ contact.getPicture());
+            //Log.d(Constants.TAG_CHAT, "CONTACT-PICTURE = "+ contact.getPicture());
             long newMessageCount = messageRepository.getNewMessageCountByContact(contact.getId());
             //Log.d(Constants.TAG_CHAT, "newMessageCount=" + newMessageCount);
             ChatMessage lastMessage = messageRepository.getLastMessageByContact(contact.getId());
@@ -340,12 +229,23 @@ public class ChatHistoryActivity extends AppCompatActivity {
     }
 
 
+    private void reloadContactHistory() {
+        //reset selected contact status
+        List<ChatContact> contactList = contactRepository.getListContact();
+        fillContactHistory(contactList, true);
+        /*
+        for(ChatHistory item : chatContactHistories) {
+            item.getContact().setActive(0);
+        }
+        */
+
+    }
+
     @Override
     public void onPause() {
         super.onPause();
         Log.d(Constants.TAG_CHAT, getLocalClassName() + " => ON PAUSE");
-        chatClientService.unregisterReceivers();
-    }
+            }
 
     @Override
     public void onStop() {
@@ -357,19 +257,8 @@ public class ChatHistoryActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Log.d(Constants.TAG_CHAT,getLocalClassName() + " => ON RESUME");
-        Log.d(Constants.TAG_CHAT, "chatClientService=" + chatClientService);
-        chatClientService.registerReceivers(makeReceivers());
-
-        //reset selected contact status
-        List<ChatContact> contactList = contactRepository.getListContact();
-        fillContactHistory(contactList, true);
-        /*
-        for(ChatHistory item : chatContactHistories) {
-            item.getContact().setActive(0);
-        }
-        */
-        //hack mode
-        if (contactList.size() == 0)
-            chatClientService.emitGetContacts();
+        ChatClientService.registerReceivers(makeReceivers());
+        loginToChatServer();
+        reloadContactHistory();
     }
 }

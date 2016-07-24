@@ -1,285 +1,310 @@
 package com.bgs.chat.services;
 
+import android.app.Activity;
+import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Bundle;
+import android.os.IBinder;
+import android.os.NetworkOnMainThreadException;
+import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
+import com.bgs.chat.viewmodel.ChatHelper;
 import com.bgs.common.Constants;
+import com.bgs.dheket.App;
 import com.bgs.dheket.viewmodel.UserApp;
+import com.bgs.domain.chat.model.ChatContact;
+import com.bgs.domain.chat.model.ChatMessage;
+import com.bgs.domain.chat.model.MessageType;
+import com.bgs.domain.chat.model.UserType;
+import com.bgs.domain.chat.repository.ContactRepository;
+import com.bgs.domain.chat.repository.IContactRepository;
+import com.bgs.domain.chat.repository.IMessageRepository;
+import com.bgs.domain.chat.repository.MessageRepository;
+import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import io.socket.client.IO;
-import io.socket.client.Socket;
-import io.socket.emitter.Emitter;
 
 /**
  * Created by zhufre on 6/26/2016.
  */
-public class ChatClientService {
-    private Context mContext;
-    private boolean mLogin = false;
-    private Socket mSocket;
+public class ChatClientService extends Service {
+    private ChatEngine chatEngine;
+    private IMessageRepository messageRepository;
+    private IContactRepository contactRepository;
 
-    public ChatClientService(Context context) {
-        this.mContext = context;
-        initSocket();
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.d(Constants.TAG_CHAT, getClass().getName() + " => onStartCommand");
+        messageRepository = new MessageRepository(getApplicationContext());
+        contactRepository = new ContactRepository(getApplicationContext());
+
+        chatEngine = App.getChatEngine();
+        chatEngine.registerReceivers( makeReceivers());
+
+        return START_STICKY;
     }
 
-    public void initSocket()
-    {
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    public Map<String, BroadcastReceiver> makeReceivers(){
+        Map<String, BroadcastReceiver> map = new HashMap<String, BroadcastReceiver>();
+        map.put(ChatEngine.SocketEvent.CONNECT, onConnectReceiver);
+        map.put(ChatEngine.SocketEvent.LOGIN, onLoginReceiver);
+        map.put(ChatEngine.SocketEvent.USER_JOIN, userJoinReceiver);
+        map.put(ChatEngine.SocketEvent.NEW_MESSAGE, newMessageReceiver);
+        map.put(ChatEngine.SocketEvent.LIST_CONTACT, listContactReceiver);
+        return map;
+    }
+
+    public void loginWithFbAccount() {
+        if ( AccessToken.getCurrentAccessToken() == null ) return;
         try {
-            IO.Options options = new IO.Options();
-            //options.reconnectionAttempts = 1;
-            //options.forceNew = true;
-            options.reconnectionDelay = 1000;
-            options.reconnectionDelayMax = 2000;
-            options.timeout = 1000;
-            mSocket = IO.socket(Constants.CHAT_SERVER_URL, options);
-            mSocket.on(SocketEvent.CONNECT, onConnect);
-            mSocket.on(SocketEvent.DISCONNECT, onDisconnect);
-            mSocket.on(SocketEvent.CONNECT_ERROR, onConnectError);
-            mSocket.on(SocketEvent.CONNECT_TIMEOUT, onConnectError);
-            mSocket.on(SocketEvent.LOGIN, onLogin);
-            mSocket.on(SocketEvent.USER_JOIN, onUserJoin);
-            mSocket.on(SocketEvent.USER_LEFT, onUserLeft);
-            mSocket.on(SocketEvent.TYPING, onTyping);
-            mSocket.on(SocketEvent.STOP_TYPING, onStopTyping);
-            mSocket.on(SocketEvent.LIST_CONTACT, onListContact);
-            mSocket.on(SocketEvent.UPDATE_CONTACT, onUpdateContact);
-            mSocket.on(SocketEvent.NEW_MESSAGE, onNewMessage);
-            mSocket.connect();
-        } catch (URISyntaxException e) {
-            Log.e(Constants.TAG_CHAT, e.getMessage(), e);
+            GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+
+                @Override
+                public void onCompleted(JSONObject object, GraphResponse response) {
+
+                    JSONObject json = response.getJSONObject();
+                    try {
+                        if (json != null) {
+                            Log.d(Constants.TAG, "json fb = " + json.toString());
+                            String id = json.getString("id");
+                            String name = json.getString("name");
+                            String gender = json.getString("gender");
+                            String email = json.getString("email");
+                            String imageUsr = json.getString("picture");
+
+                            String profilePicUrl = "";
+                            if (json.has("picture")) {
+                                profilePicUrl = json.getJSONObject("picture").getJSONObject("data").getString("url");
+                            }
+
+                            //update user app
+                            //add by supri 2016/6/16
+                            UserApp userApp = App.getUserApp();
+                            if (userApp == null) userApp = new UserApp();
+                            userApp.setName(name);
+                            userApp.setEmail(email);
+                            userApp.setId(id);
+                            userApp.setPicture(profilePicUrl);
+                            userApp.setType(Constants.USER_TYPE);
+                            App.updateUserApp(userApp);
+                            Log.d(Constants.TAG, "App.getInstance().getUserApp()=" + App.getUserApp());
+                            //DO LOGIN
+                            chatEngine.emitDoLogin(App.getUserApp());
+                        }
+
+                    } catch (JSONException e) {
+                        Log.e(Constants.TAG, e.getMessage(), e);
+                    }
+                }
+            });
+            Bundle parameters = new Bundle();
+            parameters.putString("fields", "id,name,link,email,gender,picture.type(large)");
+            request.setParameters(parameters);
+            request.executeAsync();
+        } catch (NetworkOnMainThreadException ne) {
+            Log.e(Constants.TAG_CHAT, ne.getMessage(), ne);
         }
     }
 
-    public void emitDoLogin(final UserApp userApp) {
-        if ( isLogin() || userApp == null) return;
-        try {
-            JSONObject user = new JSONObject();
-            user.put("name", userApp.getName());
-            user.put("email", userApp.getEmail());
-            user.put("phone", userApp.getPhone());
-            user.put("picture", userApp.getPicture());
-            user.put("type", userApp.getType().toString());
-            emit(SocketEmit.DO_LOGIN, user);
-        } catch (JSONException e) {
-            Log.e(Constants.TAG_CHAT, e.getMessage(), e);
-        }
-
-
+    public void emitDoLogin() {
+        loginWithFbAccount();
     }
 
-    public void emitGetContacts(final Object... args) {
-        emit(SocketEmit.GET_CONTACTS, args);
-    }
-
-    public void emitNewMessage(final Object... args) {
-        emit(SocketEmit.NEW_MESSAGE, args);
-    }
-
-    private void emit(final String event, final Object... args) {
-        if ( mSocket.connected() )
-            mSocket.emit(event, args);
-    }
-
-    private Emitter.Listener onNewMessage = new Emitter.Listener() {
+    private BroadcastReceiver onConnectReceiver = new BroadcastReceiver() {
         @Override
-        public void call(final Object... args) {
-            JSONObject data = (JSONObject) args[0];
-            if ( mReceivers.containsKey(SocketEvent.NEW_MESSAGE))
-                sendChatServiceBroadcast(SocketEvent.NEW_MESSAGE, data.toString());
+        public void onReceive(Context context, Intent intent) {
+            Log.d(Constants.TAG_CHAT , getClass().getName() + " => EMIT DO LOGIN ");
+            emitDoLogin();
         }
     };
 
-    private Emitter.Listener onConnect = new Emitter.Listener() {
+    private BroadcastReceiver onLoginReceiver = new BroadcastReceiver() {
         @Override
-        public void call(Object... args) {
-            //JSONObject data = (JSONObject) args[0];
-            Log.d(Constants.TAG_CHAT, "CONNECTED");
-            if ( mReceivers.containsKey(SocketEvent.CONNECT))
-                sendChatServiceBroadcast(SocketEvent.CONNECT);
+        public void onReceive(Context context, Intent intent) {
+            Log.d(Constants.TAG_CHAT , getClass().getName() + " => EMIT GET CONTACTS ");
+            chatEngine.emitGetContacts();
         }
     };
 
-    private Emitter.Listener onDisconnect = new Emitter.Listener() {
+    private BroadcastReceiver newMessageReceiver = new BroadcastReceiver()  {
         @Override
-        public void call(Object... args) {
-            mLogin = false;
-            //JSONObject data = (JSONObject) args[0];
-            Log.d(Constants.TAG_CHAT , "DISCONNECTED");
-            if ( mReceivers.containsKey(SocketEvent.DISCONNECT))
-                sendChatServiceBroadcast(SocketEvent.DISCONNECT);
-        }
-    };
-
-    private Emitter.Listener onConnectError = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-            mLogin = false;
-            //JSONObject data = (JSONObject) args[0];
-            Log.d(Constants.TAG_CHAT , "CONNECTION ERROR");
-            if ( mReceivers.containsKey(SocketEvent.CONNECT_ERROR))
-                sendChatServiceBroadcast(SocketEvent.CONNECT_ERROR);
-        }
-    };
-
-    private Emitter.Listener onLogin = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-            JSONObject data = (JSONObject) args[0];
+        public void onReceive(Context context, Intent intent){
+            String data = intent.getStringExtra("data");
+            JSONObject joFrom;
+            JSONObject joMsg;
+            String msgid, text, email, name, phone, picture, type;
             try {
-                mLogin = data.getBoolean("success");
+                JSONObject joData = new JSONObject(data);
+                Log.d(Constants.TAG_CHAT, "::::" + getClass().getName() + " => new message = " + joData);
+                joFrom = joData.getJSONObject("from");
+                name = joFrom.getString("name");
+                email = joFrom.getString("email");
+                phone = joFrom.getString("phone");
+                picture = joFrom.getString("picture");
+                type = joFrom.getString("type");
+
+                joMsg = joData.getJSONObject("msg");
+                msgid = joMsg.getString("msgid");
+                text = joMsg.getString("text");
+
             } catch (JSONException e) {
-                Log.e(Constants.TAG_CHAT , e.getMessage(), e);
+                Log.e(Constants.TAG_CHAT, e.getMessage(), e);
                 return;
             }
-            Log.d(Constants.TAG_CHAT , "Login " + mLogin);
-            if ( mReceivers.containsKey(SocketEvent.LOGIN))
-                sendChatServiceBroadcast(SocketEvent.LOGIN, data.toString());
+
+            ChatContact contact = contactRepository.getContactByEmail(email, UserType.parse(type));
+            if ( contact == null) {
+                contact = new ChatContact(name, picture, email, phone, UserType.parse(type));
+            } else {
+                contact.setName(name);
+                contact.setPicture(picture);
+                contact.setPhone(phone);
+                contact.setUserType(UserType.parse(type));
+            }
+            contactRepository.createOrUpdate(contact);
+
+            //check existing before save
+            ChatMessage msg = messageRepository.getMessageInByContactAndMsgid(contact.getId(), msgid);
+            if ( msg == null ) {
+                msg = ChatHelper.createMessageIn(msgid, contact.getId(), text);
+                messageRepository.createOrUpdate(msg);
+            }
+            sendNewMessageEventBroadcast(contact, msg);
+
         }
     };
 
-    private Emitter.Listener onUserJoin = new Emitter.Listener() {
+    private BroadcastReceiver listContactReceiver = new BroadcastReceiver()  {
         @Override
-        public void call(Object... args) {
-            JSONObject data = (JSONObject) args[0];
-            if ( mReceivers.containsKey(SocketEvent.USER_JOIN))
-                sendChatServiceBroadcast(SocketEvent.USER_JOIN, data.toString());
+        public void onReceive(Context context, Intent intent){
+            String data = intent.getStringExtra("data");
+            //Log.d(getResources().getString(R.string.app_name), "list contact ");
+            JSONArray contacts = new JSONArray();
+            try {
+                JSONObject joData = new JSONObject(data);
+                contacts = joData.getJSONArray("contacts");
+                //Toast.makeText(getApplicationContext(), "Login1 " + isLogin, Toast.LENGTH_SHORT).show();
+            } catch (JSONException e) {
+                Log.e(Constants.TAG_CHAT, e.getMessage(), e);
+                return;
+            }
+            Log.d(Constants.TAG_CHAT, "::::" + getClass().getName() + " => list contacts = " + contacts);
+            //Toast.makeText(getApplicationContext(), "Login2 " + isLogin, Toast.LENGTH_SHORT).show();
+
+            final ArrayList<ChatContact> contactList = new ArrayList<ChatContact>();
+            for(int i = 0; i < contacts.length(); i++) {
+                try {
+                    JSONObject joContact = contacts.getJSONObject(i);
+                    String id = joContact.getString("id");
+                    String name = joContact.getString("name");
+                    String email = joContact.getString("email");
+                    String phone = joContact.getString("phone");
+                    String picture = joContact.getString("picture");
+                    String type = joContact.getString("type");
+                    //skip contact for current app user
+
+                    //if ( email.equalsIgnoreCase(app.getUserApp().getEmail())) continue;
+                    ChatContact contact = contactRepository.getContactByEmail(email, UserType.parse(type));
+                    if ( contact == null ) {
+                        contact = new ChatContact(name, picture, email, phone, UserType.parse(type));
+                    } else {
+                        contact.setName(name);
+                        contact.setPicture(picture);
+                        contact.setPhone(phone);
+                    }
+                    //save new or update
+                    contactRepository.createOrUpdate(contact);
+                    contactList.add(contact);
+
+                } catch (JSONException e) {
+                    Log.d(Constants.TAG_CHAT,e.getMessage(), e);
+                }
+            }
+
+            sendListContactEventBroadcast(contactList);
 
         }
     };
 
-    private Emitter.Listener onUserLeft = new Emitter.Listener() {
+    private BroadcastReceiver userJoinReceiver = new BroadcastReceiver() {
         @Override
-        public void call(Object... args) {
-            JSONObject data = (JSONObject) args[0];
-            Log.d(Constants.TAG_CHAT, "UserLeft " + data.toString());
-            if ( mReceivers.containsKey(SocketEvent.USER_LEFT))
-                sendChatServiceBroadcast(SocketEvent.USER_LEFT, data.toString());
+        public void onReceive(Context context, Intent intent) {
+            String data = intent.getStringExtra("data");
+            JSONObject user;
+            try {
+                JSONObject joData = new JSONObject(data);
+                user = joData.getJSONObject("user");
+                Log.d(Constants.TAG_CHAT, "::::" + getClass().getCanonicalName() + " => User Join = " + user.getString("email"));
+            } catch (JSONException e) {
+                Log.e(Constants.TAG_CHAT, e.getMessage(), e);
+                return;
+            }
+            //retrive contact
+            chatEngine.emitGetContacts();
+            //ChatTaskService.startActionGetContacts(getActivity());
         }
     };
 
-    private Emitter.Listener onTyping = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-            JSONObject data = (JSONObject) args[0];
-            Log.d(Constants.TAG_CHAT, "Typing " + data.toString());
-            if ( mReceivers.containsKey(SocketEvent.TYPING))
-                sendChatServiceBroadcast(SocketEvent.TYPING, data.toString());
+    private void sendListContactEventBroadcast(ArrayList<ChatContact> contactList){
+        Intent intent = new Intent(ActivityEvent.LIST_CONTACT);
+        if ( contactList != null ) intent.putExtra("contactList", contactList);
 
-        }
-    };
-
-    private Emitter.Listener onStopTyping = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-            JSONObject data = (JSONObject) args[0];
-            Log.d(Constants.TAG_CHAT, "StopTyping " + data.toString());
-            if ( mReceivers.containsKey(SocketEvent.STOP_TYPING))
-                sendChatServiceBroadcast(SocketEvent.STOP_TYPING, data.toString());
-
-        }
-    };
-
-
-    private Emitter.Listener onListContact = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-            JSONObject data = (JSONObject) args[0];
-            //Log.d(Constants.TAG_CHAT, "onListContact = " + data.toString());
-            if ( mReceivers.containsKey(SocketEvent.LIST_CONTACT))
-                sendChatServiceBroadcast(SocketEvent.LIST_CONTACT, data.toString());
-        }
-    };
-
-    private Emitter.Listener onUpdateContact = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-            JSONObject data = (JSONObject) args[0];
-            if ( mReceivers.containsKey(SocketEvent.UPDATE_CONTACT))
-                sendChatServiceBroadcast(SocketEvent.UPDATE_CONTACT, data.toString());
-        }
-
-    };
-
-    private void sendChatServiceBroadcast(String event){
-        sendChatServiceBroadcast(event, null);
-    }
-    private void sendChatServiceBroadcast(String event, String data){
-        Intent intent = new Intent(event);
-        if ( data != null )
-            intent.putExtra("data", data);
-
-        LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
-    }
-
-    public boolean isLogin() {return mLogin;}
-    public Socket getSocket() { return mSocket; }
-    private Map<String, BroadcastReceiver> mReceivers = new HashMap<String, BroadcastReceiver>();
-    public boolean isConnected() {return mSocket.connected();}
-
-    public void registerReceivers(Map<String, BroadcastReceiver> receivers) {
-        //prevent reregister in case unregisterd not called
-        //Log.d(Constants.TAG_CHAT, "registerReceivers()=>mRegistered=" + mRegistered);
-        mReceivers.clear();
-        mReceivers = receivers;
-        for(String event : mReceivers.keySet()) {
-            LocalBroadcastManager.getInstance(mContext).registerReceiver(mReceivers.get(event), new IntentFilter(event));
-        }
-        //mRegistered = true;
-    }
-
-    public void unregisterReceivers() {
-        //Log.d(Constants.TAG_CHAT, "unregisterReceivers()=>mRegistered=" + mRegistered);
-
-        for(String event : mReceivers.keySet()) {
-            LocalBroadcastManager.getInstance(mContext).unregisterReceiver(mReceivers.get(event));
-        }
-        //clear map
-        mReceivers.clear();
+        LocalBroadcastManager.getInstance(App.getInstance()).sendBroadcast(intent);
     }
 
-    public static class SocketEmit {
-        //EVENT OUT
-        public final static String DO_LOGIN = "do login";
-        public final static String NEW_MESSAGE = "new message";
-        public final static String GET_CONTACTS = "get contacts";
+    private void sendNewMessageEventBroadcast(ChatContact contact, ChatMessage msg){
+        Intent intent = new Intent(ActivityEvent.NEW_MESSAGE);
+        if ( contact != null ) intent.putExtra("contact", contact);
+        if ( msg != null ) intent.putExtra("msg", msg);
+
+        LocalBroadcastManager.getInstance(App.getInstance()).sendBroadcast(intent);
     }
 
-    public static class SocketEvent
+    public static void registerReceivers(Map<String, BroadcastReceiver> receivers) {
+        for (String event : receivers.keySet()) {
+            LocalBroadcastManager.getInstance(App.getInstance()).registerReceiver(receivers.get(event), new IntentFilter(event));
+        }
+    }
+
+    public static class ActivityEvent
     {
-        public final static String CONNECT = Socket.EVENT_CONNECT;
-        public final static String DISCONNECT = Socket.EVENT_DISCONNECT;
-        public final static String CONNECT_ERROR = Socket.EVENT_CONNECT_ERROR;
-        public final static String CONNECT_TIMEOUT = Socket.EVENT_CONNECT_TIMEOUT;
-
-        public final static String LOGIN = "login";
-        public final static String USER_JOIN = "user join";
-        public final static String USER_LEFT = "user left";
-        public final static String NEW_MESSAGE = "new message";
-        public final static String TYPING = "typing";
-        public final static String STOP_TYPING = "stop typing";
-        public final static String LIST_CONTACT = "list contact";
-        public final static String UPDATE_CONTACT = "update contact";
+        public final static String LOGIN = "activity login";
+        public final static String USER_JOIN = "activity user join";
+        public final static String USER_LEFT = "activity user left";
+        public final static String NEW_MESSAGE = "activity new message";
+        public final static String TYPING = "activity typing";
+        public final static String STOP_TYPING = "activity stop typing";
+        public final static String LIST_CONTACT = "activity list contact";
+        public final static String UPDATE_CONTACT = "activity update contact";
 
 
-        private static String[] EVENTS = {CONNECT, DISCONNECT,
-                CONNECT_ERROR, CONNECT_TIMEOUT,
+        private static String[] EVENTS = {
                 LOGIN, USER_JOIN,
                 USER_LEFT, NEW_MESSAGE,
                 TYPING, STOP_TYPING,
                 LIST_CONTACT, UPDATE_CONTACT
         };
     }
-
 }
+

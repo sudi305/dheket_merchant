@@ -12,6 +12,7 @@ import java.util.List;
  */
 public interface IMessageRepository {
     ChatMessage getMessageById(int id);
+    ChatMessage getMessageInByContactAndMsgid(int contactId, String msgid);
     ChatMessage getLastMessageByContact(int contactId);
     List<ChatMessage> getListMessageByContactAndDate(int contactId, Date date);
     List<ChatMessage> getListMessageByContact(int contactId);

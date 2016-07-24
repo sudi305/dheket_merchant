@@ -14,6 +14,7 @@ import com.j256.ormlite.table.DatabaseTable;
 public class ChatMessage implements Parcelable {
     public static final String TABLE_NAME_MESSAGES = "messages";
     public static final String FIELD_NAME_ID     = "id";
+    public static final String FIELD_NAME_MSGID   = "msgid";
     public static final String FIELD_NAME_CONTACT_ID   = "contact_id";
     public static final String FIELD_NAME_MESSAGE_TEXT   = "message_text";
     public static final String FIELD_NAME_TYPE   = "type";
@@ -23,7 +24,6 @@ public class ChatMessage implements Parcelable {
     public static final String FIELD_NAME_DELIVERED_TIME   = "delivered_time";
     public static final String FIELD_NAME_RECEIVED_TIME   = "received_time";
     public static final String FIELD_NAME_CREATED_TIME   = "created_time";
-
 
     @DatabaseField(columnName = FIELD_NAME_ID, generatedId = true)
     private int id;
@@ -45,19 +45,29 @@ public class ChatMessage implements Parcelable {
     private long receiveTime;
     @DatabaseField(columnName = FIELD_NAME_CREATED_TIME)
     private long createTime;
+    @DatabaseField(columnName = FIELD_NAME_MSGID)
+    private String msgid;
 
     public ChatMessage() {}
 
-    public ChatMessage(int contactId, String messageText, MessageType messageType, MessageSendStatus messageSendStatus, MessageReadStatus messageReadStatus, long sendTime, long createTime) {
-        this(0, contactId, messageText, messageType, messageSendStatus, messageReadStatus, sendTime, 0, 0, createTime);
-    }
-
-    public ChatMessage(int contactId, String messageText, MessageType messageType, MessageSendStatus messageSendStatus, MessageReadStatus messageReadStatus, long sendTime, long deliveredTime, long receiveTime, long createTime) {
-        this(0, contactId, messageText, messageType, messageSendStatus, messageReadStatus, sendTime, deliveredTime, receiveTime, createTime);
+    /**
+     *
+     * @param msgid
+     * @param contactId
+     * @param messageText
+     * @param messageType
+     * @param messageSendStatus
+     * @param messageReadStatus
+     * @param sendTime
+     * @param createTime
+     */
+    public ChatMessage(String msgid, int contactId, String messageText, MessageType messageType, MessageSendStatus messageSendStatus, MessageReadStatus messageReadStatus, long sendTime, long createTime) {
+        this(0, msgid, contactId, messageText, messageType, messageSendStatus, messageReadStatus, sendTime, 0, 0, createTime);
     }
 
     /**
-     * @param id
+     *
+     * @param msgid
      * @param contactId
      * @param messageText
      * @param messageType
@@ -68,8 +78,26 @@ public class ChatMessage implements Parcelable {
      * @param receiveTime
      * @param createTime
      */
-    public ChatMessage(int id, int contactId, String messageText, MessageType messageType, MessageSendStatus messageSendStatus, MessageReadStatus messageReadStatus, long sendTime, long deliveredTime, long receiveTime, long createTime) {
+    public ChatMessage(String msgid, int contactId, String messageText, MessageType messageType, MessageSendStatus messageSendStatus, MessageReadStatus messageReadStatus, long sendTime, long deliveredTime, long receiveTime, long createTime) {
+        this(0, msgid, contactId, messageText, messageType, messageSendStatus, messageReadStatus, sendTime, deliveredTime, receiveTime, createTime);
+    }
+
+    /**
+     * @param id
+     * @param msgid
+     * @param contactId
+     * @param messageText
+     * @param messageType
+     * @param messageSendStatus
+     * @param messageReadStatus
+     * @param sendTime
+     * @param deliveredTime
+     * @param receiveTime
+     * @param createTime
+     */
+    public ChatMessage(int id, String msgid, int contactId, String messageText, MessageType messageType, MessageSendStatus messageSendStatus, MessageReadStatus messageReadStatus, long sendTime, long deliveredTime, long receiveTime, long createTime) {
         this.id = id;
+        this.msgid = msgid;
         this.contactId = contactId;
         this.messageText = messageText;
         this.messageType = messageType;
@@ -83,6 +111,7 @@ public class ChatMessage implements Parcelable {
 
     public ChatMessage(Parcel in) {
         this.id = in.readInt();
+        this.msgid = in.readString();
         this.contactId = in.readInt();
         this.messageText = in.readString();
         this.messageType = MessageType.parse(in.readInt());
@@ -102,6 +131,7 @@ public class ChatMessage implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);
+        dest.writeString(this.msgid);
         dest.writeInt(this.contactId);
         dest.writeString(this.messageText);
         dest.writeInt(this.messageType.ordinal());
@@ -147,4 +177,6 @@ public class ChatMessage implements Parcelable {
     public void setReceiveTime(long receiveTime) { this.receiveTime = receiveTime; }
     public long getCreateTime() { return createTime; }
     public void setCreateTime(long createTime) { this.createTime = createTime; }
+    public String getMsgid() { return msgid; }
+    public void setMsgid(String msgid) { this.msgid = msgid; }
 }
