@@ -31,8 +31,8 @@ public class ChatContact implements Parcelable {
     private String email;
     @DatabaseField(columnName = FIELD_NAME_PHONE)
     private String phone;
-    @DatabaseField(columnName = FIELD_NAME_USER_TYPE, dataType = DataType.ENUM_INTEGER)
-    private UserType userType;
+    @DatabaseField(columnName = FIELD_NAME_USER_TYPE)
+    private String userType;
     @DatabaseField(columnName = FIELD_NAME_IS_GROUP)
     private int isGroup;
 
@@ -58,7 +58,7 @@ public class ChatContact implements Parcelable {
         this.picture = picture;
         this.email = email;
         this.phone = phone;
-        this.userType = userType;
+        this.userType = userType.toString();
         this.isGroup = 0;
         this.active = 0;
     }
@@ -69,7 +69,7 @@ public class ChatContact implements Parcelable {
         this.picture = in.readString();
         this.email = in.readString();
         this.phone = in.readString();
-        this.userType = UserType.parse(in.readString());
+        this.userType = in.readString();
         this.isGroup = in.readInt();
         this.active = in.readInt();
     }
@@ -135,10 +135,10 @@ public class ChatContact implements Parcelable {
         this.phone = phone;
     }
     public UserType getUserType() {
-        return userType;
+        return userType != null ? UserType.parse(userType) : null;
     }
     public void setUserType(UserType userType) {
-        this.userType = userType;
+        this.userType = userType.toString();
     }
     public int getIsGroup() { return isGroup; }
     public void setIsGroup(int isGroup) { this.isGroup = isGroup; }

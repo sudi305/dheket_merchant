@@ -19,6 +19,7 @@ import com.bgs.dheket.App;
 import com.bgs.dheket.viewmodel.UserApp;
 import com.bgs.domain.chat.model.ChatContact;
 import com.bgs.domain.chat.model.ChatMessage;
+import com.bgs.domain.chat.model.MessageSendStatus;
 import com.bgs.domain.chat.model.MessageType;
 import com.bgs.domain.chat.model.UserType;
 import com.bgs.domain.chat.repository.ContactRepository;
@@ -44,7 +45,7 @@ public class ChatClientService extends Service {
     private ChatEngine chatEngine;
     private IMessageRepository messageRepository;
     private IContactRepository contactRepository;
-
+    private static Map<String, BroadcastReceiver> mReceivers = new HashMap<String, BroadcastReceiver>();
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -71,6 +72,7 @@ public class ChatClientService extends Service {
         map.put(ChatEngine.SocketEvent.LOGIN, onLoginReceiver);
         map.put(ChatEngine.SocketEvent.USER_JOIN, userJoinReceiver);
         map.put(ChatEngine.SocketEvent.NEW_MESSAGE, newMessageReceiver);
+        map.put(ChatEngine.SocketEvent.DELIVERY_STATUS, deliveryStatusReceiver);
         map.put(ChatEngine.SocketEvent.LIST_CONTACT, listContactReceiver);
         return map;
     }
@@ -151,20 +153,18 @@ public class ChatClientService extends Service {
         @Override
         public void onReceive(Context context, Intent intent){
             String data = intent.getStringExtra("data");
-            JSONObject joFrom;
-            JSONObject joMsg;
             String msgid, text, email, name, phone, picture, type;
             try {
                 JSONObject joData = new JSONObject(data);
                 Log.d(Constants.TAG_CHAT, "::::" + getClass().getName() + " => new message = " + joData);
-                joFrom = joData.getJSONObject("from");
+                JSONObject joFrom = joData.getJSONObject("from");
                 name = joFrom.getString("name");
                 email = joFrom.getString("email");
                 phone = joFrom.getString("phone");
                 picture = joFrom.getString("picture");
                 type = joFrom.getString("type");
 
-                joMsg = joData.getJSONObject("msg");
+                JSONObject joMsg = joData.getJSONObject("msg");
                 msgid = joMsg.getString("msgid");
                 text = joMsg.getString("text");
 
@@ -190,8 +190,70 @@ public class ChatClientService extends Service {
                 msg = ChatHelper.createMessageIn(msgid, contact.getId(), text);
                 messageRepository.createOrUpdate(msg);
             }
-            sendNewMessageEventBroadcast(contact, msg);
+            //update reply status latest out message
+            final ChatMessage repliedMsg = messageRepository.getLastMessageOutByContact(contact.getId());
+            //if exist
+            if ( repliedMsg != null ) {
+                repliedMsg.setMessageSendStatus(MessageSendStatus.REPLIED);
+                messageRepository.createOrUpdate(repliedMsg);
+            }
+            sendNewMessageEventBroadcast(contact, repliedMsg, msg);
+            //send delivery status to sender
+            try {
+                final JSONObject joTo = new JSONObject();
+                joTo.put("email", contact.getEmail());
+                joTo.put("type", contact.getUserType());
+                final JSONObject joMsg = new JSONObject();
+                joMsg.put("msgid", msgid);
+                joMsg.put("status", MessageSendStatus.DELIVERED.ordinal());
+                JSONObject joData = new JSONObject() {{
+                    put("to", joTo);
+                    put("msg", joMsg);
+                }};
+                chatEngine.emitDeliveryStatus(joData);
+            } catch (JSONException e) {
+                Log.e(Constants.TAG_CHAT, e.getMessage(), e);
+            }
+        }
+    };
 
+    private BroadcastReceiver deliveryStatusReceiver = new BroadcastReceiver()  {
+        @Override
+        public void onReceive(Context context, Intent intent){
+            String data = intent.getStringExtra("data");
+            String msgid, email, type;
+            int status = 0;
+            try {
+                JSONObject joData = new JSONObject(data);
+                Log.d(Constants.TAG_CHAT, "::::" + getClass().getName() + " <= delivery status = " + joData);
+                JSONObject joTo = joData.getJSONObject("to");
+                email = joTo.getString("email");
+                type = joTo.getString("type");
+
+                JSONObject joMsg = joData.getJSONObject("msg");
+                msgid = joMsg.getString("msgid");
+                status = joMsg.getInt("status");
+
+            } catch (JSONException e) {
+                Log.e(Constants.TAG_CHAT, e.getMessage(), e);
+                return;
+            }
+
+            ChatContact contact = contactRepository.getContactByEmail(email, UserType.parse(type));
+            if ( contact != null ) {
+
+                ChatMessage msg = messageRepository.getMessageOutByContactAndMsgid(contact.getId(), msgid);
+                Log.d(Constants.TAG_CHAT, getClass().getName() +  String.format(" => DELIVERED STATUS MSGID=%s, MSG=%s, FROM=%s-%s", msgid, msg, contact.getId(), contact.getUserType() ));
+                if ( msg != null ) {
+                    //jika sudah replied tidak update
+                    if ( MessageSendStatus.REPLIED.equals(msg.getMessageSendStatus()) == false ) {
+                        msg.setMessageSendStatus(MessageSendStatus.parse(status));
+                        messageRepository.createOrUpdate(msg);
+                        //broadcast delivery status to activity
+                        sendDeliveryStatusEventBroadcast(contact, msg);
+                    }
+                }
+            }
         }
     };
 
@@ -251,10 +313,9 @@ public class ChatClientService extends Service {
         @Override
         public void onReceive(Context context, Intent intent) {
             String data = intent.getStringExtra("data");
-            JSONObject user;
             try {
                 JSONObject joData = new JSONObject(data);
-                user = joData.getJSONObject("user");
+                JSONObject user = joData.getJSONObject("user");
                 Log.d(Constants.TAG_CHAT, "::::" + getClass().getCanonicalName() + " => User Join = " + user.getString("email"));
             } catch (JSONException e) {
                 Log.e(Constants.TAG_CHAT, e.getMessage(), e);
@@ -269,21 +330,40 @@ public class ChatClientService extends Service {
     private void sendListContactEventBroadcast(ArrayList<ChatContact> contactList){
         Intent intent = new Intent(ActivityEvent.LIST_CONTACT);
         if ( contactList != null ) intent.putExtra("contactList", contactList);
+        LocalBroadcastManager.getInstance(App.getInstance()).sendBroadcast(intent);
+    }
+
+    private void sendNewMessageEventBroadcast(ChatContact contact, ChatMessage repliedMsg, ChatMessage msg){
+        Intent intent = new Intent(ActivityEvent.NEW_MESSAGE);
+        if ( contact != null ) intent.putExtra("contact", contact);
+        if ( msg != null ) intent.putExtra("msg", msg);
+        if ( repliedMsg != null) intent.putExtra("repliedMsg", repliedMsg);
 
         LocalBroadcastManager.getInstance(App.getInstance()).sendBroadcast(intent);
     }
 
-    private void sendNewMessageEventBroadcast(ChatContact contact, ChatMessage msg){
-        Intent intent = new Intent(ActivityEvent.NEW_MESSAGE);
+    private void sendDeliveryStatusEventBroadcast(ChatContact contact, ChatMessage msg){
+        Intent intent = new Intent(ActivityEvent.DELIVERY_STATUS);
         if ( contact != null ) intent.putExtra("contact", contact);
         if ( msg != null ) intent.putExtra("msg", msg);
-
         LocalBroadcastManager.getInstance(App.getInstance()).sendBroadcast(intent);
     }
 
     public static void registerReceivers(Map<String, BroadcastReceiver> receivers) {
-        for (String event : receivers.keySet()) {
-            LocalBroadcastManager.getInstance(App.getInstance()).registerReceiver(receivers.get(event), new IntentFilter(event));
+        synchronized (mReceivers) {
+            unregisterReceivers();
+            mReceivers = receivers;
+            //re-register
+            for (String event : mReceivers.keySet()) {
+                LocalBroadcastManager.getInstance(App.getInstance()).registerReceiver(mReceivers.get(event), new IntentFilter(event));
+            }
+        }
+    }
+
+    private static void unregisterReceivers() {
+        //Log.d(Constants.TAG_CHAT, "unregisterReceivers()=>mRegistered=" + mRegistered);
+        for (String event : mReceivers.keySet()) {
+            LocalBroadcastManager.getInstance(App.getInstance()).unregisterReceiver(mReceivers.get(event));
         }
     }
 
@@ -293,6 +373,7 @@ public class ChatClientService extends Service {
         public final static String USER_JOIN = "activity user join";
         public final static String USER_LEFT = "activity user left";
         public final static String NEW_MESSAGE = "activity new message";
+        public final static String DELIVERY_STATUS = "activity delivery status";
         public final static String TYPING = "activity typing";
         public final static String STOP_TYPING = "activity stop typing";
         public final static String LIST_CONTACT = "activity list contact";
@@ -301,7 +382,7 @@ public class ChatClientService extends Service {
 
         private static String[] EVENTS = {
                 LOGIN, USER_JOIN,
-                USER_LEFT, NEW_MESSAGE,
+                USER_LEFT, NEW_MESSAGE, DELIVERY_STATUS,
                 TYPING, STOP_TYPING,
                 LIST_CONTACT, UPDATE_CONTACT
         };

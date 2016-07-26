@@ -3,6 +3,7 @@ package com.bgs.domain.chat.repository;
 import com.bgs.domain.chat.model.ChatMessage;
 import com.bgs.domain.chat.model.MessageReadStatus;
 import com.bgs.domain.chat.model.MessageSendStatus;
+import com.bgs.domain.chat.model.MessageType;
 
 import java.util.Date;
 import java.util.List;
@@ -13,7 +14,11 @@ import java.util.List;
 public interface IMessageRepository {
     ChatMessage getMessageById(int id);
     ChatMessage getMessageInByContactAndMsgid(int contactId, String msgid);
+    ChatMessage getMessageOutByContactAndMsgid(int contactId, String msgid);
+    ChatMessage getMessageByContactAndMsgidAndType(int contactId, String msgid, MessageType messageType);
     ChatMessage getLastMessageByContact(int contactId);
+    ChatMessage getLastMessageOutByContact(int contactId);
+
     List<ChatMessage> getListMessageByContactAndDate(int contactId, Date date);
     List<ChatMessage> getListMessageByContact(int contactId);
     List<ChatMessage> getListNewMessageByContact(int contactId);

@@ -37,12 +37,12 @@ public class MessageRepository extends BaseRepository<ChatMessage> implements  I
     }
 
     @Override
-    public ChatMessage getMessageInByContactAndMsgid(int contactId, String msgid) {
+    public ChatMessage getMessageByContactAndMsgidAndType(int contactId, String msgid, MessageType messageType) {
         ChatMessage chatMessage = null;
         try {
             QueryBuilder<ChatMessage, Integer> builder = getDao().queryBuilder();
             builder.orderBy(ChatMessage.FIELD_NAME_ID, false)
-                    .where().eq(ChatMessage.FIELD_NAME_TYPE, MessageType.IN)
+                    .where().eq(ChatMessage.FIELD_NAME_TYPE, messageType)
                     .and().eq(ChatMessage.FIELD_NAME_CONTACT_ID, contactId)
                     .and().eq(ChatMessage.FIELD_NAME_MSGID, msgid);
             chatMessage = getDao().queryForFirst(builder.prepare());
@@ -53,12 +53,37 @@ public class MessageRepository extends BaseRepository<ChatMessage> implements  I
     }
 
     @Override
+    public ChatMessage getMessageInByContactAndMsgid(int contactId, String msgid) {
+        return getMessageByContactAndMsgidAndType(contactId, msgid, MessageType.IN);
+    }
+
+    @Override
+    public ChatMessage getMessageOutByContactAndMsgid(int contactId, String msgid) {
+        return getMessageByContactAndMsgidAndType(contactId, msgid, MessageType.OUT);
+    }
+
+    @Override
     public ChatMessage getLastMessageByContact(int contactId) {
         ChatMessage chatMessage = null;
         try {
             QueryBuilder<ChatMessage, Integer> builder = getDao().queryBuilder();
             builder.orderBy(ChatMessage.FIELD_NAME_ID, false)
                     .where().eq(ChatMessage.FIELD_NAME_CONTACT_ID, contactId);
+            chatMessage = getDao().queryForFirst(builder.prepare());
+        } catch (SQLException e) {
+            Log.e(Constants.TAG_CHAT, e.getMessage(), e);
+        }
+        return chatMessage;
+    }
+
+    @Override
+    public ChatMessage getLastMessageOutByContact(int contactId) {
+        ChatMessage chatMessage = null;
+        try {
+            QueryBuilder<ChatMessage, Integer> builder = getDao().queryBuilder();
+            builder.orderBy(ChatMessage.FIELD_NAME_ID, false)
+                    .where().eq(ChatMessage.FIELD_NAME_CONTACT_ID, contactId)
+                    .and().eq(ChatMessage.FIELD_NAME_TYPE, MessageType.OUT);
             chatMessage = getDao().queryForFirst(builder.prepare());
         } catch (SQLException e) {
             Log.e(Constants.TAG_CHAT, e.getMessage(), e);

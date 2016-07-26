@@ -1,5 +1,7 @@
 package com.bgs.domain.chat.model;
 
+import com.j256.ormlite.field.types.EnumStringType;
+
 /**
  * Created by madhur on 17/01/15.
  */
@@ -11,14 +13,12 @@ public enum UserType {
         VALUE = value;
     }
     public static UserType parse(String value) {
-
         for(UserType item : values()) {
             if ( item.VALUE.equalsIgnoreCase(value) )
                 return item;
         }
         return null;
     }
-
 
     @Override
     public String toString() {

@@ -162,14 +162,14 @@ public class ChatHistoryActivity extends AppCompatActivity {
     }
 
     public void updateContactHistory(final ChatContact contact, final int newMessageCount, final ChatMessage lastChatMessage) {
-        getActivity().runOnUiThread(new Runnable() {
+        runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 boolean exist = false;
                 ChatHistory _contactHistory = null;
                 for(int i = chatContactHistories.size() - 1; i>=0; i-- ) {
                     _contactHistory = chatContactHistories.get(i);
-                    if(_contactHistory.getContact().getEmail().equalsIgnoreCase(contact.getEmail())) {
+                    if(_contactHistory.getContact().getEmail().equalsIgnoreCase(contact.getEmail()) && _contactHistory.getContact().getUserType().equals(contact.getUserType())) {
                         exist = true;
                         //update other member
                         _contactHistory.setNewMessageCount(newMessageCount);

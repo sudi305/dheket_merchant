@@ -11,10 +11,10 @@ import com.bgs.domain.chat.model.UserType;
 public class Constants {
     public static final UserType USER_TYPE = UserType.MERCHANT;
 
-    public static final String TAG = "dheket-log";
-    public static final String TAG_CHAT = "dheket-chat-log";
-    public static final String CHAT_SERVER_URL = "http://136.243.214.45:3300/";
-    //public static final String CHAT_SERVER_URL = "http://192.168.1.100:3300/";
+    public static final String TAG = "dheket-m-log";
+    public static final String TAG_CHAT = "dheket-m-chat-log";
+    //public static final String CHAT_SERVER_URL = "http://136.243.214.45:3300/";
+    public static final String CHAT_SERVER_URL = "http://192.168.1.100:3300/";
     //public static final String CHAT_SERVER_URL = "http://192.168.43.228:3300/";
 
     public static final Location DEMO_LOCATION = new Location(LocationManager.GPS_PROVIDER){{
