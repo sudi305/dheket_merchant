@@ -12,9 +12,7 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,22 +27,7 @@ import android.widget.Toast;
 import com.bgs.dheket.accessingSensorPermission.HttpGetOrPost;
 import com.bgs.dheket.general.Utility;
 import com.bgs.dheket.sqlite.DBHelper;
-import com.esri.android.map.GraphicsLayer;
-import com.esri.android.map.LocationDisplayManager;
-import com.esri.android.map.MapView;
-import com.esri.android.map.event.OnSingleTapListener;
-import com.esri.android.map.event.OnStatusChangedListener;
-import com.esri.core.geometry.Envelope;
-import com.esri.core.geometry.GeometryEngine;
-import com.esri.core.geometry.LinearUnit;
-import com.esri.core.geometry.MultiPoint;
-import com.esri.core.geometry.Point;
-import com.esri.core.geometry.SpatialReference;
-import com.esri.core.geometry.Unit;
-import com.esri.core.map.Graphic;
-import com.esri.core.symbol.PictureMarkerSymbol;
-import com.esri.core.symbol.Symbol;
-import com.esri.core.tasks.geocode.Locator;
+import com.bgs.dheket.sqlite.ModelLocation;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,7 +35,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by SND on 6/13/2016.
@@ -218,6 +200,20 @@ public class ListLocationMerchantActivity extends AppCompatActivity implements L
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 
+    public void setGPSstopped() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        myLocationManager.removeUpdates(this);
+    }
+
     public void getServiceFromGPS() {
         myLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         criteria = new Criteria();
@@ -245,7 +241,7 @@ public class ListLocationMerchantActivity extends AppCompatActivity implements L
         Bundle dataPaket = new Bundle();
 
         if (v.equals(btn_add)){
-            gotoNextScreen = new Intent(getApplicationContext(),AddNewLocationActivity.class);
+            gotoNextScreen = new Intent(getApplicationContext(),AddNewOrUpdateLocationActivity.class);
             dataPaket.putString("email", email);
             gotoNextScreen.putExtras(dataPaket);
         }
@@ -283,6 +279,17 @@ public class ListLocationMerchantActivity extends AppCompatActivity implements L
                 jObject = new JSONObject(response);
                 menuItemArray = jObject.getJSONArray("dheket_merchantLoc");
                 arraylist = new ArrayList<HashMap<String, String>>();
+                /*Log.e("Data dari server", "" + menuItemArray.length());
+                for (int i = 0; i < menuItemArray.length(); i++) {
+                    HashMap<String, String> map = new HashMap<String, String>();
+                    map.put("id_loc",menuItemArray.getJSONObject(i).getString("id_location"));
+                    map.put("loc_name",menuItemArray.getJSONObject(i).getString("location_name"));
+                    map.put("loc_address",menuItemArray.getJSONObject(i).getString("location_address"));
+                    map.put("loc_lat",menuItemArray.getJSONObject(i).getString("latitude"));
+                    map.put("loc_lng",menuItemArray.getJSONObject(i).getString("longitude"));
+                    map.put("cat_id",menuItemArray.getJSONObject(i).getString("category_id"));
+                    map.put("loc_distance",""+Double.parseDouble(formatNumber.changeFormatNumber(menuItemArray.getJSONObject(i).getDouble("distance"))));
+                    arraylist.add(map);*/
                 Log.e("Data dari server", "" + menuItemArray.length());
                 for (int i = 0; i < menuItemArray.length(); i++) {
                     HashMap<String, String> map = new HashMap<String, String>();
@@ -293,6 +300,12 @@ public class ListLocationMerchantActivity extends AppCompatActivity implements L
                     map.put("loc_lng",menuItemArray.getJSONObject(i).getString("longitude"));
                     map.put("cat_id",menuItemArray.getJSONObject(i).getString("category_id"));
                     map.put("loc_distance",""+Double.parseDouble(formatNumber.changeFormatNumber(menuItemArray.getJSONObject(i).getDouble("distance"))));
+                    map.put("category_name",menuItemArray.getJSONObject(i).getString("category_name"));
+                    map.put("phone",menuItemArray.getJSONObject(i).getString("phone"));
+                    map.put("isPromo",menuItemArray.getJSONObject(i).getString("isPromo"));
+                    map.put("merchant_id",menuItemArray.getJSONObject(i).getString("merchant_id"));
+                    map.put("description",menuItemArray.getJSONObject(i).getString("description"));
+                    map.put("location_tag",menuItemArray.getJSONObject(i).getString("location_tag"));
                     arraylist.add(map);
                 }
             } catch (JSONException e) {
@@ -326,28 +339,44 @@ public class ListLocationMerchantActivity extends AppCompatActivity implements L
                 jarak.setText(arraylist.get(i).get("loc_distance").toString()+" Km");
                 ImageView foto = (ImageView)ll.findViewById(R.id.imageView_il_foto);
                 linearLayout_contentlist.addView(ll);
+                final int index = i;
 
                 ll.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         //Toast.makeText(ll.getContext().getApplicationContext(),nama.getText().toString(),Toast.LENGTH_SHORT).show();
-                        /*Intent goToScreen = new Intent(getApplicationContext(), DetailLocationWithNoMerchantActivity.class);
-                        Bundle paket = new Bundle();
-                        paket.putInt("location_id", Integer.parseInt(id.getText().toString()));
-                        paket.putInt("cat_id", cat_id);
-                        paket.putString("kategori", category);
-                        paket.putDouble("radius", radius);
-                        paket.putDouble("latitude", latitude);
-                        paket.putDouble("longitude", longitude);
-                        paket.putString("icon", icon);
-                        goToScreen.putExtras(paket);
+                        toSaveDB(index);
+                        setGPSstopped();
+                        Intent goToScreen = new Intent(getApplicationContext(), DetailLocationMerchantActivity.class);
                         startActivity(goToScreen);
-                        finish();*/
+                        finish();
                     }
                 });
             }
         } else {
             textView_result.setVisibility(View.VISIBLE);
         }
+    }
+
+    public void toSaveDB(int i){
+
+        ModelLocation modelLocation = new ModelLocation(
+                Long.parseLong(arraylist.get(i).get("id_loc").toString()),
+                arraylist.get(i).get("loc_name").toString(),
+                arraylist.get(i).get("loc_address").toString(),
+                Double.parseDouble(arraylist.get(i).get("loc_lat").toString()),
+                Double.parseDouble(arraylist.get(i).get("loc_lng").toString()),
+                Integer.parseInt(arraylist.get(i).get("cat_id").toString()),
+                arraylist.get(i).get("category_name").toString(),
+                arraylist.get(i).get("phone").toString(),
+                Integer.parseInt(arraylist.get(i).get("isPromo").toString()),
+                Long.parseLong(arraylist.get(i).get("merchant_id").toString()),
+                arraylist.get(i).get("description").toString(),
+                arraylist.get(i).get("location_tag").toString(),
+                email
+        );
+
+        db.updateLocation(modelLocation);
+        db.closeDB();
     }
 }

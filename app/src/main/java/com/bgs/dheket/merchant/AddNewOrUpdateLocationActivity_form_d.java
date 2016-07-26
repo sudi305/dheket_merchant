@@ -54,11 +54,12 @@ import java.util.Set;
 /**
  * Created by SND on 6/13/2016.
  */
-public class AddNewLocationActivity_form_d extends AppCompatActivity implements View.OnClickListener{
+public class AddNewOrUpdateLocationActivity_form_d extends AppCompatActivity implements View.OnClickListener{
     android.support.v7.app.ActionBar actionBar;
 
     String url = "",responseServer="",selectedHashtag="";
-    String location_name = "", location_address = "", phone = "", description = "", location_tag = "", user_email = "";
+    String message = "";
+    String location_name = "", location_address = "", phone = "", description = "", location_tag = "", user_email = "",location_cat_name="";
     long id_location, merchant_id;
     double latitude, longitude;
     int category_id, isPromo;
@@ -71,7 +72,7 @@ public class AddNewLocationActivity_form_d extends AppCompatActivity implements 
     ArrayList<HashMap<String, String>> tagarraylist;
     private ArrayList<String> hashtags = new ArrayList<>();
     private String[] hashtagReady;
-    String email,category_name,new_category_name,id_category,id_profile_tag,detail_tag,new_id_category;
+    String email,category_name,new_category_name,id_category,id_profile_tag,detail_tag,new_id_category, buttonName;
     ArrayList<String> selecthashtags = new ArrayList<>();
     ArrayList<String>categoryUser;
 
@@ -101,13 +102,20 @@ public class AddNewLocationActivity_form_d extends AppCompatActivity implements 
         actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.d_ic_back));
         //actionBar.setHomeAsUpIndicator(R.drawable.logo);
         actionBar.setHomeButtonEnabled(true);
-        actionBar.setTitle("New Location");
-        actionBar.setSubtitle("Hashtag");
 //        actionBar.setSubtitle(Html.fromHtml("<font color='#FFBF00'>Location in Radius " + formatter.format(radius) + " Km</font>"));
         dataLoad();
 
-        data = getIntent().getExtras();
-        category_name = data.getString("category_name");
+        if (id_location>0) {
+            actionBar.setTitle("Update Data Location");
+            buttonName = "Save and Update";
+            message="Are you sure to save and update this location?";
+        } else {
+            actionBar.setTitle("New Location");
+            buttonName = "Save and Add";
+            message="Are you sure to save and create a new location with this information?";
+        }
+        actionBar.setSubtitle("Hashtag");
+        category_name = location_cat_name;
 
         url = String.format(getResources().getString(R.string.link_getHashtagByCatId));
 
@@ -119,6 +127,7 @@ public class AddNewLocationActivity_form_d extends AppCompatActivity implements 
 
         button_save = (Button)findViewById(R.id.imageButton_anl_prev_b);
         button_save.setOnClickListener(this);
+        button_save.setText(buttonName);
         imageButton_back = (ImageButton)findViewById(R.id.imageButton_anl_prev_e);
         imageButton_back.setOnClickListener(this);
         /*textView_SelectCategory.set
@@ -161,6 +170,7 @@ public class AddNewLocationActivity_form_d extends AppCompatActivity implements 
         modelLocation = db.getLocationByEmail(user_email);
         location_name = modelLocation.getLocation_name().toString();
         location_address = modelLocation.getLocation_address().toString();
+        location_cat_name = modelLocation.getCategory_name();
         phone = modelLocation.getPhone();
         description = modelLocation.getDescription();
         location_tag = modelLocation.getLocation_tag();
@@ -175,12 +185,12 @@ public class AddNewLocationActivity_form_d extends AppCompatActivity implements 
     public void dataPrepareSave(boolean upload){
         location_tag = selectedHashtag;
         if (upload==true) {
-            ModelLocation location = new ModelLocation(0,"","",0.0,0.0,0,"",0,0,"","",user_email);
+            ModelLocation location = new ModelLocation(0,"","",0.0,0.0,0,"","",0,0,"","",user_email);
             long result = db.updateLocation(location);
             if (result==1)gotoMain();
         }
         else {
-            ModelLocation loc = new ModelLocation(0,location_name,location_address,latitude,longitude,category_id,
+            ModelLocation loc = new ModelLocation(id_location,location_name,location_address,latitude,longitude,category_id,location_cat_name,
                     phone,isPromo,merchant_id,description,location_tag,user_email);
             db.updateLocation(loc);
         }
@@ -252,10 +262,8 @@ public class AddNewLocationActivity_form_d extends AppCompatActivity implements 
             selectedHashtag = hashtag;
             location_tag = selectedHashtag;
 
-            final AlertDialog.Builder builder = new AlertDialog.Builder(AddNewLocationActivity_form_d.this);
+            final AlertDialog.Builder builder = new AlertDialog.Builder(AddNewOrUpdateLocationActivity_form_d.this);
             builder.setTitle("Confirmation");
-            String message = "";
-            message="Are you sure to save and create a new location with this information?";
             builder.setMessage(message)
                     .setCancelable(false)
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -639,7 +647,7 @@ public class AddNewLocationActivity_form_d extends AppCompatActivity implements 
     }
 
     public void gotoSelecCat(){
-        Intent intent = new Intent(getApplicationContext(), AddNewLocationActivity_form_c.class);
+        Intent intent = new Intent(getApplicationContext(), AddNewOrUpdateLocationActivity_form_c.class);
         startActivity(intent);
         finish();
     }

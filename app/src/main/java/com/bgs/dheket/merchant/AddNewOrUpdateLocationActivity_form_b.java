@@ -43,10 +43,10 @@ import java.util.Map;
 /**
  * Created by SND on 6/13/2016.
  */
-public class AddNewLocationActivity_form_b extends AppCompatActivity implements View.OnClickListener{
+public class AddNewOrUpdateLocationActivity_form_b extends AppCompatActivity implements View.OnClickListener{
     android.support.v7.app.ActionBar actionBar;
     String urls = "";
-    String location_name = "", location_address = "", phone = "", description = "", location_tag = "", user_email = "";
+    String location_name = "", location_address = "", phone = "", description = "", location_tag = "", user_email = "", location_cat_name="";
     long id_location, merchant_id;
     double latitude, longitude;
     int category_id, isPromo;
@@ -85,11 +85,13 @@ public class AddNewLocationActivity_form_b extends AppCompatActivity implements 
         actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.d_ic_back));
         //actionBar.setHomeAsUpIndicator(R.drawable.logo);
         actionBar.setHomeButtonEnabled(true);
-        actionBar.setTitle("New Location");
-        actionBar.setSubtitle("Coordinate");
         //actionBar.setSubtitle(Html.fromHtml("<font color='#FFBF00'>Location in Radius " + formatter.format(radius) + " Km</font>"));
 
         dataLoad();
+
+        if (id_location>0) actionBar.setTitle("Update Data Location");
+        else actionBar.setTitle("New Location");
+        actionBar.setSubtitle("Coordinate");
 
         editText_loc_lat = (EditText)findViewById(R.id.editText_anl_loc_lat);
         editText_loc_lng = (EditText)findViewById(R.id.editText_anl_loc_lng);
@@ -122,7 +124,7 @@ public class AddNewLocationActivity_form_b extends AppCompatActivity implements 
         mMapView.enableWrapAround(true);
 
         // Create the Compass custom view, and add it onto the MapView.
-        mCompass = new Compass(AddNewLocationActivity_form_b.this, null, mMapView);
+        mCompass = new Compass(AddNewOrUpdateLocationActivity_form_b.this, null, mMapView);
         mMapView.addView(mCompass);
         mAdd = new PictureMarkerSymbol(getApplicationContext(), ContextCompat.getDrawable(getApplicationContext(), R.drawable.pin_add));
 
@@ -163,6 +165,7 @@ public class AddNewLocationActivity_form_b extends AppCompatActivity implements 
         modelLocation = db.getLocationByEmail(user_email);
         location_name = modelLocation.getLocation_name().toString();
         location_address = modelLocation.getLocation_address().toString();
+        location_cat_name = modelLocation.getCategory_name();
         phone = modelLocation.getPhone();
         description = modelLocation.getDescription();
         location_tag = modelLocation.getLocation_tag();
@@ -177,7 +180,7 @@ public class AddNewLocationActivity_form_b extends AppCompatActivity implements 
     public void dataPrepareSave(){
         latitude = Double.parseDouble(editText_loc_lat.getText().toString());
         longitude = Double.parseDouble(editText_loc_lng.getText().toString());
-        ModelLocation loc = new ModelLocation(0,location_name,location_address,latitude,longitude,category_id,
+        ModelLocation loc = new ModelLocation(id_location,location_name,location_address,latitude,longitude,category_id,location_cat_name,
                 phone,isPromo,merchant_id,description,location_tag,user_email);
         db.updateLocation(loc);
         db.closeDB();
@@ -188,7 +191,7 @@ public class AddNewLocationActivity_form_b extends AppCompatActivity implements 
     }
 
     public void toMainMenu(){
-        Intent toMainMenu = new Intent(getApplicationContext(),AddNewLocationActivity.class);
+        Intent toMainMenu = new Intent(getApplicationContext(),AddNewOrUpdateLocationActivity.class);
         startActivity(toMainMenu);
         finish();
     }
@@ -453,7 +456,7 @@ public class AddNewLocationActivity_form_b extends AppCompatActivity implements 
     public void onClick(View v) {
         if (v.equals(imageButton_next)){
             dataPrepareSave();
-            Intent toNext = new Intent(getApplicationContext(), AddNewLocationActivity_form_c.class);
+            Intent toNext = new Intent(getApplicationContext(), AddNewOrUpdateLocationActivity_form_c.class);
             startActivity(toNext);
             finish();
         }

@@ -45,7 +45,6 @@ import com.bgs.dheket.sqlite.ModelMerchant;
 import com.bgs.dheket.viewmodel.UserApp;
 import com.bgs.domain.chat.model.ChatContact;
 import com.bgs.domain.chat.model.ChatMessage;
-import com.bgs.domain.chat.model.UserType;
 import com.bgs.domain.chat.repository.ContactRepository;
 import com.bgs.domain.chat.repository.IContactRepository;
 import com.bgs.domain.chat.repository.IMessageRepository;
@@ -256,7 +255,7 @@ public class MainMenuActivity extends AppCompatActivity
         Bundle dataPaket = new Bundle();
 
         if (v.equals(imageButton_addLoc)) {
-            gotoNextScreen = new Intent(getApplicationContext(),AddNewLocationActivity.class);
+            gotoNextScreen = new Intent(getApplicationContext(),AddNewOrUpdateLocationActivity.class);
             dataPaket.putString("email",textView_emailUser.getText().toString());
             gotoNextScreen.putExtras(dataPaket);
         }

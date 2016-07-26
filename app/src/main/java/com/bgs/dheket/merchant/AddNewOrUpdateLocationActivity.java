@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
-import android.text.Html;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,10 +17,10 @@ import com.bgs.dheket.sqlite.ModelLocation;
 /**
  * Created by SND on 6/13/2016.
  */
-public class AddNewLocationActivity extends AppCompatActivity {
+public class AddNewOrUpdateLocationActivity extends AppCompatActivity {
     android.support.v7.app.ActionBar actionBar;
 
-    String location_name = "", location_address = "", phone = "", description = "", location_tag = "", user_email = "";
+    String location_name = "", location_address = "", phone = "", description = "", location_tag = "", user_email = "", location_cat_name;
     long id_location, merchant_id;
     double latitude, longitude;
     int category_id, isPromo;
@@ -42,11 +41,13 @@ public class AddNewLocationActivity extends AppCompatActivity {
         actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.d_ic_back));
         //actionBar.setHomeAsUpIndicator(R.drawable.logo);
         actionBar.setHomeButtonEnabled(true);
-        actionBar.setTitle("New Location");
-        actionBar.setSubtitle("Primary Information");
 
-        //urls = String.format(getResources().getString(R.string.lin));//"http://dheket.esy.es/getLocationByCategory.php"
         dataLoad();
+
+        if (id_location>0) actionBar.setTitle("Update Data Location");
+        else actionBar.setTitle("New Location");
+        actionBar.setSubtitle("Primary Information");
+        //urls = String.format(getResources().getString(R.string.lin));//"http://dheket.esy.es/getLocationByCategory.php"
 
         editText_loc_name = (EditText)findViewById(R.id.editText_anl_loc_name);
         editText_loc_address = (EditText)findViewById(R.id.editText_anl_loc_address);
@@ -77,6 +78,7 @@ public class AddNewLocationActivity extends AppCompatActivity {
         location_name = location.getLocation_name().toString();
         location_address = location.getLocation_address().toString();
         phone = location.getPhone();
+        location_cat_name = location.getCategory_name();
         description = location.getDescription();
         location_tag = location.getLocation_tag();
         id_location = location.getId_location();
@@ -92,7 +94,7 @@ public class AddNewLocationActivity extends AppCompatActivity {
         location_address = editText_loc_address.getText().toString();
         phone = editText_loc_phone.getText().toString();
         description = editText_loc_description.getText().toString();
-        ModelLocation loc = new ModelLocation(0,location_name,location_address,latitude,longitude,category_id,
+        ModelLocation loc = new ModelLocation(id_location,location_name,location_address,latitude,longitude,category_id,location_cat_name,
                 phone,isPromo,merchant_id,description,location_tag,user_email);
         db.updateLocation(loc);
         db.closeDB();
@@ -127,7 +129,7 @@ public class AddNewLocationActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             dataPrepareSave();
-            Intent nextToFormB = new Intent(getApplicationContext(),AddNewLocationActivity_form_b.class);
+            Intent nextToFormB = new Intent(getApplicationContext(),AddNewOrUpdateLocationActivity_form_b.class);
             startActivity(nextToFormB);
             finish();
         }
@@ -138,7 +140,7 @@ public class AddNewLocationActivity extends AppCompatActivity {
     }
 
     public void toMainMenu(){
-        ModelLocation location = new ModelLocation(0,"","",0.0,0.0,0,"",0,0,"","",user_email);
+        ModelLocation location = new ModelLocation(0,"","",0.0,0.0,0,"","",0,0,"","",user_email);
         db.updateLocation(location);
         Intent toMainMenu = new Intent(getApplicationContext(),MainMenuActivity.class);
         startActivity(toMainMenu);

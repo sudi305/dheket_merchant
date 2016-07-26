@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+    <RelativeLayout
+        android:id="@+id/top_layout"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/scrollView10"
+    android:fillViewport="true"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="visible">
+
+                    <android.support.v4.view.ViewPager
+                        android:layout_width="match_parent"
+                        android:layout_height="320dp"
+                        android:id="@+id/viewPager_dl_det_loc_logo"
+                        android:layout_gravity="center_horizontal" />
+
+                    <RelativeLayout
+                        android:id="@+id/viewPagerIndicator"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center">
+
+                        <LinearLayout
+                            android:id="@+id/viewPagerCountDots"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:gravity="center"
+                            android:orientation="horizontal" />
+
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageView"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/ic_panorama_24dp" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp">
+
+                    <!--Location Name-->
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textAllCaps="true"
+                        android:text="Location Information"
+                        android:textColor="#ffffff"
+                        android:id="@+id/textView21"
+                        android:background="#6890d6"
+                        android:paddingLeft="25dp"
+                        android:paddingTop="12dp"
+                        android:paddingRight="25dp"
+                        android:paddingBottom="12dp"
+                        android:elevation="5dp"
+                        android:textAlignment="center" />
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Location Name"
+                            android:id="@+id/textView33"
+                            android:textColor="#777777"
+                            android:singleLine="true"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="-"
+                            android:id="@+id/textView_dl_name"
+                            android:singleLine="false"
+                            android:textColor="#000000"
+                            android:gravity="center_vertical|bottom"
+                            android:layout_weight="1"
+                            android:layout_marginBottom="2dp" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#949494" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Location Address"
+                            android:id="@+id/textView34"
+                            android:textColor="#777777"
+                            android:singleLine="true"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="-"
+                            android:id="@+id/textView_dl_address"
+                            android:singleLine="false"
+                            android:textColor="#000000"
+                            android:gravity="center_vertical|bottom"
+                            android:layout_weight="1"
+                            android:layout_marginBottom="2dp" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#949494" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Telephone Number/HP"
+                            android:id="@+id/textView33a"
+                            android:textColor="#777777"
+                            android:singleLine="true"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="-"
+                            android:id="@+id/textView_dl_hp"
+                            android:singleLine="false"
+                            android:textColor="#000000"
+                            android:gravity="center_vertical|bottom"
+                            android:layout_weight="1"
+                            android:layout_marginBottom="2dp" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#949494" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Description"
+                            android:id="@+id/textView33aa"
+                            android:textColor="#777777"
+                            android:singleLine="true"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="-"
+                            android:id="@+id/textView_dl_description"
+                            android:singleLine="false"
+                            android:textColor="#000000"
+                            android:gravity="center_vertical|bottom"
+                            android:layout_weight="1"
+                            android:layout_marginBottom="2dp" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#949494" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Category"
+                            android:id="@+id/textView35"
+                            android:textColor="#777777"
+                            android:singleLine="true"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textAllCaps="true"
+                            android:text="Large Text"
+                            android:textColor="#ffffff"
+                            android:id="@+id/textView_dl_category"
+                            android:layout_gravity="center_horizontal"
+                            android:background="#6890d6"
+                            android:paddingLeft="25dp"
+                            android:paddingTop="12dp"
+                            android:paddingRight="25dp"
+                            android:paddingBottom="12dp"
+                            android:elevation="5dp"
+                            android:layout_margin="10dp" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#949494" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Hashtag"
+                            android:id="@+id/textView36"
+                            android:textColor="#777777"
+                            android:singleLine="true"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="-"
+                            android:id="@+id/textView_dl_tag"
+                            android:singleLine="false"
+                            android:textColor="#000000"
+                            android:gravity="center_vertical|bottom"
+                            android:layout_weight="1"
+                            android:layout_marginBottom="2dp" />
+
+                        <com.zhy.view.flowlayout.TagFlowLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tfl_det_loc_hashtag"
+                            app:gravity="center">
+                        </com.zhy.view.flowlayout.TagFlowLayout>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#949494" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            android:layout_marginRight="5dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:text="Latitude"
+                                android:id="@+id/textView33aas"
+                                android:textColor="#777777"
+                                android:singleLine="true"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="-"
+                                android:id="@+id/textView_dl_latitude"
+                                android:singleLine="true"
+                                android:textColor="#000000"
+                                android:gravity="center_vertical|bottom"
+                                android:layout_weight="1"
+                                android:layout_marginBottom="2dp" />
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="#949494" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="5dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:text="Longitude"
+                                android:id="@+id/textView33aad"
+                                android:textColor="#777777"
+                                android:singleLine="true"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="-"
+                                android:id="@+id/textView_dl_longitude"
+                                android:singleLine="true"
+                                android:textColor="#000000"
+                                android:gravity="center_vertical|bottom"
+                                android:layout_weight="1"
+                                android:layout_marginBottom="2dp" />
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="#949494" />
+                        </LinearLayout>
+                        <!--<EditText
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberSigned|numberDecimal"
+                            android:ems="10"
+                            android:id="@+id/editText_anl_loc_lat"
+                            android:layout_weight="1"
+                            android:hint="Latitude"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp" />
+
+                        <EditText
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberSigned|numberDecimal"
+                            android:ems="10"
+                            android:id="@+id/editText_anl_loc_lng"
+                            android:layout_weight="1"
+                            android:hint="Longitude"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp" />-->
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/corner_round_blue">
+
+                        <com.esri.android.map.MapView
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:id="@+id/map_selection_det_loc"
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            mapoptions.MapType="Streets"
+                            android:longClickable="false">
+                        </com.esri.android.map.MapView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:visibility="visible"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+
+        android:id="@+id/linearLayout_dl_nm_loc_goto"
+        android:background="#6890d6"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Unclaimed"
+            android:id="@+id/button_det_loc_unclaimed"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/corner_round_small_all_stroke"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Edit Location"
+            android:id="@+id/button_det_loc_update"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/corner_round_small_all_stroke"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:id="@+id/button_det_loc_delete"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/corner_round_small_all_stroke"
+            android:layout_marginRight="2dp"
+            android:layout_marginLeft="2dp" />
+    </LinearLayout>
+</LinearLayout>

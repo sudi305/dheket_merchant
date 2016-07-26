@@ -11,6 +11,7 @@ public class ModelLocation {
     double latitude;
     double longitude;
     int category_id;
+    String category_name;
     String phone;
     int isPromo;
     long merchant_id;
@@ -23,7 +24,7 @@ public class ModelLocation {
     }
 
     public ModelLocation(long id, long id_location, String location_name, String location_address,
-                         double latitude, double longitude, int category_id, String phone, int isPromo,
+                         double latitude, double longitude, int category_id, String category_name, String phone, int isPromo,
                          long merchant_id, String description, String location_tag, String user_email) {
         this.id = id;
         this.id_location = id_location;
@@ -32,6 +33,7 @@ public class ModelLocation {
         this.latitude = latitude;
         this.longitude = longitude;
         this.category_id = category_id;
+        this.category_name = category_name;
         this.phone = phone;
         this.isPromo = isPromo;
         this.merchant_id = merchant_id;
@@ -41,7 +43,7 @@ public class ModelLocation {
     }
 
     public ModelLocation(long id_location, String location_name, String location_address,
-                         double latitude, double longitude, int category_id, String phone,
+                         double latitude, double longitude, int category_id, String category_name, String phone,
                          int isPromo, long merchant_id, String description, String location_tag,
                          String user_email) {
         this.id_location = id_location;
@@ -50,6 +52,7 @@ public class ModelLocation {
         this.latitude = latitude;
         this.longitude = longitude;
         this.category_id = category_id;
+        this.category_name = category_name;
         this.phone = phone;
         this.isPromo = isPromo;
         this.merchant_id = merchant_id;
@@ -59,7 +62,7 @@ public class ModelLocation {
     }
 
     public ModelLocation(long id, String location_name, String location_address,
-                         double latitude, double longitude, int category_id, String phone,
+                         double latitude, double longitude, int category_id, String category_name, String phone,
                          int isPromo, String description, String location_tag, String user_email) {
         this.id = id;
         this.location_name = location_name;
@@ -67,6 +70,7 @@ public class ModelLocation {
         this.latitude = latitude;
         this.longitude = longitude;
         this.category_id = category_id;
+        this.category_name = category_name;
         this.phone = phone;
         this.isPromo = isPromo;
         this.description = description;
@@ -128,6 +132,14 @@ public class ModelLocation {
 
     public void setCategory_id(int category_id) {
         this.category_id = category_id;
+    }
+
+    public String getCategory_name() {
+        return category_name;
+    }
+
+    public void setCategory_name(String category_name) {
+        this.category_name = category_name;
     }
 
     public String getPhone() {

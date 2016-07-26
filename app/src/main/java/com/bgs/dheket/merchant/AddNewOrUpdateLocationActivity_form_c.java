@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -33,11 +32,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -47,7 +41,7 @@ import java.util.Set;
 /**
  * Created by SND on 6/13/2016.
  */
-public class AddNewLocationActivity_form_c extends AppCompatActivity implements View.OnClickListener{
+public class AddNewOrUpdateLocationActivity_form_c extends AppCompatActivity implements View.OnClickListener{
     android.support.v7.app.ActionBar actionBar;
 
     String location_name = "", location_address = "", phone = "", description = "", location_tag = "", user_email = "", cat_name="";
@@ -93,10 +87,13 @@ public class AddNewLocationActivity_form_c extends AppCompatActivity implements 
         actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.d_ic_back));
         //actionBar.setHomeAsUpIndicator(R.drawable.logo);
         actionBar.setHomeButtonEnabled(true);
-        actionBar.setTitle("New Location");
-        actionBar.setSubtitle("Category");
 //        actionBar.setSubtitle(Html.fromHtml("<font color='#FFBF00'>Location in Radius " + formatter.format(radius) + " Km</font>"));
         dataLoad();
+
+        if (id_location>0) actionBar.setTitle("Update Data Location");
+        else actionBar.setTitle("New Location");
+        actionBar.setSubtitle("Category");
+
         cat_id = category_id;
 
         url = String.format(getResources().getString(R.string.link_getAllCategory));
@@ -176,6 +173,7 @@ public class AddNewLocationActivity_form_c extends AppCompatActivity implements 
         modelLocation = db.getLocationByEmail(user_email);
         location_name = modelLocation.getLocation_name().toString();
         location_address = modelLocation.getLocation_address().toString();
+        cat_name = modelLocation.getCategory_name();
         phone = modelLocation.getPhone();
         description = modelLocation.getDescription();
         location_tag = modelLocation.getLocation_tag();
@@ -189,7 +187,7 @@ public class AddNewLocationActivity_form_c extends AppCompatActivity implements 
 
     public void dataPrepareSave(){
         category_id = cat_id;
-        ModelLocation loc = new ModelLocation(0,location_name,location_address,latitude,longitude,category_id,
+        ModelLocation loc = new ModelLocation(id_location,location_name,location_address,latitude,longitude,category_id,cat_name,
                 phone,isPromo,merchant_id,description,location_tag,user_email);
         db.updateLocation(loc);
         db.closeDB();
@@ -226,7 +224,7 @@ public class AddNewLocationActivity_form_c extends AppCompatActivity implements 
     }
 
     public void back_to_previous_screen(){
-        Intent intent = new Intent(getApplicationContext(),AddNewLocationActivity_form_b.class);
+        Intent intent = new Intent(getApplicationContext(),AddNewOrUpdateLocationActivity_form_b.class);
         startActivity(intent);
         finish();
     }
@@ -486,10 +484,7 @@ public class AddNewLocationActivity_form_c extends AppCompatActivity implements 
     }
 
     public void gotoSelectHashtag(){
-        Intent tonext = new Intent(getApplicationContext(), AddNewLocationActivity_form_d.class);
-        Bundle paket = new Bundle();
-        paket.putString("category_name", new_category_name);
-        tonext.putExtras(paket);
+        Intent tonext = new Intent(getApplicationContext(), AddNewOrUpdateLocationActivity_form_d.class);
         startActivity(tonext);
         finish();
     }

@@ -9,7 +9,7 @@ import android.view.MenuItem;
 /**
  * Created by SND on 6/13/2016.
  */
-public class AddNewLocationActivity_form_e extends AppCompatActivity {
+public class AddNewOrUpdateLocationActivity_form_e extends AppCompatActivity {
     android.support.v7.app.ActionBar actionBar;
     String urls = "";
     @Override

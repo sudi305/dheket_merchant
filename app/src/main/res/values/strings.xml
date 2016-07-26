@@ -17,6 +17,7 @@
     <string name="link_getAllCategory">http://ws.dheket.com/index.php/getallcategory</string> <!--getallcategory-->
     <string name="link_getHashtagByCatId">http://ws.dheket.com/index.php/getallhashtagbycatid</string><!--getallhashtagbycatid/{cat_id}-->
     <string name="link_addOrUpdateLocation">http://ws.dheket.com/index.php/addorupdatelocationbymerchant/</string> <!--addorupdatelocationbymerchant-->
+    <string name="link_deleteLocationById">http://ws.dheket.com/index.php/deletelocationbyidloc/</string> <!--deletelocationbyidloc-->
 
     <string name="title_activity_main_chat">Dheket</string>
     <string name="type_your_message">Enter msg</string>

@@ -39,11 +39,12 @@
 
         <activity android:name="com.bgs.dheket.merchant.FormLoginActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"/>
         <activity android:name="com.bgs.dheket.merchant.MainMenuActivity" android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name="com.bgs.dheket.merchant.AddNewLocationActivity"/>
-        <activity android:name="com.bgs.dheket.merchant.AddNewLocationActivity_form_b"/>
-        <activity android:name=".AddNewLocationActivity_form_c"/>
-        <activity android:name="com.bgs.dheket.merchant.AddNewLocationActivity_form_d"/>
-        <activity android:name="com.bgs.dheket.merchant.AddNewLocationActivity_form_e"/>
+        <activity android:name="com.bgs.dheket.merchant.AddNewOrUpdateLocationActivity"/>
+        <activity android:name="com.bgs.dheket.merchant.AddNewOrUpdateLocationActivity_form_b"/>
+        <activity android:name="com.bgs.dheket.merchant.AddNewOrUpdateLocationActivity_form_c"/>
+        <activity android:name="com.bgs.dheket.merchant.AddNewOrUpdateLocationActivity_form_d"/>
+        <activity android:name="com.bgs.dheket.merchant.AddNewOrUpdateLocationActivity_form_e"/>
+        <activity android:name="com.bgs.dheket.merchant.DetailLocationMerchantActivity"/>
         <activity android:name="com.bgs.dheket.merchant.ListLocationMerchantActivity"/>
         <activity android:name="com.bgs.dheket.merchant.ListPromotionActivity"/>
         <activity android:name="com.bgs.dheket.merchant.SearchLocationByNameActivity"/>

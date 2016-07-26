@@ -490,7 +490,7 @@ public class FormLoginActivity extends AppCompatActivity implements LocationList
 
     public void toDb(String email){
         ModelMerchant merchants = new ModelMerchant(id_merchant,merchant_name,email,facebook_photo,null,1);
-        ModelLocation location = new ModelLocation(0,"","",0.0,0.0,0,"",0,0,"","",email);
+        ModelLocation location = new ModelLocation(0,"","",0.0,0.0,0,"","",0,0,"","",email);
         Log.e("db name ",db.getDatabaseName().toString());
         Log.e("tabel ",db.getAllMerchant().toString());
         if (db.findMerchantByEmail(email) == false){
