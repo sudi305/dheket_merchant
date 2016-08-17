@@ -304,6 +304,7 @@ public class ListLocationMerchantActivity extends AppCompatActivity implements L
                     map.put("phone",menuItemArray.getJSONObject(i).getString("phone"));
                     map.put("isPromo",menuItemArray.getJSONObject(i).getString("isPromo"));
                     map.put("merchant_id",menuItemArray.getJSONObject(i).getString("merchant_id"));
+                    map.put("created_by",menuItemArray.getJSONObject(i).getString("created_by"));
                     map.put("description",menuItemArray.getJSONObject(i).getString("description"));
                     map.put("location_tag",menuItemArray.getJSONObject(i).getString("location_tag"));
                     arraylist.add(map);
@@ -371,6 +372,7 @@ public class ListLocationMerchantActivity extends AppCompatActivity implements L
                 arraylist.get(i).get("phone").toString(),
                 Integer.parseInt(arraylist.get(i).get("isPromo").toString()),
                 Long.parseLong(arraylist.get(i).get("merchant_id").toString()),
+                Long.parseLong(arraylist.get(i).get("created_by").toString()),
                 arraylist.get(i).get("description").toString(),
                 arraylist.get(i).get("location_tag").toString(),
                 email

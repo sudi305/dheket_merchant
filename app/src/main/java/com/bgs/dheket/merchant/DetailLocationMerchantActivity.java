@@ -62,7 +62,7 @@ public class DetailLocationMerchantActivity extends AppCompatActivity implements
 
     String location_name = "", location_address = "", phone = "", description = "", location_tag = "", user_email = "", location_cat_name;
     String tempDataTag = "";
-    long id_location, merchant_id;
+    long id_location, merchant_id, create_by;
     double latitude, longitude;
     int category_id, isPromo;
     ModelLocation modelLocation;
@@ -113,6 +113,9 @@ public class DetailLocationMerchantActivity extends AppCompatActivity implements
         button_delete.setOnClickListener(this);
         button_updade = (Button)findViewById(R.id.button_det_loc_update);
         button_updade.setOnClickListener(this);
+
+        if (create_by!=merchant_id)button_delete.setVisibility(View.GONE);
+        Log.e("data merchant","mrc_id: "+merchant_id+" | crt_by: "+create_by+" |");
 
         textView_name = (TextView)findViewById(R.id.textView_dl_name);
         textView_address = (TextView)findViewById(R.id.textView_dl_address);
@@ -311,6 +314,7 @@ public class DetailLocationMerchantActivity extends AppCompatActivity implements
         location_tag = modelLocation.getLocation_tag();
         id_location = modelLocation.getId_location();
         merchant_id = modelLocation.getMerchant_id();
+        create_by = modelLocation.getCreate_by();
         latitude = modelLocation.getLatitude();
         longitude = modelLocation.getLongitude();
         category_id = modelLocation.getCategory_id();

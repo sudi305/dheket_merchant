@@ -15,6 +15,7 @@ public class ModelLocation {
     String phone;
     int isPromo;
     long merchant_id;
+    long create_by;
     String description;
     String location_tag;
     String user_email;
@@ -25,7 +26,7 @@ public class ModelLocation {
 
     public ModelLocation(long id, long id_location, String location_name, String location_address,
                          double latitude, double longitude, int category_id, String category_name, String phone, int isPromo,
-                         long merchant_id, String description, String location_tag, String user_email) {
+                         long merchant_id, long create_by, String description, String location_tag, String user_email) {
         this.id = id;
         this.id_location = id_location;
         this.location_name = location_name;
@@ -37,6 +38,7 @@ public class ModelLocation {
         this.phone = phone;
         this.isPromo = isPromo;
         this.merchant_id = merchant_id;
+        this.create_by = create_by;
         this.description = description;
         this.location_tag = location_tag;
         this.user_email = user_email;
@@ -44,7 +46,7 @@ public class ModelLocation {
 
     public ModelLocation(long id_location, String location_name, String location_address,
                          double latitude, double longitude, int category_id, String category_name, String phone,
-                         int isPromo, long merchant_id, String description, String location_tag,
+                         int isPromo, long merchant_id, long create_by, String description, String location_tag,
                          String user_email) {
         this.id_location = id_location;
         this.location_name = location_name;
@@ -56,6 +58,7 @@ public class ModelLocation {
         this.phone = phone;
         this.isPromo = isPromo;
         this.merchant_id = merchant_id;
+        this.create_by = create_by;
         this.description = description;
         this.location_tag = location_tag;
         this.user_email = user_email;
@@ -63,7 +66,7 @@ public class ModelLocation {
 
     public ModelLocation(long id, String location_name, String location_address,
                          double latitude, double longitude, int category_id, String category_name, String phone,
-                         int isPromo, String description, String location_tag, String user_email) {
+                         int isPromo, long create_by, String description, String location_tag, String user_email) {
         this.id = id;
         this.location_name = location_name;
         this.location_address = location_address;
@@ -73,6 +76,7 @@ public class ModelLocation {
         this.category_name = category_name;
         this.phone = phone;
         this.isPromo = isPromo;
+        this.create_by = create_by;
         this.description = description;
         this.location_tag = location_tag;
         this.user_email = user_email;
@@ -188,5 +192,13 @@ public class ModelLocation {
 
     public void setUser_email(String user_email) {
         this.user_email = user_email;
+    }
+
+    public long getCreate_by() {
+        return create_by;
+    }
+
+    public void setCreate_by(long create_by) {
+        this.create_by = create_by;
     }
 }

@@ -60,7 +60,7 @@ public class AddNewOrUpdateLocationActivity_form_d extends AppCompatActivity imp
     String url = "",responseServer="",selectedHashtag="";
     String message = "";
     String location_name = "", location_address = "", phone = "", description = "", location_tag = "", user_email = "",location_cat_name="";
-    long id_location, merchant_id;
+    long id_location, merchant_id, create_by;
     double latitude, longitude;
     int category_id, isPromo;
     ModelLocation modelLocation;
@@ -176,6 +176,7 @@ public class AddNewOrUpdateLocationActivity_form_d extends AppCompatActivity imp
         location_tag = modelLocation.getLocation_tag();
         id_location = modelLocation.getId_location();
         merchant_id = modelLocation.getMerchant_id();
+        create_by = modelLocation.getCreate_by();
         latitude = modelLocation.getLatitude();
         longitude = modelLocation.getLongitude();
         category_id = modelLocation.getCategory_id();
@@ -185,13 +186,17 @@ public class AddNewOrUpdateLocationActivity_form_d extends AppCompatActivity imp
     public void dataPrepareSave(boolean upload){
         location_tag = selectedHashtag;
         if (upload==true) {
-            ModelLocation location = new ModelLocation(0,"","",0.0,0.0,0,"","",0,0,"","",user_email);
+            ModelLocation location = new ModelLocation(0,"","",0.0,0.0,0,"","",0,0,0,"","",user_email);
             long result = db.updateLocation(location);
-            if (result==1)gotoMain();
+            if (result==1 && id_location>0) {
+
+            } else if (result==1 && id_location==0) {
+                gotoMain();
+            }
         }
         else {
             ModelLocation loc = new ModelLocation(id_location,location_name,location_address,latitude,longitude,category_id,location_cat_name,
-                    phone,isPromo,merchant_id,description,location_tag,user_email);
+                    phone,isPromo,merchant_id,create_by,description,location_tag,user_email);
             db.updateLocation(loc);
         }
         db.closeDB();

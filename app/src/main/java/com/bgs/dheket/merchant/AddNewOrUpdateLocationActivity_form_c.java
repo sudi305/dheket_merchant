@@ -45,7 +45,7 @@ public class AddNewOrUpdateLocationActivity_form_c extends AppCompatActivity imp
     android.support.v7.app.ActionBar actionBar;
 
     String location_name = "", location_address = "", phone = "", description = "", location_tag = "", user_email = "", cat_name="";
-    long id_location, merchant_id;
+    long id_location, merchant_id, create_by;
     double latitude, longitude;
     int category_id, isPromo, cat_id;
     ModelLocation modelLocation;
@@ -179,6 +179,7 @@ public class AddNewOrUpdateLocationActivity_form_c extends AppCompatActivity imp
         location_tag = modelLocation.getLocation_tag();
         id_location = modelLocation.getId_location();
         merchant_id = modelLocation.getMerchant_id();
+        create_by = modelLocation.getCreate_by();
         latitude = modelLocation.getLatitude();
         longitude = modelLocation.getLongitude();
         category_id = modelLocation.getCategory_id();
@@ -188,7 +189,7 @@ public class AddNewOrUpdateLocationActivity_form_c extends AppCompatActivity imp
     public void dataPrepareSave(){
         category_id = cat_id;
         ModelLocation loc = new ModelLocation(id_location,location_name,location_address,latitude,longitude,category_id,cat_name,
-                phone,isPromo,merchant_id,description,location_tag,user_email);
+                phone,isPromo,merchant_id,create_by,description,location_tag,user_email);
         db.updateLocation(loc);
         db.closeDB();
     }

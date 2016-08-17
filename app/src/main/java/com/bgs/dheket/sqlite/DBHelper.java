@@ -53,6 +53,7 @@ public class DBHelper extends SQLiteOpenHelper{
     private static final String KEY_LOCATION_PHONE = "phone";
     private static final String KEY_LOCATION_ISPROMO = "isPromo";
     private static final String KEY_LOCATION_MERCHANT_ID = "merchant_id";
+    private static final String KEY_LOCATION_CREATE_BY = "create_by";
     private static final String KEY_LOCATION_DESCRIPTION = "description";
     private static final String KEY_LOCATION_LOCATION_TAG = "location_tag";
     private static final String KEY_LOCATION_USER_EMAIL = "user_email";
@@ -71,6 +72,7 @@ public class DBHelper extends SQLiteOpenHelper{
                         KEY_LOCATION_PHONE + " TEXT," +
                         KEY_LOCATION_ISPROMO + " INTEGER," +
                         KEY_LOCATION_MERCHANT_ID + " BIGINT," +
+                        KEY_LOCATION_CREATE_BY + " BIGINT," +
                         KEY_LOCATION_DESCRIPTION + " TEXT," +
                         KEY_LOCATION_LOCATION_TAG + " TEXT," +
                         KEY_LOCATION_USER_EMAIL + " TEXT" +
@@ -305,6 +307,7 @@ public class DBHelper extends SQLiteOpenHelper{
         values.put(KEY_LOCATION_PHONE, location.getPhone());
         values.put(KEY_LOCATION_ISPROMO, location.getIsPromo());
         values.put(KEY_LOCATION_MERCHANT_ID, location.getMerchant_id());
+        values.put(KEY_LOCATION_CREATE_BY, location.getCreate_by());
         values.put(KEY_LOCATION_DESCRIPTION, location.getDescription());
         values.put(KEY_LOCATION_LOCATION_TAG, location.getLocation_tag());
         values.put(KEY_LOCATION_USER_EMAIL, location.getUser_email());
@@ -339,6 +342,7 @@ public class DBHelper extends SQLiteOpenHelper{
             m.setPhone(c.getString(c.getColumnIndex(KEY_LOCATION_PHONE)));
             m.setIsPromo(c.getInt(c.getColumnIndex(KEY_LOCATION_ISPROMO)));
             m.setMerchant_id(c.getLong(c.getColumnIndex(KEY_LOCATION_MERCHANT_ID)));
+            m.setCreate_by(c.getLong(c.getColumnIndex(KEY_LOCATION_CREATE_BY)));
             m.setDescription(c.getString(c.getColumnIndex(KEY_LOCATION_DESCRIPTION)));
             m.setLocation_tag(c.getString(c.getColumnIndex(KEY_LOCATION_LOCATION_TAG)));
             m.setUser_email(c.getString(c.getColumnIndex(KEY_LOCATION_USER_EMAIL)));
@@ -391,6 +395,7 @@ public class DBHelper extends SQLiteOpenHelper{
         values.put(KEY_LOCATION_PHONE, location.getPhone());
         values.put(KEY_LOCATION_ISPROMO, location.getIsPromo());
         values.put(KEY_LOCATION_MERCHANT_ID, location.getMerchant_id());
+        values.put(KEY_LOCATION_CREATE_BY, location.getCreate_by());
         values.put(KEY_LOCATION_DESCRIPTION, location.getDescription());
         values.put(KEY_LOCATION_LOCATION_TAG, location.getLocation_tag());
         values.put(KEY_LOCATION_USER_EMAIL, location.getUser_email());

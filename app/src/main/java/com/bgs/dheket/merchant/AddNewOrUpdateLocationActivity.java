@@ -21,7 +21,7 @@ public class AddNewOrUpdateLocationActivity extends AppCompatActivity {
     android.support.v7.app.ActionBar actionBar;
 
     String location_name = "", location_address = "", phone = "", description = "", location_tag = "", user_email = "", location_cat_name;
-    long id_location, merchant_id;
+    long id_location, merchant_id, create_by;
     double latitude, longitude;
     int category_id, isPromo;
     ModelLocation location;
@@ -83,6 +83,7 @@ public class AddNewOrUpdateLocationActivity extends AppCompatActivity {
         location_tag = location.getLocation_tag();
         id_location = location.getId_location();
         merchant_id = location.getMerchant_id();
+        create_by = location.getCreate_by();
         latitude = location.getLatitude();
         longitude = location.getLongitude();
         category_id = location.getCategory_id();
@@ -95,7 +96,7 @@ public class AddNewOrUpdateLocationActivity extends AppCompatActivity {
         phone = editText_loc_phone.getText().toString();
         description = editText_loc_description.getText().toString();
         ModelLocation loc = new ModelLocation(id_location,location_name,location_address,latitude,longitude,category_id,location_cat_name,
-                phone,isPromo,merchant_id,description,location_tag,user_email);
+                phone,isPromo,merchant_id,create_by,description,location_tag,user_email);
         db.updateLocation(loc);
         db.closeDB();
     }
@@ -140,7 +141,7 @@ public class AddNewOrUpdateLocationActivity extends AppCompatActivity {
     }
 
     public void toMainMenu(){
-        ModelLocation location = new ModelLocation(0,"","",0.0,0.0,0,"","",0,0,"","",user_email);
+        ModelLocation location = new ModelLocation(0,"","",0.0,0.0,0,"","",0,0,0,"","",user_email);
         db.updateLocation(location);
         Intent toMainMenu = new Intent(getApplicationContext(),MainMenuActivity.class);
         startActivity(toMainMenu);
